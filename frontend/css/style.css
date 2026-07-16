@@ -1,0 +1,229 @@
+/* ===========================================================
+   MLSA Chapter Platform — Fluent Design theme (Bootstrap layer)
+   Edit the CSS variables below to change colors/fonts everywhere.
+   =========================================================== */
+
+:root {
+  --fluent-primary: #0078d4;
+  --fluent-deep: #005a9e;
+  --fluent-darker: #004578;
+  --fluent-bg: #f3f9fd;
+  --fluent-ink: #201f1e;
+  --fluent-subtle: #605e5c;
+  --fluent-border: #e1e7ec;
+  --fluent-success: #107c10;
+  --fluent-success-bg: #dff6dd;
+  --fluent-error: #a80000;
+  --fluent-error-bg: #fde7e9;
+  --fluent-warning-bg: #fff4ce;
+  --fluent-warning-text: #9a6e00;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  background-color: var(--fluent-bg);
+  color: var(--fluent-ink);
+}
+
+/* ---------- Navbar ---------- */
+.navbar-mlsa {
+  background: #fff;
+  border-bottom: 1px solid var(--fluent-border);
+  box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-mlsa .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-mlsa .brand-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.navbar-mlsa .brand-divider {
+  width: 1px;
+  height: 26px;
+  background: var(--fluent-border);
+  flex-shrink: 0;
+}
+
+.navbar-mlsa .brand-text .title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fluent-ink);
+  line-height: 1.1;
+}
+
+.navbar-mlsa .brand-text .subtitle {
+  font-size: 11px;
+  color: var(--fluent-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.navbar-mlsa .nav-link {
+  color: var(--fluent-ink);
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 0.5rem 1rem !important;
+}
+
+.navbar-mlsa .nav-link.active,
+.navbar-mlsa .nav-link:hover {
+  color: var(--fluent-primary);
+  background-color: var(--fluent-bg);
+}
+
+/* ---------- Buttons ---------- */
+.btn-fluent-primary {
+  background-color: var(--fluent-primary);
+  border-color: var(--fluent-primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 2px;
+  padding: 0.6rem 1.4rem;
+}
+.btn-fluent-primary:hover {
+  background-color: var(--fluent-deep);
+  border-color: var(--fluent-deep);
+  color: #fff;
+}
+
+.btn-fluent-secondary {
+  background-color: #fff;
+  border: 1px solid var(--fluent-primary);
+  color: var(--fluent-primary);
+  font-weight: 600;
+  border-radius: 2px;
+  padding: 0.6rem 1.4rem;
+}
+.btn-fluent-secondary:hover {
+  background-color: var(--fluent-bg);
+  color: var(--fluent-primary);
+}
+
+/* ---------- Cards ---------- */
+.card-fluent {
+  background: #fff;
+  border: 1px solid var(--fluent-border);
+  border-radius: 6px;
+  box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.1), 0 0.3px 0.9px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+.card-fluent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0078d4, #50a0e0);
+}
+.card-fluent:hover.card-hover {
+  box-shadow: 0 6.4px 14.4px rgba(0, 0, 0, 0.13), 0 1.2px 3.6px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Badges / pills ---------- */
+.pill {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+.pill-general { background: var(--fluent-bg); color: var(--fluent-primary); }
+.pill-workshop { background: var(--fluent-warning-bg); color: var(--fluent-warning-text); }
+.pill-achievement { background: var(--fluent-success-bg); color: var(--fluent-success); }
+.pill-announcement { background: var(--fluent-error-bg); color: var(--fluent-error); }
+.pill-open { background: var(--fluent-success-bg); color: var(--fluent-success); }
+.pill-closed { background: var(--fluent-error-bg); color: var(--fluent-error); }
+
+/* ---------- Hero ---------- */
+.hero-mlsa {
+  background: linear-gradient(180deg, #fff 0%, var(--fluent-bg) 100%);
+  border-bottom: 1px solid var(--fluent-border);
+}
+
+.hero-mlsa .eyebrow {
+  color: var(--fluent-primary);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.hero-mlsa h1 {
+  font-weight: 700;
+  color: var(--fluent-ink);
+}
+.hero-mlsa h1 .accent {
+  color: var(--fluent-primary);
+}
+
+/* ---------- Forms ---------- */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--fluent-primary);
+  box-shadow: 0 0 0 0.2rem rgba(0, 120, 212, 0.15);
+}
+
+/* ---------- Event date badge ---------- */
+.date-badge {
+  width: 48px;
+  height: 48px;
+  background: var(--fluent-bg);
+  color: var(--fluent-primary);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.date-badge .month {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.date-badge .day {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ---------- Footer ---------- */
+.footer-mlsa {
+  background: #fff;
+  border-top: 1px solid var(--fluent-border);
+  margin-top: 5rem;
+}
+.footer-mlsa a {
+  color: var(--fluent-subtle);
+  text-decoration: none;
+}
+.footer-mlsa a:hover {
+  color: var(--fluent-primary);
+}
+.footer-mlsa .disclaimer {
+  border-top: 1px solid var(--fluent-border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--fluent-subtle);
+  padding: 1rem 0;
+}
+
+/* ---------- Misc ---------- */
+.text-subtle { color: var(--fluent-subtle); }
+.text-fluent-primary { color: var(--fluent-primary); }
+a.link-fluent { color: var(--fluent-primary); font-weight: 500; text-decoration: none; }
+a.link-fluent:hover { text-decoration: underline; }
