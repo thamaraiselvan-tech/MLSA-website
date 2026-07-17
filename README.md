@@ -2,14 +2,16 @@
 
 Official website for the Microsoft Learn Student Ambassador chapter at Saranathan College of
 Engineering. Public pages for daily updates and events, plus an admin dashboard to post updates,
-manage events, and track registrations with automatic email confirmations.
+manage events, track registrations with automatic email confirmations, add photos, and manage
+multiple admin logins for the core team.
 
 ## Stack
 
 - **Frontend:** Plain HTML + CSS + Bootstrap 5 + vanilla JavaScript — no build step, no npm install
 - **Backend:** FastAPI + SQLModel (SQLite locally, Postgres in production) → deploy to Render
-- **Auth:** JWT-based admin login (single admin account, bootstrapped from env vars)
+- **Auth:** JWT-based admin login, multiple admin accounts supported
 - **Email:** SMTP (Gmail App Password works out of the box) for registration confirmations
+- **Images:** Uploaded via the admin dashboard, stored on the backend's disk, served at `/uploads/...`
 
 ## Project structure
 
@@ -37,7 +39,8 @@ uvicorn main:app --reload --port 8000
 ```
 
 The first time it starts, it creates an admin account from `ADMIN_EMAIL` / `ADMIN_PASSWORD` in
-`.env`. API docs are auto-generated at `http://localhost:8000/docs`.
+`.env`. Add teammates after that from the dashboard's Team tab (see below) rather than env vars.
+API docs are auto-generated at `http://localhost:8000/docs`.
 
 ### Frontend
 
@@ -66,32 +69,87 @@ and logged, so testing never breaks because of missing email setup.
 
 ## Deploying
 
-### Backend → Render
+### 1. Push to GitHub
 
-1. Push this repo to GitHub.
-2. New Web Service on Render, pointing at `backend/`.
-3. Build command: `pip install -r requirements.txt`
-4. Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-5. Add all variables from `.env.example` as environment variables. For a persistent database,
-   attach a Render Postgres instance and set `DATABASE_URL` to its connection string (SQLite on
-   Render's free tier is wiped on every deploy).
-6. Set `FRONTEND_ORIGIN` to your Vercel URL once you have it.
+Both Render and Vercel deploy from a GitHub repo. If you haven't already:
 
-### Frontend → any static host (Vercel, Netlify, GitHub Pages, Render Static Site)
+```bash
+cd mlsa-website
+git init
+git add .
+git commit -m "Initial commit"
+```
 
-1. Before deploying, open `frontend/js/config.js` and set `API_BASE` to your live Render backend
-   URL (e.g. `https://your-backend.onrender.com`).
-2. Import the repo, set the root directory to `frontend/`. No build command needed — it's static
-   files, so leave build command blank and set the output/publish directory to `frontend/` itself
-   (or wherever your host expects the site root).
-3. Deploy.
+Create an empty repo on GitHub, then follow its "push an existing repository" instructions.
+
+### 2. Backend → Render
+
+1. Render dashboard → **New** → **Web Service** → connect your repo.
+2. **Root directory:** `backend`
+3. **Build command:** `pip install -r requirements.txt`
+4. **Start command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
+5. Add environment variables (Render → your service → Environment) — copy every key from
+   `backend/.env.example` with real values. At minimum: `SECRET_KEY`, `ADMIN_EMAIL`,
+   `ADMIN_PASSWORD`, `ADMIN_NAME`.
+6. Leave `FRONTEND_ORIGIN` for now — you'll set it after step 3 gives you a frontend URL.
+7. Deploy. Render gives you a URL like `https://mlsa-backend.onrender.com` — note it down.
+
+**For a database that survives redeploys:** Render → **New** → **PostgreSQL** (free tier
+available). Copy its "Internal Database URL", set it as `DATABASE_URL` on your backend service.
+Without this, SQLite works but resets every time you redeploy.
+
+**For uploaded images that survive redeploys:** Render's free tier has no persistent disk, so
+`/uploads` is wiped on every redeploy too — same tradeoff as SQLite. Options, roughly in order of
+effort: (a) live with it for now — fine while you're posting content often anyway, (b) add a
+**Persistent Disk** to your service (Render paid instance types only) mounted at the path in
+`UPLOAD_DIR`, or (c) switch to an external image host like Cloudinary's free tier if this becomes
+a real problem.
+
+### 3. Frontend → Vercel
+
+1. Before deploying, open `frontend/js/config.js` and set `API_BASE` to your Render backend URL
+   from step 2 (e.g. `https://mlsa-backend.onrender.com`). Commit and push this change.
+2. Vercel dashboard → **Add New** → **Project** → import your repo.
+3. **Root Directory:** `frontend`
+4. **Framework Preset:** Other (it's static files — no build command, no output directory needed).
+5. Deploy. Vercel gives you a URL like `https://mlsa-sce.vercel.app`.
+6. Back on Render, set `FRONTEND_ORIGIN` on the backend to this Vercel URL, so the browser's CORS
+   check allows the frontend to call the API. Redeploy the backend after adding it.
+
+### 4. Custom domain (e.g. mlsa-sce.in)
+
+If you haven't registered a domain yet, any registrar works (GoDaddy, Namecheap, BigRock, etc.) —
+none of the steps below depend on which one.
+
+**Pointing the domain at your frontend (Vercel):**
+1. Vercel → your project → **Settings** → **Domains** → enter your domain → **Add**.
+2. Vercel shows you exactly which DNS record to add. Typically:
+   - Root domain (`mlsa-sce.in`): an **A record** pointing to `76.76.21.21`
+   - `www` subdomain: a **CNAME record** pointing to `cname.vercel-dns.com`
+3. Add that record in your domain registrar's DNS settings (not on Vercel — on whichever site you
+   bought the domain from).
+4. DNS changes can take anywhere from a few minutes to a few hours to propagate.
+
+**Optional — custom subdomain for the API** (e.g. `api.mlsa-sce.in` instead of the `.onrender.com`
+URL): Render → your service → **Settings** → **Custom Domain** → add `api.mlsa-sce.in` → Render
+gives you a CNAME to add at your registrar, same idea as above.
+
+**After adding a custom domain**, update two things:
+- `frontend/js/config.js` → `API_BASE` (if you gave the backend a custom domain too)
+- Backend's `FRONTEND_ORIGIN` env var on Render → add your new custom domain alongside the
+  `.vercel.app` one (comma-separated), then redeploy the backend
 
 ## Admin workflow
 
-- **Updates tab:** post daily announcements/achievements, pin important ones to the top of the feed.
-- **Events tab:** create/edit events with date, location, capacity, and a registration deadline.
+- **Updates tab:** post daily announcements/achievements, attach an optional photo, pin important
+  ones to the top of the feed.
+- **Events tab:** create/edit events with date, location, capacity, an optional photo, and a
+  registration deadline.
 - **Registrations tab:** pick an event, see everyone registered, export as CSV, check whether
   confirmation emails went out.
+- **Team tab:** add more admin accounts for core team members (they sign in with the email/password
+  you set for them), or remove someone who's stepped down. You can't remove your own account while
+  signed in as it, and the system always keeps at least one admin.
 
 ## Notes on the official MLSA badge
 

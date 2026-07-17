@@ -22,8 +22,44 @@ tabButtons.forEach((btn) => {
     document.getElementById(`tab-${btn.dataset.tab}`).classList.remove("d-none");
 
     if (btn.dataset.tab === "registrations") loadRegistrationsTab();
+    if (btn.dataset.tab === "team") loadTeamList();
   });
 });
+
+// ---------------------------------------------------------------
+// Shared: image preview + upload helpers
+// ---------------------------------------------------------------
+function setupImagePreview(inputId, previewId) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+  input.addEventListener("change", () => {
+    const file = input.files[0];
+    if (!file) {
+      preview.classList.add("d-none");
+      preview.removeAttribute("src");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      preview.src = e.target.result;
+      preview.classList.remove("d-none");
+    };
+    reader.readAsDataURL(file);
+  });
+}
+setupImagePreview("updateImageInput", "updateImagePreview");
+setupImagePreview("eventImageInput", "eventImagePreview");
+
+// Resolves what image_url to submit: a newly uploaded file takes priority,
+// otherwise falls back to the existing URL (or null if none / removed).
+async function resolveImageUrl(fileInputEl, existingUrl) {
+  const file = fileInputEl.files[0];
+  if (file) {
+    const result = await api.uploadImage(file);
+    return result.url;
+  }
+  return existingUrl || null;
+}
 
 // ---------------------------------------------------------------
 // Updates tab
@@ -39,9 +75,12 @@ async function loadUpdatesList() {
     }
     listEl.innerHTML = updates.map((u) => `
       <div class="card-fluent p-3 d-flex flex-row justify-content-between align-items-start gap-3">
-        <div>
-          <p class="fw-semibold small mb-0">${escapeHtml(u.title)} ${u.pinned ? "📌" : ""}</p>
-          <p class="text-subtle small mb-0 mt-1">${escapeHtml(u.category)} &middot; ${new Date(u.created_at).toLocaleDateString("en-IN")}</p>
+        <div class="d-flex gap-3 align-items-start">
+          ${u.image_url ? `<img src="${API_BASE}${u.image_url}" alt="" style="width:48px;height:48px;object-fit:cover;border-radius:4px;flex-shrink:0;">` : ""}
+          <div>
+            <p class="fw-semibold small mb-0">${escapeHtml(u.title)} ${u.pinned ? "📌" : ""}</p>
+            <p class="text-subtle small mb-0 mt-1">${escapeHtml(u.category)} &middot; ${new Date(u.created_at).toLocaleDateString("en-IN")}</p>
+          </div>
         </div>
         <button class="btn btn-link text-fluent-error small p-0 flex-shrink-0" onclick="deleteUpdate(${u.id})">Delete</button>
       </div>
@@ -62,21 +101,27 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
   const form = e.target;
   const errorEl = document.getElementById("updateError");
   const btn = document.getElementById("updateSubmitBtn");
+  const imageInput = document.getElementById("updateImageInput");
 
   errorEl.classList.add("d-none");
   btn.disabled = true;
-  btn.textContent = "Posting…";
-
-  const payload = {
-    title: form.title.value,
-    body: form.body.value,
-    category: form.category.value,
-    pinned: form.pinned.checked,
-  };
+  btn.textContent = imageInput.files[0] ? "Uploading image…" : "Posting…";
 
   try {
+    const imageUrl = await resolveImageUrl(imageInput, null);
+    btn.textContent = "Posting…";
+
+    const payload = {
+      title: form.title.value,
+      body: form.body.value,
+      category: form.category.value,
+      pinned: form.pinned.checked,
+      image_url: imageUrl,
+    };
+
     await api.createUpdate(payload);
     form.reset();
+    document.getElementById("updateImagePreview").classList.add("d-none");
     loadUpdatesList();
   } catch (err) {
     errorEl.textContent = err.message;
@@ -103,11 +148,14 @@ async function loadEventsList() {
     }
     listEl.innerHTML = events.map((ev) => `
       <div class="card-fluent p-3 d-flex flex-row justify-content-between align-items-start gap-3">
-        <div>
-          <p class="fw-semibold small mb-0">${escapeHtml(ev.title)}</p>
-          <p class="text-subtle small mb-0 mt-1">
-            ${new Date(ev.event_date).toLocaleString("en-IN")} &middot; ${escapeHtml(ev.location)} &middot; ${ev.is_open ? "Open" : "Closed"}
-          </p>
+        <div class="d-flex gap-3 align-items-start">
+          ${ev.image_url ? `<img src="${API_BASE}${ev.image_url}" alt="" style="width:48px;height:48px;object-fit:cover;border-radius:4px;flex-shrink:0;">` : ""}
+          <div>
+            <p class="fw-semibold small mb-0">${escapeHtml(ev.title)}</p>
+            <p class="text-subtle small mb-0 mt-1">
+              ${new Date(ev.event_date).toLocaleString("en-IN")} &middot; ${escapeHtml(ev.location)} &middot; ${ev.is_open ? "Open" : "Closed"}
+            </p>
+          </div>
         </div>
         <div class="d-flex gap-3 flex-shrink-0">
           <button class="btn btn-link text-fluent-primary small p-0" onclick='editEvent(${JSON.stringify(ev)})'>Edit</button>
@@ -139,6 +187,20 @@ function editEvent(ev) {
   eventForm.location.value = ev.location;
   eventForm.capacity.value = ev.capacity || "";
   eventForm.is_open.checked = ev.is_open;
+  eventForm.current_image_url.value = ev.image_url || "";
+
+  const preview = document.getElementById("eventImagePreview");
+  const removeWrap = document.getElementById("eventRemoveImageWrap");
+  const removeCheck = document.getElementById("eventRemoveImageCheck");
+  removeCheck.checked = false;
+  if (ev.image_url) {
+    preview.src = `${API_BASE}${ev.image_url}`;
+    preview.classList.remove("d-none");
+    removeWrap.classList.remove("d-none");
+  } else {
+    preview.classList.add("d-none");
+    removeWrap.classList.add("d-none");
+  }
 
   document.getElementById("eventFormTitle").textContent = "Edit event";
   document.getElementById("eventSubmitBtn").textContent = "Save changes";
@@ -149,8 +211,12 @@ function editEvent(ev) {
 function resetEventForm() {
   eventForm.reset();
   eventForm.editing_id.value = "";
+  eventForm.current_image_url.value = "";
   eventForm.location.value = "Online";
   eventForm.is_open.checked = true;
+  document.getElementById("eventImagePreview").classList.add("d-none");
+  document.getElementById("eventRemoveImageWrap").classList.add("d-none");
+  document.getElementById("eventRemoveImageCheck").checked = false;
   document.getElementById("eventFormTitle").textContent = "Create an event";
   document.getElementById("eventSubmitBtn").textContent = "Create event";
   document.getElementById("eventCancelBtn").classList.add("d-none");
@@ -168,26 +234,33 @@ eventForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const errorEl = document.getElementById("eventError");
   const btn = document.getElementById("eventSubmitBtn");
+  const imageInput = document.getElementById("eventImageInput");
+  const removeImage = document.getElementById("eventRemoveImageCheck").checked;
 
   errorEl.classList.add("d-none");
   btn.disabled = true;
-  btn.textContent = "Saving…";
-
-  const payload = {
-    title: eventForm.title.value,
-    banner_note: eventForm.banner_note.value,
-    description: eventForm.description.value,
-    event_date: new Date(eventForm.event_date.value).toISOString(),
-    registration_deadline: eventForm.registration_deadline.value
-      ? new Date(eventForm.registration_deadline.value).toISOString()
-      : null,
-    location: eventForm.location.value,
-    capacity: eventForm.capacity.value ? Number(eventForm.capacity.value) : null,
-    is_open: eventForm.is_open.checked,
-  };
+  const editingId = eventForm.editing_id.value;
+  btn.textContent = imageInput.files[0] ? "Uploading image…" : "Saving…";
 
   try {
-    const editingId = eventForm.editing_id.value;
+    const existingUrl = removeImage ? null : eventForm.current_image_url.value;
+    const imageUrl = await resolveImageUrl(imageInput, existingUrl);
+    btn.textContent = "Saving…";
+
+    const payload = {
+      title: eventForm.title.value,
+      banner_note: eventForm.banner_note.value,
+      description: eventForm.description.value,
+      event_date: new Date(eventForm.event_date.value).toISOString(),
+      registration_deadline: eventForm.registration_deadline.value
+        ? new Date(eventForm.registration_deadline.value).toISOString()
+        : null,
+      location: eventForm.location.value,
+      capacity: eventForm.capacity.value ? Number(eventForm.capacity.value) : null,
+      is_open: eventForm.is_open.checked,
+      image_url: imageUrl,
+    };
+
     if (editingId) {
       await api.updateEvent(editingId, payload);
     } else {
@@ -200,7 +273,7 @@ eventForm.addEventListener("submit", async (e) => {
     errorEl.classList.remove("d-none");
   } finally {
     btn.disabled = false;
-    btn.textContent = eventForm.editing_id.value ? "Save changes" : "Create event";
+    btn.textContent = editingId ? "Save changes" : "Create event";
   }
 });
 
@@ -279,6 +352,65 @@ async function loadRegistrationsFor(eventId) {
     wrap.innerHTML = `<p class="text-fluent-error small p-4 mb-0">Could not load registrations.</p>`;
   }
 }
+
+// ---------------------------------------------------------------
+// Team tab
+// ---------------------------------------------------------------
+async function loadTeamList() {
+  const listEl = document.getElementById("teamList");
+  listEl.innerHTML = `<p class="text-subtle small">Loading…</p>`;
+  try {
+    const admins = await api.listAdmins();
+    listEl.innerHTML = admins.map((a) => `
+      <div class="card-fluent p-3 d-flex flex-row justify-content-between align-items-center gap-3">
+        <div>
+          <p class="fw-semibold small mb-0">${escapeHtml(a.name)}</p>
+          <p class="text-subtle small mb-0 mt-1">${escapeHtml(a.email)}</p>
+        </div>
+        <button class="btn btn-link text-fluent-error small p-0 flex-shrink-0" onclick="deleteAdmin(${a.id}, '${escapeHtml(a.name)}')">Remove</button>
+      </div>
+    `).join("");
+  } catch (err) {
+    listEl.innerHTML = `<p class="text-fluent-error small">Could not load the team list.</p>`;
+  }
+}
+
+async function deleteAdmin(id, name) {
+  if (!confirm(`Remove ${name} as an admin? They'll no longer be able to sign in.`)) return;
+  try {
+    await api.deleteAdmin(id);
+    loadTeamList();
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+document.getElementById("teamForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const errorEl = document.getElementById("teamError");
+  const btn = document.getElementById("teamSubmitBtn");
+
+  errorEl.classList.add("d-none");
+  btn.disabled = true;
+  btn.textContent = "Adding…";
+
+  try {
+    await api.registerAdmin({
+      name: form.name.value,
+      email: form.email.value,
+      password: form.password.value,
+    });
+    form.reset();
+    loadTeamList();
+  } catch (err) {
+    errorEl.textContent = err.message;
+    errorEl.classList.remove("d-none");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Add admin";
+  }
+});
 
 // ---------------------------------------------------------------
 // Initial load

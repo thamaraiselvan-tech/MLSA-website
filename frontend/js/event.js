@@ -31,6 +31,12 @@ function renderEvent(event) {
   document.getElementById("eventLoading").classList.add("d-none");
   document.getElementById("eventContent").classList.remove("d-none");
 
+  if (event.image_url) {
+    const imgEl = document.getElementById("eventImage");
+    imgEl.src = `${API_BASE}${event.image_url}`;
+    imgEl.classList.remove("d-none");
+  }
+
   if (event.banner_note) {
     const el = document.getElementById("eventTagline");
     el.textContent = event.banner_note;

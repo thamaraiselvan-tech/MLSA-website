@@ -60,6 +60,36 @@ const api = {
       headers: authHeaders(),
     }).then(handleResponse),
 
+  // ---- Admin: image uploads ----
+  // Don't set Content-Type manually here - the browser needs to add its own
+  // multipart boundary, which it only does if we leave the header unset.
+  uploadImage: (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    return fetch(`${API_BASE}/api/uploads`, {
+      method: "POST",
+      headers: { ...authHeaders() },
+      body: formData,
+    }).then(handleResponse);
+  },
+
+  // ---- Admin: team management ----
+  listAdmins: () =>
+    fetch(`${API_BASE}/api/admin/list`, { headers: authHeaders() }).then(handleResponse),
+
+  registerAdmin: (payload) =>
+    fetch(`${API_BASE}/api/admin/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...authHeaders() },
+      body: JSON.stringify(payload),
+    }).then(handleResponse),
+
+  deleteAdmin: (id) =>
+    fetch(`${API_BASE}/api/admin/${id}`, {
+      method: "DELETE",
+      headers: authHeaders(),
+    }).then(handleResponse),
+
   // ---- Admin: events ----
   createEvent: (payload) =>
     fetch(`${API_BASE}/api/events`, {

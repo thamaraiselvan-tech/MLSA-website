@@ -15,10 +15,14 @@ function updateCardHtml(update) {
   const pinnedBadge = update.pinned
     ? `<span class="text-fluent-primary fw-semibold small">📌 Pinned</span>`
     : "";
+  const imageHtml = update.image_url
+    ? `<img src="${API_BASE}${update.image_url}" alt="" class="update-card-image mb-3">`
+    : "";
 
   return `
     <div class="col-md-6">
       <article class="card-fluent p-4 h-100">
+        ${imageHtml}
         <div class="d-flex justify-content-between align-items-center mb-3">
           <span class="pill ${pillClass}">${escapeHtml(update.category)}</span>
           <div class="d-flex align-items-center gap-2">

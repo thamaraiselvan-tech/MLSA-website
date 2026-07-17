@@ -21,28 +21,34 @@ function eventCardHtml(event) {
   const tagline = event.banner_note
     ? `<p class="small fw-medium text-fluent-primary mb-1">${escapeHtml(event.banner_note)}</p>`
     : "";
+  const imageHtml = event.image_url
+    ? `<img src="${API_BASE}${event.image_url}" alt="" class="event-card-image mb-1">`
+    : "";
 
   return `
     <div class="col-sm-6 col-lg-4">
       <a href="event.html?id=${event.id}" class="text-decoration-none text-reset d-block h-100">
-        <div class="card-fluent card-hover p-4 h-100 d-flex flex-column gap-3">
-          <div class="d-flex justify-content-between align-items-start">
-            <div class="date-badge">
-              <span class="month">${month}</span>
-              <span class="day">${day}</span>
+        <div class="card-fluent card-hover h-100 d-flex flex-column">
+          ${imageHtml}
+          <div class="p-4 d-flex flex-column gap-3 flex-fill">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="date-badge">
+                <span class="month">${month}</span>
+                <span class="day">${day}</span>
+              </div>
+              ${statusPill}
             </div>
-            ${statusPill}
-          </div>
-          <div>
-            <h3 class="h6 fw-semibold mb-1">${escapeHtml(event.title)}</h3>
-            ${tagline}
-            <p class="text-subtle small mb-0" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
-              ${escapeHtml(event.description)}
-            </p>
-          </div>
-          <div class="d-flex gap-3 text-subtle small pt-3 border-top mt-auto">
-            <span>🕒 ${time}</span>
-            <span>📍 ${escapeHtml(event.location)}</span>
+            <div>
+              <h3 class="h6 fw-semibold mb-1">${escapeHtml(event.title)}</h3>
+              ${tagline}
+              <p class="text-subtle small mb-0" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+                ${escapeHtml(event.description)}
+              </p>
+            </div>
+            <div class="d-flex gap-3 text-subtle small pt-3 border-top mt-auto">
+              <span>🕒 ${time}</span>
+              <span>📍 ${escapeHtml(event.location)}</span>
+            </div>
           </div>
         </div>
       </a>

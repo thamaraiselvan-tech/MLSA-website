@@ -18,6 +18,7 @@ class Update(SQLModel, table=True):
     category: str = "General"  # General, Workshop, Achievement, Announcement
     created_at: datetime = Field(default_factory=datetime.utcnow)
     pinned: bool = False
+    image_url: Optional[str] = None
 
 
 class Event(SQLModel, table=True):
@@ -31,6 +32,7 @@ class Event(SQLModel, table=True):
     banner_note: str = ""  # short tagline shown on card
     created_at: datetime = Field(default_factory=datetime.utcnow)
     is_open: bool = True
+    image_url: Optional[str] = None
 
 
 class Registration(SQLModel, table=True):
