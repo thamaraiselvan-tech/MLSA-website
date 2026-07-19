@@ -265,7 +265,12 @@ body {
 .footer-mlsa {
   background: #fff;
   border-top: 1px solid var(--fluent-border);
-  margin-top: 5rem;
+  margin-top: 1rem;
+}
+@media (min-width: 768px) {
+  .footer-mlsa {
+    margin-top: 3rem;
+  }
 }
 .footer-mlsa a {
   color: var(--fluent-subtle);
