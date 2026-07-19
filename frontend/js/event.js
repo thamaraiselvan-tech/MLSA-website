@@ -15,6 +15,37 @@ function toEmbedUrl(url) {
   return `${url}${separator}embedded=true`;
 }
 
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// Colors the position pill gold/silver/bronze when it recognizes 1st/2nd/3rd,
+// otherwise falls back to a plain blue pill so any custom label still works
+// (e.g. "Best Design", "Runner-up").
+function rankPillClass(position) {
+  const p = (position || "").toLowerCase();
+  if (p.includes("1st") || p.includes("first") || p.trim() === "1") return "pill-gold";
+  if (p.includes("2nd") || p.includes("second") || p.trim() === "2") return "pill-silver";
+  if (p.includes("3rd") || p.includes("third") || p.trim() === "3") return "pill-bronze";
+  return "pill-rank";
+}
+
+function winnerCardHtml(winner) {
+  const cls = rankPillClass(winner.position);
+  const meta = [winner.department, winner.year].filter(Boolean).join(" · ");
+  return `
+    <div class="winner-card">
+      <span class="pill ${cls}">${escapeHtml(winner.position || "")}</span>
+      <div>
+        <p class="fw-semibold mb-0">${escapeHtml(winner.name)}</p>
+        ${meta ? `<p class="text-subtle small mb-0">${escapeHtml(meta)}</p>` : ""}
+      </div>
+    </div>
+  `;
+}
+
 function showError() {
   document.getElementById("eventLoading").classList.add("d-none");
   document.getElementById("eventError").classList.remove("d-none");
@@ -62,6 +93,11 @@ function renderEvent(event) {
     document.getElementById("regFormLink").href = event.registrationUrl;
   } else {
     document.getElementById("regComingSoon").classList.remove("d-none");
+  }
+
+  if (event.winners && event.winners.length > 0) {
+    document.getElementById("winnersCard").classList.remove("d-none");
+    document.getElementById("winnersList").innerHTML = event.winners.map(winnerCardHtml).join("");
   }
 }
 

@@ -147,6 +147,28 @@ body {
 .pill-announcement { background: var(--fluent-error-bg); color: var(--fluent-error); }
 .pill-open { background: var(--fluent-success-bg); color: var(--fluent-success); }
 .pill-closed { background: var(--fluent-error-bg); color: var(--fluent-error); }
+.pill-gold { background: #FFF4CE; color: #9A6E00; }
+.pill-silver { background: #E8E8E8; color: #5B5B5B; }
+.pill-bronze { background: #FBE4D5; color: #8A4B25; }
+.pill-rank { background: var(--fluent-bg); color: var(--fluent-primary); border: 1px solid var(--fluent-primary); }
+
+/* ---------- Winners ---------- */
+.winner-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 4px;
+  background: var(--fluent-bg);
+}
+.winner-card .pill {
+  min-width: 44px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.winners-event-group + .winners-event-group {
+  margin-top: 2.5rem;
+}
 
 /* ---------- Hero ---------- */
 .hero-mlsa {
@@ -222,22 +244,24 @@ body {
 /* ---------- Uploaded images ---------- */
 .update-card-image {
   width: 100%;
-  height: 180px;
+  height: 200px;
   object-fit: contain;
+  background: var(--fluent-bg);
   border-radius: 4px;
 }
 
 .event-card-image {
-  margin-top: 20px;
   width: 100%;
   height: 200px;
   object-fit: contain;
+  background: var(--fluent-bg);
 }
 
 .event-detail-image {
   width: 100%;
-  max-height: 320px;
+  max-height: 420px;
   object-fit: contain;
+  background: var(--fluent-bg);
   border-radius: 6px;
   margin-bottom: 1.25rem;
 }
@@ -270,7 +294,7 @@ body {
 }
 @media (min-width: 768px) {
   .footer-mlsa {
-    margin-top: 3rem;
+    margin-top: 5rem;
   }
 }
 .footer-mlsa a {
