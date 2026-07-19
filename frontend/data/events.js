@@ -49,6 +49,6 @@ const EVENTS = [
     registrationDeadline: "2026-07-17T23:59",
     registrationUrl: "",
     isOpen: true,
-    image: "",
+    image: "assets/events/portfolio.jpeg",
   },
 ];
