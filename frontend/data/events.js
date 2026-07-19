@@ -43,7 +43,7 @@ const EVENTS = [
     title: "Design Your Future - Portfolio Creation",
     tagline: "Create a Portfolio that represents You!",
     description: " Personal Portfolio is one of the most valuable assets for students, enabling them to showcase their skills, projects, achievements, and technical journey beyond a traditional resume. Participants are expected to create a digital version of themself to complete the event.",
-    date: "2026-07-19T10:00",
+    date: "2026-07-18T10:00",
     location: "Online",
     capacity: "all students",
     registrationDeadline: "2026-07-17T23:59",
