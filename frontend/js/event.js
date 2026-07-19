@@ -1,25 +1,18 @@
-// Read ?id= from the URL, e.g. event.html?id=3
+// Reads from the EVENTS array defined in data/events.js - no backend, no fetch.
+
 const params = new URLSearchParams(window.location.search);
 const eventId = params.get("id");
 
-let currentEvent = null;
-
 function isClosed(event) {
-  const deadlinePassed = event.registration_deadline && new Date(event.registration_deadline) < new Date();
-  return !event.is_open || deadlinePassed;
+  const deadlinePassed = event.registrationDeadline && new Date(event.registrationDeadline) < new Date();
+  return event.isOpen === false || deadlinePassed;
 }
 
-async function loadEvent() {
-  if (!eventId) {
-    showError();
-    return;
-  }
-  try {
-    currentEvent = await api.getEvent(eventId);
-    renderEvent(currentEvent);
-  } catch (err) {
-    showError();
-  }
+// Turns a normal Google Form "viewform" link into the embeddable version.
+function toEmbedUrl(url) {
+  if (!url) return "";
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}embedded=true`;
 }
 
 function showError() {
@@ -31,22 +24,22 @@ function renderEvent(event) {
   document.getElementById("eventLoading").classList.add("d-none");
   document.getElementById("eventContent").classList.remove("d-none");
 
-  if (event.image_url) {
+  if (event.image) {
     const imgEl = document.getElementById("eventImage");
-    imgEl.src = `${API_BASE}${event.image_url}`;
+    imgEl.src = event.image;
     imgEl.classList.remove("d-none");
   }
 
-  if (event.banner_note) {
+  if (event.tagline) {
     const el = document.getElementById("eventTagline");
-    el.textContent = event.banner_note;
+    el.textContent = event.tagline;
     el.classList.remove("d-none");
   }
 
   document.getElementById("eventTitle").textContent = event.title;
   document.getElementById("eventDescription").textContent = event.description;
 
-  const date = new Date(event.event_date);
+  const date = new Date(event.date);
   document.getElementById("eventDate").textContent = date.toLocaleDateString("en-IN", {
     weekday: "long", day: "numeric", month: "long", year: "numeric",
   });
@@ -60,43 +53,29 @@ function renderEvent(event) {
     document.getElementById("eventCapacity").textContent = `Limited to ${event.capacity} seats`;
   }
 
+  // ---- Registration section ----
   if (isClosed(event)) {
     document.getElementById("regClosed").classList.remove("d-none");
-    document.getElementById("regForm").classList.add("d-none");
+  } else if (event.registrationUrl) {
+    document.getElementById("regFormWrap").classList.remove("d-none");
+    document.getElementById("regFormFrame").src = toEmbedUrl(event.registrationUrl);
+    document.getElementById("regFormLink").href = event.registrationUrl;
+  } else {
+    document.getElementById("regComingSoon").classList.remove("d-none");
   }
 }
 
-document.getElementById("regForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const errorEl = document.getElementById("regError");
-  const submitBtn = document.getElementById("regSubmitBtn");
-
-  errorEl.classList.add("d-none");
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Registering…";
-
-  const payload = {
-    event_id: Number(eventId),
-    full_name: form.full_name.value,
-    email: form.email.value,
-    phone: form.phone.value || null,
-    college: form.college.value || null,
-    department: form.department.value || null,
-    year_of_study: form.year_of_study.value || null,
-  };
-
-  try {
-    await api.register(payload);
-    document.getElementById("regSuccessEmail").textContent = payload.email;
-    document.getElementById("regSuccess").classList.remove("d-none");
-    form.classList.add("d-none");
-  } catch (err) {
-    errorEl.textContent = err.message;
-    errorEl.classList.remove("d-none");
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Confirm registration";
+function loadEvent() {
+  if (!eventId) {
+    showError();
+    return;
   }
-});
+  const event = EVENTS.find((e) => String(e.id) === String(eventId));
+  if (!event) {
+    showError();
+    return;
+  }
+  renderEvent(event);
+}
 
 loadEvent();

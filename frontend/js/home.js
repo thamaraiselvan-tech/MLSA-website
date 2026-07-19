@@ -1,3 +1,5 @@
+// Reads from the UPDATES array defined in data/updates.js - no backend, no fetch.
+
 const categoryPillClass = {
   General: "pill-general",
   Workshop: "pill-workshop",
@@ -5,9 +7,18 @@ const categoryPillClass = {
   Announcement: "pill-announcement",
 };
 
-function formatDate(isoString) {
-  const d = new Date(isoString);
-  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+function formatDate(dateStr) {
+  // dateStr is a plain "YYYY-MM-DD" - parse as local, no timezone concerns
+  // since there's no server round-trip anymore.
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  return date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
 }
 
 function updateCardHtml(update) {
@@ -15,8 +26,8 @@ function updateCardHtml(update) {
   const pinnedBadge = update.pinned
     ? `<span class="text-fluent-primary fw-semibold small">📌 Pinned</span>`
     : "";
-  const imageHtml = update.image_url
-    ? `<img src="${API_BASE}${update.image_url}" alt="" class="update-card-image mb-3">`
+  const imageHtml = update.image
+    ? `<img src="${update.image}" alt="" class="update-card-image mb-3">`
     : "";
 
   return `
@@ -27,7 +38,7 @@ function updateCardHtml(update) {
           <span class="pill ${pillClass}">${escapeHtml(update.category)}</span>
           <div class="d-flex align-items-center gap-2">
             ${pinnedBadge}
-            <time class="text-subtle small">${formatDate(update.created_at)}</time>
+            <time class="text-subtle small">${formatDate(update.date)}</time>
           </div>
         </div>
         <h3 class="h6 fw-semibold mb-2">${escapeHtml(update.title)}</h3>
@@ -37,38 +48,29 @@ function updateCardHtml(update) {
   `;
 }
 
-// Basic HTML-escaping so admin-entered text can't break the page layout.
-function escapeHtml(str) {
-  const div = document.createElement("div");
-  div.textContent = str;
-  return div.innerHTML;
-}
-
-async function loadUpdates() {
+function loadUpdates() {
   const statusEl = document.getElementById("updatesStatus");
   const gridEl = document.getElementById("updatesGrid");
 
-  try {
-    const updates = await api.getUpdates();
+  const updates = [...UPDATES].sort((a, b) => {
+    if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+    return new Date(b.date) - new Date(a.date);
+  });
 
-    if (updates.length === 0) {
-      statusEl.innerHTML = "";
-      gridEl.innerHTML = `
-        <div class="col-12">
-          <div class="card-fluent p-5 text-center">
-            <p class="fw-semibold mb-1">No updates posted yet</p>
-            <p class="text-subtle small mb-0">Check back soon, or sign in as admin to post the first one.</p>
-          </div>
-        </div>`;
-      return;
-    }
-
+  if (updates.length === 0) {
     statusEl.innerHTML = "";
-    gridEl.innerHTML = updates.map(updateCardHtml).join("");
-  } catch (err) {
-    statusEl.textContent = "Could not load updates right now. Please try again shortly.";
-    statusEl.classList.add("text-fluent-error");
+    gridEl.innerHTML = `
+      <div class="col-12">
+        <div class="card-fluent p-5 text-center">
+          <p class="fw-semibold mb-1">No updates posted yet</p>
+          <p class="text-subtle small mb-0">Add one in data/updates.js to get started.</p>
+        </div>
+      </div>`;
+    return;
   }
+
+  statusEl.innerHTML = "";
+  gridEl.innerHTML = updates.map(updateCardHtml).join("");
 }
 
 loadUpdates();

@@ -1,5 +1,15 @@
-function formatEventDate(isoString) {
-  const d = new Date(isoString);
+// Reads from the EVENTS array defined in data/events.js - no backend, no fetch.
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function formatEventDate(dateTimeStr) {
+  // "YYYY-MM-DDTHH:mm" - parse as local time, no timezone concerns since
+  // there's no server round-trip anymore.
+  const d = new Date(dateTimeStr);
   return {
     month: d.toLocaleDateString("en-IN", { month: "short" }),
     day: d.getDate(),
@@ -8,21 +18,21 @@ function formatEventDate(isoString) {
 }
 
 function isEventClosed(event) {
-  const deadlinePassed = event.registration_deadline && new Date(event.registration_deadline) < new Date();
-  return !event.is_open || deadlinePassed;
+  const deadlinePassed = event.registrationDeadline && new Date(event.registrationDeadline) < new Date();
+  return event.isOpen === false || deadlinePassed;
 }
 
 function eventCardHtml(event) {
-  const { month, day, time } = formatEventDate(event.event_date);
+  const { month, day, time } = formatEventDate(event.date);
   const closed = isEventClosed(event);
   const statusPill = closed
     ? `<span class="pill pill-closed">Closed</span>`
     : `<span class="pill pill-open">Open</span>`;
-  const tagline = event.banner_note
-    ? `<p class="small fw-medium text-fluent-primary mb-1">${escapeHtml(event.banner_note)}</p>`
+  const tagline = event.tagline
+    ? `<p class="small fw-medium text-fluent-primary mb-1">${escapeHtml(event.tagline)}</p>`
     : "";
-  const imageHtml = event.image_url
-    ? `<img src="${API_BASE}${event.image_url}" alt="" class="event-card-image mb-1">`
+  const imageHtml = event.image
+    ? `<img src="${event.image}" alt="" class="event-card-image mb-1">`
     : "";
 
   return `
@@ -56,37 +66,26 @@ function eventCardHtml(event) {
   `;
 }
 
-function escapeHtml(str) {
-  const div = document.createElement("div");
-  div.textContent = str;
-  return div.innerHTML;
-}
-
-async function loadEvents() {
+function loadEvents() {
   const statusEl = document.getElementById("eventsStatus");
   const gridEl = document.getElementById("eventsGrid");
 
-  try {
-    const events = await api.getEvents();
+  const events = [...EVENTS].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    if (events.length === 0) {
-      statusEl.innerHTML = "";
-      gridEl.innerHTML = `
-        <div class="col-12">
-          <div class="card-fluent p-5 text-center">
-            <p class="fw-semibold mb-1">No events scheduled yet</p>
-            <p class="text-subtle small mb-0">New events will show up here as soon as they're posted.</p>
-          </div>
-        </div>`;
-      return;
-    }
-
+  if (events.length === 0) {
     statusEl.innerHTML = "";
-    gridEl.innerHTML = events.map(eventCardHtml).join("");
-  } catch (err) {
-    statusEl.textContent = "Could not load events right now. Please try again shortly.";
-    statusEl.classList.add("text-fluent-error");
+    gridEl.innerHTML = `
+      <div class="col-12">
+        <div class="card-fluent p-5 text-center">
+          <p class="fw-semibold mb-1">No events scheduled yet</p>
+          <p class="text-subtle small mb-0">Add one in data/events.js to get started.</p>
+        </div>
+      </div>`;
+    return;
   }
+
+  statusEl.innerHTML = "";
+  gridEl.innerHTML = events.map(eventCardHtml).join("");
 }
 
 loadEvents();
