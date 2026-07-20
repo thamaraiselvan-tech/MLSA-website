@@ -50,5 +50,10 @@ const EVENTS = [
     registrationUrl: "",
     isOpen: true,
     image: "assets/events/portfolio.jpeg",
+    winners: [
+  { name: "Aarthi. R", position: "1st", department: "CSBS", year: "2nd Year" },
+  { name: "Shrihari V", position: "2nd", department: "AI & DS", year: "2nd Year" },
+  { name: "Kamalini P", position: "3rd", department: "AI & DS", year: "3rd Year" },
+]
   },
 ];
