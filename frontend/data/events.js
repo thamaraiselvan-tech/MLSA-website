@@ -35,6 +35,8 @@
 //   isOpen                - false manually closes registration early
 //   image                 - path to a photo, e.g. "assets/events/photo1.jpg"
 //                           leave as "" for no image
+//  linkUrl                - "https://forms.cloud.microsoft/r/ieXJvtJQrt",   // <-- new
+//  linkLabel:             -"View the portfolio guide",                     // <-- new, optional
 // ============================================================================
 
 const EVENTS = [
@@ -45,10 +47,10 @@ const EVENTS = [
     description: " Personal Portfolio is one of the most valuable assets for students, enabling them to showcase their skills, projects, achievements, and technical journey beyond a traditional resume. Participants are expected to create a digital version of themself to complete the event.",
     date: "2026-07-18T10:00",
     location: "Online",
-    capacity: "all students",
+    capacity: "",
     registrationDeadline: "2026-07-17T23:59",
     registrationUrl: "",
-    isOpen: true,
+    isOpen: false,
     image: "assets/events/portfolio.jpeg",
     winners: [
   { name: "Aarthi. R", position: "1st", department: "CSBS", year: "2nd Year" },
@@ -56,4 +58,18 @@ const EVENTS = [
   { name: "Kamalini P", position: "3rd", department: "AI & DS", year: "3rd Year" },
 ]
   },
+  {
+    id: 2,
+    title: "AI StartUp Arena",
+    tagline: "Build a Unicorn in 60 Minutes using Microsoft Copilot & Microsoft Designer",
+    description: "AI Startup Arena is a fast-paced innovation challenge where participants use Microsoft Copilot and Microsoft Designer to transform an idea into a startup within 60 minutes. Working in teams of 3-4 members, participants will leverage Microsoft's AI tools to create a startup concept, build its brand identity, and develop a simple business model. All submissions will be collected through Microsoft Forms and evaluated after the event",
+    date: "2026-08-09T10:00",
+    location: "Offline",
+    capacity: "all students",
+    registrationDeadline: "2026-08-07T10:00",
+    registrationUrl: "https://forms.cloud.microsoft/r/ieXJvtJQrt",
+    isOpen: true,
+    image: "",
+    winners: []
+  }
 ];

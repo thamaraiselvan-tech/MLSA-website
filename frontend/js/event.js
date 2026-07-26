@@ -69,6 +69,12 @@ function renderEvent(event) {
 
   document.getElementById("eventTitle").textContent = event.title;
   document.getElementById("eventDescription").textContent = event.description;
+  if (event.linkUrl) {
+    const linkEl = document.getElementById("eventLink");
+    linkEl.href = encodeURI(event.linkUrl);
+    linkEl.textContent = (event.linkLabel || "Learn more") + " →";
+    linkEl.classList.remove("d-none");
+  }
 
   const date = new Date(event.date);
   document.getElementById("eventDate").textContent = date.toLocaleDateString("en-IN", {
@@ -88,9 +94,14 @@ function renderEvent(event) {
   if (isClosed(event)) {
     document.getElementById("regClosed").classList.remove("d-none");
   } else if (event.registrationUrl) {
-    document.getElementById("regFormWrap").classList.remove("d-none");
-    document.getElementById("regFormFrame").src = toEmbedUrl(event.registrationUrl);
-    document.getElementById("regFormLink").href = event.registrationUrl;
+    if (isMicrosoftForm(event.registrationUrl)) {
+      document.getElementById("regButtonWrap").classList.remove("d-none");
+      document.getElementById("regButtonLink").href = event.registrationUrl;
+    } else {
+      document.getElementById("regFormWrap").classList.remove("d-none");
+      document.getElementById("regFormFrame").src = toEmbedUrl(event.registrationUrl);
+      document.getElementById("regFormLink").href = event.registrationUrl;
+    }
   } else {
     document.getElementById("regComingSoon").classList.remove("d-none");
   }
@@ -112,6 +123,9 @@ function loadEvent() {
     return;
   }
   renderEvent(event);
+}
+function isMicrosoftForm(url) {
+  return /forms\.(office|microsoft|cloud\.microsoft|microsoftonline)/.test(url);
 }
 
 loadEvent();

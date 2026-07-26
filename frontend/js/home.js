@@ -29,6 +29,9 @@ function updateCardHtml(update) {
   const imageHtml = update.image
     ? `<img src="${update.image}" alt="" class="update-card-image mb-3">`
     : "";
+  const linkHtml = update.linkUrl
+    ? `<a href="${encodeURI(update.linkUrl)}" target="_blank" rel="noreferrer" class="link-fluent small d-inline-block mt-2">${escapeHtml(update.linkLabel || "Learn more")} &rarr;</a>`
+    : "";
 
   return `
     <div class="col-md-6">
@@ -43,6 +46,7 @@ function updateCardHtml(update) {
         </div>
         <h3 class="h6 fw-semibold mb-2">${escapeHtml(update.title)}</h3>
         <p class="text-subtle small mb-0" style="white-space: pre-line;">${escapeHtml(update.body)}</p>
+        ${linkHtml}
       </article>
     </div>
   `;

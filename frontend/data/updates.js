@@ -34,4 +34,15 @@ const UPDATES = [
     pinned: true,
     image: "",
   },
+    {
+    title: "AI StartUp Arena",
+    body: "Click here to register for the event",
+    category: "Announcement ",
+    date: "2026-07-27",
+    pinned: false,
+    image: "",
+    linkUrl: "https://forms.cloud.microsoft/r/ieXJvtJQrt",     // <-- new: the link destination
+    linkLabel: "Click here",            // <-- new: optional, defaults to "Learn more" if omitted
+
+  },
 ];
