@@ -69,7 +69,7 @@ const EVENTS = [
     registrationDeadline: "2026-08-07T10:00",
     registrationUrl: "https://forms.cloud.microsoft/r/ieXJvtJQrt",
     isOpen: true,
-    image: "",
+    image: "assets/events/aistartup.png",
     winners: []
   }
 ];
