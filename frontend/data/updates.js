@@ -48,7 +48,7 @@ const UPDATES = [
   
     {
     title: "Suggest an Event",
-    body: "Have an idea on event idea? Let's put into work!",
+    body: "Have an event idea? Let's put into work!",
     category: "Announcement ",
     date: "2026-08-05",
     pinned: true,
