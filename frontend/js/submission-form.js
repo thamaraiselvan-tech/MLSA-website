@@ -3,7 +3,7 @@
 
 const SUBMISSION_ENDPOINT = "https://script.google.com/macros/s/AKfycbysd-6hprMLK1Nz05EjVaBtVRJA1NUIX0tGJQtvnHhMsQsft6nYA1Vp_NHZwE4uVuFYCQ/exec";
 const MAX_FILE_MB = 20; // safety margin under Apps Script's 25MB email attachment cap
-const SUBMISSIONS_OPEN = true;              // set to false to close submissions immediately
+const SUBMISSIONS_OPEN = false;              // set to false to close submissions immediately
 const SUBMISSION_DEADLINE = "";              // e.g. "2026-08-10T23:59" to auto-close at that time, or "" for no deadline
 
 function fileToBase64(file) {
