@@ -1,0 +1,137 @@
+<!-- ============================================================
+     TEAM SUBMISSION FORM - paste this into event.html, inside
+     the event detail section (below the Winners card is a good
+     spot, or wherever makes sense once registration has closed).
+     ============================================================ -->
+
+<div class="card-fluent p-4 mt-4">
+  <h2 class="h6 fw-semibold mb-3">📤 Submit your team's entry</h2>
+  <p class="text-subtle small mb-3">
+    Upload your team's PPT/PDF along with your team's details. All fields are
+    required except Team Member 3, since team size is 3–4.
+  </p>
+
+  <form id="submissionForm">
+    <div class="mb-3">
+      <label class="form-label small fw-medium">Team name</label>
+      <input required name="teamName" type="text" class="form-control">
+    </div>
+
+    <hr class="my-3">
+    <p class="small fw-semibold mb-2">Team Lead</p>
+    <div class="mb-2">
+      <label class="form-label small fw-medium">Name</label>
+      <input required name="leadName" type="text" class="form-control">
+    </div>
+    <div class="row g-2 mb-3">
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Dept</label>
+        <input required name="leadDept" type="text" class="form-control" placeholder="e.g. AID">
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Year</label>
+        <select required name="leadYear" class="form-select">
+          <option value="">Select year</option>
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Section</label>
+        <input required name="leadSection" type="text" class="form-control" placeholder="e.g. B">
+      </div>
+    </div>
+
+    <hr class="my-3">
+    <p class="small fw-semibold mb-2">Team Member 1</p>
+    <div class="mb-2">
+      <label class="form-label small fw-medium">Name</label>
+      <input required name="member1Name" type="text" class="form-control">
+    </div>
+    <div class="row g-2 mb-3">
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Dept</label>
+        <input required name="member1Dept" type="text" class="form-control" placeholder="e.g. AID">
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Year</label>
+        <select required name="member1Year" class="form-select">
+          <option value="">Select year</option>
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Section</label>
+        <input required name="member1Section" type="text" class="form-control" placeholder="e.g. B">
+      </div>
+    </div>
+
+    <hr class="my-3">
+    <p class="small fw-semibold mb-2">Team Member 2</p>
+    <div class="mb-2">
+      <label class="form-label small fw-medium">Name</label>
+      <input required name="member2Name" type="text" class="form-control">
+    </div>
+    <div class="row g-2 mb-3">
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Dept</label>
+        <input required name="member2Dept" type="text" class="form-control" placeholder="e.g. AID">
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Year</label>
+        <select required name="member2Year" class="form-select">
+          <option value="">Select year</option>
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Section</label>
+        <input required name="member2Section" type="text" class="form-control" placeholder="e.g. B">
+      </div>
+    </div>
+
+    <hr class="my-3">
+    <p class="small fw-semibold mb-2">Team Member 3 <span class="text-subtle fw-normal">(optional)</span></p>
+    <div class="mb-2">
+      <label class="form-label small fw-medium">Name</label>
+      <input name="member3Name" type="text" class="form-control">
+    </div>
+    <div class="row g-2 mb-3">
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Dept</label>
+        <input name="member3Dept" type="text" class="form-control" placeholder="e.g. AID">
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Year</label>
+        <select name="member3Year" class="form-select">
+          <option value="">Select year</option>
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label small fw-medium">Section</label>
+        <input name="member3Section" type="text" class="form-control" placeholder="e.g. B">
+      </div>
+    </div>
+
+    <hr class="my-3">
+    <div class="mb-3">
+      <label class="form-label small fw-medium">Your PPT/PDF</label>
+      <input required type="file" id="submissionFile" name="file" class="form-control" accept=".ppt,.pptx,.pdf">
+      <div class="form-text">PPT, PPTX, or PDF, up to 20MB.</div>
+    </div>
+    <button type="submit" id="submissionSubmitBtn" class="btn btn-fluent-primary w-100">Submit entry</button>
+  </form>
+  <p id="submissionStatus" class="small mt-2"></p>
+</div>
