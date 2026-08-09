@@ -3,6 +3,8 @@
 
 const SUBMISSION_ENDPOINT = "https://script.google.com/macros/s/AKfycbysd-6hprMLK1Nz05EjVaBtVRJA1NUIX0tGJQtvnHhMsQsft6nYA1Vp_NHZwE4uVuFYCQ/exec";
 const MAX_FILE_MB = 20; // safety margin under Apps Script's 25MB email attachment cap
+const SUBMISSIONS_OPEN = true;              // set to false to close submissions immediately
+const SUBMISSION_DEADLINE = "";              // e.g. "2026-08-10T23:59" to auto-close at that time, or "" for no deadline
 
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
@@ -18,9 +20,21 @@ function fileToBase64(file) {
   });
 }
 
+function isSubmissionClosed() {
+  if (!SUBMISSIONS_OPEN) return true;
+  if (SUBMISSION_DEADLINE && new Date(SUBMISSION_DEADLINE) < new Date()) return true;
+  return false;
+}
+
 function initSubmissionForm() {
   const form = document.getElementById("submissionForm");
   if (!form) return; // form isn't on this page, nothing to do
+
+  if (isSubmissionClosed()) {
+    form.classList.add("d-none");
+    document.getElementById("submissionClosedMsg").classList.remove("d-none");
+    return;
+  }
 
   const statusEl = document.getElementById("submissionStatus");
   const submitBtn = document.getElementById("submissionSubmitBtn");
