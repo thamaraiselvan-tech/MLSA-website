@@ -335,3 +335,355 @@ body {
 .text-fluent-primary { color: var(--fluent-primary); }
 a.link-fluent { color: var(--fluent-primary); font-weight: 500; text-decoration: none; }
 a.link-fluent:hover { text-decoration: underline; }
+
+
+/* ============================================================================
+   MOTION + 3D UPGRADE - add this whole block to the END of css/style.css
+   ============================================================================ */
+
+:root {
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth scrolling for anchor links (#about, #contact, etc.), with room
+   left at the top so content doesn't get tucked under the sticky navbar. */
+html {
+  scroll-behavior: smooth;
+}
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* ---------- Hero 3D canvas ---------- */
+.hero-mlsa {
+  position: relative;
+  overflow: hidden;
+}
+.hero-3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-mlsa .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Buttons: lift on hover, press down on click ---------- */
+.btn-fluent-primary,
+.btn-fluent-secondary {
+  transition: transform 0.15s var(--ease-standard),
+              box-shadow 0.15s var(--ease-standard),
+              background-color 0.15s var(--ease-standard);
+}
+.btn-fluent-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 120, 212, 0.22);
+}
+.btn-fluent-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.btn-fluent-primary:active,
+.btn-fluent-secondary:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ---------- Cards: lift + deeper shadow on hover (clickable cards) ---------- */
+.card-fluent {
+  transition: transform 0.2s var(--ease-standard), box-shadow 0.2s var(--ease-standard);
+}
+.card-fluent.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12), 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- 3D tilt cards (Our Role section) ---------- */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, box-shadow 0.2s var(--ease-standard);
+  will-change: transform;
+}
+.tilt-card:hover {
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.14), 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Event card thumbnail: subtle zoom on hover ---------- */
+.event-card-image {
+  transition: transform 0.35s var(--ease-standard);
+}
+.card-hover:hover .event-card-image {
+  transform: scale(1.04);
+}
+
+/* ---------- Nav links: animated underline ---------- */
+.navbar-mlsa .nav-link {
+  position: relative;
+}
+.navbar-mlsa .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 2px;
+  height: 2px;
+  background: var(--fluent-primary);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s var(--ease-standard);
+}
+.navbar-mlsa .nav-link:hover::after,
+.navbar-mlsa .nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Logos: gentle scale on hover ---------- */
+.brand-badge {
+  transition: transform 0.25s var(--ease-standard);
+}
+.navbar-brand:hover .brand-badge {
+  transform: scale(1.06);
+}
+
+/* ---------- Navbar: shadow deepens once the page is scrolled ---------- */
+.navbar-mlsa {
+  transition: box-shadow 0.2s var(--ease-standard);
+}
+.navbar-mlsa.navbar-scrolled {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* ---------- Hero: staggered fade-up entrance on page load ---------- */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-mlsa .eyebrow,
+.hero-mlsa h1,
+.hero-mlsa .fs-6,
+.hero-mlsa .btn {
+  animation: heroFadeUp 0.6s var(--ease-standard) both;
+}
+.hero-mlsa .eyebrow { animation-delay: 0s; }
+.hero-mlsa h1       { animation-delay: 0.08s; }
+.hero-mlsa .fs-6     { animation-delay: 0.18s; }
+.hero-mlsa .btn      { animation-delay: 0.28s; }
+
+/* ---------- Respect reduced-motion preference for everything above ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn-fluent-primary,
+  .btn-fluent-secondary,
+  .card-fluent,
+  .tilt-card,
+  .event-card-image,
+  .brand-badge {
+    transition: none;
+  }
+  .btn-fluent-primary:hover,
+  .btn-fluent-secondary:hover,
+  .btn-fluent-primary:active,
+  .btn-fluent-secondary:active,
+  .card-fluent.card-hover:hover,
+  .tilt-card:hover,
+  .card-hover:hover .event-card-image,
+  .navbar-brand:hover .brand-badge {
+    transform: none;
+  }
+  .hero-mlsa .eyebrow,
+  .hero-mlsa h1,
+  .hero-mlsa .fs-6,
+  .hero-mlsa .btn {
+    animation: none;
+  }
+}
+
+/* ============================================================================
+   MOTION + LOADER UPGRADE - add this whole block to the END of css/style.css
+   ============================================================================ */
+
+:root {
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth scrolling for anchor links (#about, #contact, etc.), with room
+   left at the top so content doesn't get tucked under the sticky navbar. */
+html {
+  scroll-behavior: smooth;
+}
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* ---------- Site loader (video intro, shown once per session) ---------- */
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s var(--ease-standard);
+}
+.site-loader.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.site-loader-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.site-loader-skip {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-size: 13px;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+  transition: background-color 0.15s ease;
+}
+.site-loader-skip:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ---------- Buttons: lift on hover, press down on click ---------- */
+.btn-fluent-primary,
+.btn-fluent-secondary {
+  transition: transform 0.15s var(--ease-standard),
+              box-shadow 0.15s var(--ease-standard),
+              background-color 0.15s var(--ease-standard);
+}
+.btn-fluent-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 120, 212, 0.22);
+}
+.btn-fluent-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.btn-fluent-primary:active,
+.btn-fluent-secondary:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ---------- Cards: lift + deeper shadow on hover (clickable cards) ---------- */
+.card-fluent {
+  transition: transform 0.2s var(--ease-standard), box-shadow 0.2s var(--ease-standard);
+}
+.card-fluent.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12), 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- 3D tilt cards (Our Role section) - CSS-only, no WebGL ---------- */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, box-shadow 0.2s var(--ease-standard);
+  will-change: transform;
+}
+.tilt-card:hover {
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.14), 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Event card thumbnail: subtle zoom on hover ---------- */
+.event-card-image {
+  transition: transform 0.35s var(--ease-standard);
+}
+.card-hover:hover .event-card-image {
+  transform: scale(1.04);
+}
+
+/* ---------- Nav links: animated underline ---------- */
+.navbar-mlsa .nav-link {
+  position: relative;
+}
+.navbar-mlsa .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 2px;
+  height: 2px;
+  background: var(--fluent-primary);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s var(--ease-standard);
+}
+.navbar-mlsa .nav-link:hover::after,
+.navbar-mlsa .nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Logos: gentle scale on hover ---------- */
+.brand-badge {
+  transition: transform 0.25s var(--ease-standard);
+}
+.navbar-brand:hover .brand-badge {
+  transform: scale(1.06);
+}
+
+/* ---------- Navbar: shadow deepens once the page is scrolled ---------- */
+.navbar-mlsa {
+  transition: box-shadow 0.2s var(--ease-standard);
+}
+.navbar-mlsa.navbar-scrolled {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* ---------- Hero: staggered fade-up entrance on page load ---------- */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-mlsa .eyebrow,
+.hero-mlsa h1,
+.hero-mlsa .fs-6,
+.hero-mlsa .btn {
+  animation: heroFadeUp 0.6s var(--ease-standard) both;
+}
+.hero-mlsa .eyebrow { animation-delay: 0s; }
+.hero-mlsa h1       { animation-delay: 0.08s; }
+.hero-mlsa .fs-6     { animation-delay: 0.18s; }
+.hero-mlsa .btn      { animation-delay: 0.28s; }
+
+/* ---------- Respect reduced-motion preference for everything above ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .site-loader { transition: none; }
+  .btn-fluent-primary,
+  .btn-fluent-secondary,
+  .card-fluent,
+  .tilt-card,
+  .event-card-image,
+  .brand-badge {
+    transition: none;
+  }
+  .btn-fluent-primary:hover,
+  .btn-fluent-secondary:hover,
+  .btn-fluent-primary:active,
+  .btn-fluent-secondary:active,
+  .card-fluent.card-hover:hover,
+  .tilt-card:hover,
+  .card-hover:hover .event-card-image,
+  .navbar-brand:hover .brand-badge {
+    transform: none;
+  }
+  .hero-mlsa .eyebrow,
+  .hero-mlsa h1,
+  .hero-mlsa .fs-6,
+  .hero-mlsa .btn {
+    animation: none;
+  }
+}
