@@ -1,15 +1,22 @@
-// 3D tilt effect for cards - the card subtly rotates in 3D space following
-// the mouse position. No library, no WebGL - just CSS transforms driven by
-// mouse coordinates. Skipped on touch devices (no mouse to track) and when
-// the visitor has requested reduced motion.
+// Premium motion effects — 3D tilt with glare, magnetic buttons, and navbar scroll.
+// Skipped on touch devices and when reduced motion is preferred.
 
 (function () {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  if (window.matchMedia("(hover: none)").matches) return; // touch devices
 
-  const MAX_TILT_DEGREES = 6;
+  const MAX_TILT_DEGREES = 8;
+  const isTouch = window.matchMedia("(hover: none)").matches;
 
-  function attachTilt(card) {
+  // ---- 3D Tilt Cards with Glare Effect ----
+  function attachTiltWithGlare(card) {
+    // Add glare overlay element
+    let glare = card.querySelector(".card-glare");
+    if (!glare) {
+      glare = document.createElement("div");
+      glare.className = "card-glare";
+      card.appendChild(glare);
+    }
+
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -18,25 +25,95 @@
       const centerY = rect.height / 2;
       const rotateX = ((y - centerY) / centerY) * -MAX_TILT_DEGREES;
       const rotateY = ((x - centerX) / centerX) * MAX_TILT_DEGREES;
-      card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+
+      // Update glare position
+      const percentX = (x / rect.width) * 100;
+      const percentY = (y / rect.height) * 100;
+      glare.style.setProperty("--glare-x", percentX + "%");
+      glare.style.setProperty("--glare-y", percentY + "%");
     });
+
     card.addEventListener("mouseleave", () => {
       card.style.transform = "";
     });
   }
 
-  document.querySelectorAll(".tilt-card").forEach(attachTilt);
-})();
+  if (!isTouch) {
+    document.querySelectorAll(".tilt-card").forEach(attachTiltWithGlare);
 
-// Navbar shadow deepens slightly once the page has been scrolled -
-// present on every page, purely cosmetic.
-(function () {
-  const nav = document.querySelector(".navbar-mlsa");
-  if (!nav) return;
+    // Also add glare to hoverable event/update cards
+    document.querySelectorAll(".card-fluent.card-hover").forEach((card) => {
+      let glare = card.querySelector(".card-glare");
+      if (!glare) {
+        glare = document.createElement("div");
+        glare.className = "card-glare";
+        card.appendChild(glare);
+      }
 
-  function onScroll() {
-    nav.classList.toggle("navbar-scrolled", window.scrollY > 8);
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const percentX = (x / rect.width) * 100;
+        const percentY = (y / rect.height) * 100;
+        glare.style.setProperty("--glare-x", percentX + "%");
+        glare.style.setProperty("--glare-y", percentY + "%");
+      });
+    });
+
+    // Observe for dynamically added cards (events, updates)
+    const grids = document.querySelectorAll("#updatesGrid, #eventsGrid, #winnersGroups");
+    grids.forEach((grid) => {
+      const obs = new MutationObserver(() => {
+        grid.querySelectorAll(".card-fluent.card-hover").forEach((card) => {
+          if (card.querySelector(".card-glare")) return; // already set up
+          const glare = document.createElement("div");
+          glare.className = "card-glare";
+          card.appendChild(glare);
+
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            glare.style.setProperty("--glare-x", (x / rect.width) * 100 + "%");
+            glare.style.setProperty("--glare-y", (y / rect.height) * 100 + "%");
+          });
+        });
+      });
+      obs.observe(grid, { childList: true, subtree: true });
+    });
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+
+  // ---- Magnetic Buttons (desktop only) ----
+  if (!isTouch) {
+    const MAX_PULL = 4; // max displacement in pixels
+
+    document.querySelectorAll(".btn-fluent-primary, .btn-fluent-secondary").forEach((btn) => {
+      btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const moveX = (x / rect.width) * MAX_PULL * 2;
+        const moveY = (y / rect.height) * MAX_PULL * 2;
+
+        btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        btn.style.transform = "";
+      });
+    });
+  }
+
+  // ---- Navbar shadow on scroll ----
+  const nav = document.querySelector(".navbar-mlsa");
+  if (nav) {
+    function onScroll() {
+      nav.classList.toggle("navbar-scrolled", window.scrollY > 8);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
 })();

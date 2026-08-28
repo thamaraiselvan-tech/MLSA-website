@@ -37,7 +37,7 @@ const UPDATES = [
     {
     title: "AI StartUp Arena",
     body: "Click here to register for the event",
-    category: "Announcement ",
+    category: "Announcement",
     date: "2026-07-27",
     pinned: false,
     image: "",
@@ -49,7 +49,7 @@ const UPDATES = [
     {
     title: "Suggest an Event",
     body: "Have an event idea? Let's put into work!",
-    category: "Announcement ",
+    category: "Announcement",
     date: "2026-08-05",
     pinned: true,
     image: "",

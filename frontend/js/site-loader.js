@@ -23,6 +23,8 @@
   function hideLoader() {
     if (loader.classList.contains("is-hidden")) return; // avoid double-firing from multiple triggers
     loader.classList.add("is-hidden");
+    document.body.classList.add("loader-complete");
+    window.dispatchEvent(new CustomEvent("loaderDone"));
     sessionStorage.setItem(SESSION_KEY, "1");
     setTimeout(() => loader.remove(), 600); // give the fade-out transition time to finish
   }
