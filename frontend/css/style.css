@@ -695,7 +695,9 @@ a.link-fluent:hover { text-decoration: underline; }
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -713,18 +715,24 @@ a.link-fluent:hover { text-decoration: underline; }
   width: 90%;
   height: auto;
   aspect-ratio: 16 / 9;
-  max-width: 360px;
-  max-height: 50vh;
+  max-width: 380px;
+  max-height: 48vh;
   object-fit: contain;
   margin: auto;
   display: block;
+  border-radius: 20px;
+  background: #f9f9f9;
+  box-shadow: 0 20px 60px rgba(0, 120, 212, 0.12),
+              0 6px 20px rgba(0, 0, 0, 0.06),
+              0 0 0 1px rgba(0, 120, 212, 0.08);
 }
 
 @media (min-width: 768px) {
   .site-loader-video {
     width: 55%;
-    max-width: 540px;
-    max-height: 60vh;
+    max-width: 520px;
+    max-height: 55vh;
+    border-radius: 24px;
   }
 }
 
