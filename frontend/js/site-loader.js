@@ -35,9 +35,24 @@
     setTimeout(() => loader.remove(), 600); // give the fade-out transition time to finish
   }
 
-  video.addEventListener("ended", hideLoader);
-  video.addEventListener("error", hideLoader); // video fails to load/decode
-  skipBtn.addEventListener("click", hideLoader);
+  if (video) {
+    video.muted = true;
+    video.playsInline = true;
+
+    function playVideo() {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {}); // silent catch for AbortError / autoplay interrupt
+      }
+    }
+
+    playVideo();
+    video.addEventListener("canplay", playVideo, { once: true });
+    video.addEventListener("ended", hideLoader);
+    video.addEventListener("error", hideLoader);
+  }
+
+  if (skipBtn) skipBtn.addEventListener("click", hideLoader);
   loader.addEventListener("click", hideLoader);
 
   setTimeout(hideLoader, MAX_WAIT_MS); // absolute last-resort safety net

@@ -40,9 +40,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Container alignment across PC & mobile */
+/* Container alignment across PC & mobile — expand wide to screen edges */
 .container {
-  max-width: 1240px;
+  width: 100%;
+  max-width: 1560px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 
 /* Subtle noise texture overlay for premium feel */
