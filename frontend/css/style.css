@@ -40,6 +40,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Container alignment across PC & mobile */
+.container {
+  max-width: 1240px;
+}
+
 /* Subtle noise texture overlay for premium feel */
 body::after {
   content: "";
@@ -271,16 +276,7 @@ body::after {
   border-color: rgba(0, 120, 212, 0.2);
 }
 
-/* ---------- 3D Tilt Cards (Our Role section) ---------- */
-.tilt-card {
-  transform-style: preserve-3d;
-  transition: transform 0.15s ease-out, box-shadow 0.3s var(--ease-standard);
-  will-change: transform;
-}
 
-.tilt-card:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
-}
 
 /* ---------- Badges / pills ---------- */
 .pill {
@@ -690,18 +686,24 @@ body::after {
 a.link-fluent { color: var(--fluent-primary); font-weight: 500; text-decoration: none; }
 a.link-fluent:hover { text-decoration: underline; }
 
+/* Disable background scrolling while loader is active */
+html.loader-active,
+body.loader-active {
+  overflow: hidden !important;
+  touch-action: none;
+  height: 100vh !important;
+}
+
 /* ---------- Site loader (video intro, shown once per session) ---------- */
 .site-loader {
   position: fixed;
   inset: 0;
-  z-index: 2000;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  z-index: 99999;
+  background: #f9f9f9; /* Solid background matching video canvas exactly */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 1rem;
   cursor: pointer;
   transition: opacity 0.5s var(--ease-standard);
 }
@@ -715,24 +717,22 @@ a.link-fluent:hover { text-decoration: underline; }
   width: 90%;
   height: auto;
   aspect-ratio: 16 / 9;
-  max-width: 380px;
-  max-height: 48vh;
+  max-width: 440px;
+  max-height: 55vh;
   object-fit: contain;
   margin: auto;
   display: block;
-  border-radius: 20px;
-  background: #f9f9f9;
-  box-shadow: 0 20px 60px rgba(0, 120, 212, 0.12),
-              0 6px 20px rgba(0, 0, 0, 0.06),
-              0 0 0 1px rgba(0, 120, 212, 0.08);
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
 }
 
 @media (min-width: 768px) {
   .site-loader-video {
-    width: 55%;
-    max-width: 520px;
-    max-height: 55vh;
-    border-radius: 24px;
+    width: 60%;
+    max-width: 580px;
+    max-height: 65vh;
   }
 }
 

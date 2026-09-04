@@ -17,12 +17,18 @@
     return;
   }
 
+  // Prevent background scrolling while loader is active
+  document.documentElement.classList.add("loader-active");
+  document.body.classList.add("loader-active");
+
   const video = document.getElementById("loaderVideo");
   const skipBtn = document.getElementById("loaderSkip");
 
   function hideLoader() {
     if (loader.classList.contains("is-hidden")) return; // avoid double-firing from multiple triggers
     loader.classList.add("is-hidden");
+    document.documentElement.classList.remove("loader-active");
+    document.body.classList.remove("loader-active");
     document.body.classList.add("loader-complete");
     window.dispatchEvent(new CustomEvent("loaderDone"));
     sessionStorage.setItem(SESSION_KEY, "1");

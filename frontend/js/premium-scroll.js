@@ -229,7 +229,7 @@
   if (roleSection) {
     const heading = roleSection.querySelector("h2");
     const eyebrow = roleSection.querySelector(".text-fluent-primary");
-    const cards = roleSection.querySelectorAll(".tilt-card");
+    const cards = roleSection.querySelectorAll(".card-fluent");
 
     if (eyebrow) {
       gsap.from(eyebrow, {
@@ -415,7 +415,7 @@
   // Alternating depth parallax for Our Role cards
   const roleSec = document.getElementById("our-role");
   if (roleSec) {
-    const cards = roleSec.querySelectorAll(".tilt-card");
+    const cards = roleSec.querySelectorAll(".card-fluent");
     cards.forEach((card, index) => {
       const depth = (index % 2 === 0) ? -18 : 18;
       gsap.to(card, {
