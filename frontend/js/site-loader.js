@@ -1,10 +1,9 @@
-// Full-screen video loader shown once per browser session. Multiple safety
-// nets so a slow, failed, or blocked video can never trap a visitor behind
-// a stuck screen.
+// Full-screen video loader shown once per browser session.
+// Plays authentic high-resolution Microsoft Student Ambassadors video intro.
 
 (function () {
   const SESSION_KEY = "mlsa_loader_shown";
-  const MAX_WAIT_MS = 10000; // hard safety timeout regardless of what the video does
+  const MAX_WAIT_MS = 10000; // hard safety timeout
 
   const loader = document.getElementById("siteLoader");
   if (!loader) return;
@@ -17,7 +16,7 @@
     return;
   }
 
-  // Prevent background scrolling while loader is active
+  // Lock scrolling while loader is active
   document.documentElement.classList.add("loader-active");
   document.body.classList.add("loader-active");
 
@@ -25,14 +24,14 @@
   const skipBtn = document.getElementById("loaderSkip");
 
   function hideLoader() {
-    if (loader.classList.contains("is-hidden")) return; // avoid double-firing from multiple triggers
+    if (loader.classList.contains("is-hidden")) return;
     loader.classList.add("is-hidden");
     document.documentElement.classList.remove("loader-active");
     document.body.classList.remove("loader-active");
     document.body.classList.add("loader-complete");
     window.dispatchEvent(new CustomEvent("loaderDone"));
     sessionStorage.setItem(SESSION_KEY, "1");
-    setTimeout(() => loader.remove(), 600); // give the fade-out transition time to finish
+    setTimeout(() => loader.remove(), 600);
   }
 
   if (video) {
@@ -42,7 +41,7 @@
     function playVideo() {
       const playPromise = video.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => {}); // silent catch for AbortError / autoplay interrupt
+        playPromise.catch(() => {}); // silent catch for autoplay policies
       }
     }
 
@@ -55,5 +54,5 @@
   if (skipBtn) skipBtn.addEventListener("click", hideLoader);
   loader.addEventListener("click", hideLoader);
 
-  setTimeout(hideLoader, MAX_WAIT_MS); // absolute last-resort safety net
+  setTimeout(hideLoader, MAX_WAIT_MS);
 })();

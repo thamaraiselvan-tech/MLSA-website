@@ -6,10 +6,11 @@
   let lenis;
   if (typeof Lenis !== "undefined") {
     lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       smoothWheel: true,
+      wheelMultiplier: 1.1,
     });
 
     function raf(time) {
@@ -229,7 +230,7 @@
   if (roleSection) {
     const heading = roleSection.querySelector("h2");
     const eyebrow = roleSection.querySelector(".text-fluent-primary");
-    const cards = roleSection.querySelectorAll(".card-fluent");
+    const cards = roleSection.querySelectorAll(".role-card-square, .card-fluent");
 
     if (eyebrow) {
       gsap.from(eyebrow, {
@@ -251,15 +252,15 @@
 
     if (cards.length) {
       gsap.from(cards, {
-        y: 45,
-        rotateX: 8,
+        y: 25,
         opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
+        duration: 0.6,
+        stagger: 0,
         ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: roleSection,
-          start: "top 78%",
+          start: "top 85%",
           once: true,
         },
       });
@@ -326,112 +327,7 @@
     });
   }
 
-  // ---- 11. Multi-Layer 3D Parallax Effects ----
-  const heroSection = document.querySelector(".hero-mlsa");
-  if (heroSection) {
-    const meshBlobs = heroSection.querySelectorAll(".hero-mesh-blob");
-    const particles = heroSection.querySelectorAll(".hero-particle");
-    const logos = heroSection.querySelectorAll(".hero-logo");
-
-    if (meshBlobs.length) {
-      gsap.to(meshBlobs, {
-        y: 90,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroSection,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.5,
-        },
-      });
-    }
-
-    if (logos.length) {
-      gsap.to(logos, {
-        y: -40,
-        scale: 1.06,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroSection,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.5,
-        },
-      });
-    }
-
-    if (particles.length) {
-      gsap.to(particles, {
-        y: -120,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroSection,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
-    }
-  }
-
-  // Multi-layer parallax for About badge image
-  const aboutSec = document.getElementById("about");
-  if (aboutSec) {
-    const aboutImg = aboutSec.querySelector("img");
-    if (aboutImg) {
-      gsap.to(aboutImg, {
-        y: -35,
-        rotateZ: -2,
-        ease: "none",
-        scrollTrigger: {
-          trigger: aboutSec,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
-    }
-  }
-
-  // Multi-layer parallax for What is MLSA badge image
-  const mlsaSec = document.getElementById("what-is-mlsa");
-  if (mlsaSec) {
-    const mlsaBadge = mlsaSec.querySelector("img");
-    if (mlsaBadge) {
-      gsap.to(mlsaBadge, {
-        y: -30,
-        rotateZ: 2,
-        ease: "none",
-        scrollTrigger: {
-          trigger: mlsaSec,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-      });
-    }
-  }
-
-  // Alternating depth parallax for Our Role cards
-  const roleSec = document.getElementById("our-role");
-  if (roleSec) {
-    const cards = roleSec.querySelectorAll(".card-fluent");
-    cards.forEach((card, index) => {
-      const depth = (index % 2 === 0) ? -18 : 18;
-      gsap.to(card, {
-        y: depth,
-        ease: "none",
-        scrollTrigger: {
-          trigger: roleSec,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.2,
-        },
-      });
-    });
-  }
-
-  // ---- 12. Cleanup fallback reveal classes ----
+  // ---- 11. Cleanup fallback reveal classes ----
   document.querySelectorAll(".reveal").forEach((el) => {
     el.classList.remove("reveal");
     el.style.opacity = "1";

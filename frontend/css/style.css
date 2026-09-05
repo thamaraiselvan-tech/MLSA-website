@@ -62,16 +62,7 @@ body {
   }
 }
 
-/* Subtle noise texture overlay for premium feel */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+
 
 /* ---------- Navbar (Glassmorphism) ---------- */
 .navbar-mlsa {
@@ -291,6 +282,85 @@ body::after {
   transform: translateY(-6px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
   border-color: rgba(0, 120, 212, 0.2);
+}
+
+/* ---------- Square Role Cards with Smooth Hover Animation ---------- */
+.role-card-square {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--fluent-border);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  min-height: 140px;
+  max-width: 240px;
+  margin: 0 auto;
+  padding: 1.1rem 0.85rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-out-expo),
+              box-shadow 0.3s var(--ease-out-expo),
+              border-color 0.3s var(--ease-standard),
+              background-color 0.3s var(--ease-standard);
+  cursor: default;
+}
+
+.role-card-square::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--fluent-primary), #50a0e0);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-standard);
+}
+
+.role-card-square:hover::before {
+  opacity: 1;
+}
+
+.role-card-square:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(0, 120, 212, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 120, 212, 0.25);
+  background: #ffffff;
+}
+
+.role-card-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(0, 120, 212, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--ease-out-expo), background-color 0.3s var(--ease-standard);
+}
+
+.role-card-square:hover .role-card-icon {
+  transform: scale(1.12) rotate(-4deg);
+  background: rgba(0, 120, 212, 0.12);
+}
+
+.role-card-title {
+  font-size: 0.95rem;
+  color: var(--fluent-ink);
+  transition: color 0.2s var(--ease-standard);
+}
+
+.role-card-desc {
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.role-card-square:hover .role-card-title {
+  color: var(--fluent-primary);
 }
 
 
@@ -716,7 +786,7 @@ body.loader-active {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: #f9f9f9; /* Solid background matching video canvas exactly */
+  background: #ffffff; /* Pure white background */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -734,12 +804,13 @@ body.loader-active {
   width: 90%;
   height: auto;
   aspect-ratio: 16 / 9;
-  max-width: 440px;
+  max-width: 460px;
   max-height: 55vh;
   object-fit: contain;
   margin: auto;
   display: block;
-  background: transparent;
+  background: #ffffff;
+  mix-blend-mode: multiply;
   border-radius: 0;
   border: none;
   box-shadow: none;
@@ -748,7 +819,7 @@ body.loader-active {
 @media (min-width: 768px) {
   .site-loader-video {
     width: 60%;
-    max-width: 580px;
+    max-width: 560px;
     max-height: 65vh;
   }
 }
