@@ -40,12 +40,12 @@ function eventCardHtml(event) {
     : "";
 
   return `
-    <div class="col-12 col-md-6 col-lg-6 event-item" data-closed="${closed}">
+    <div class="col-12 col-md-6 col-lg-4 event-item" data-closed="${closed}">
       <a href="event.html?id=${event.id}" class="text-decoration-none text-reset d-block h-100">
         <div class="card-fluent card-hover event-ticket-card h-100 d-flex flex-column ${closed ? 'is-completed' : 'is-open'}">
           ${imageHtml}
-          <div class="p-4 d-flex flex-column flex-fill">
-            <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="p-3 d-flex flex-column flex-fill">
+            <div class="d-flex justify-content-between align-items-center mb-2">
               <div class="event-date-pill">
                 <span class="event-month">${month}</span>
                 <span class="event-day">${day}</span>
@@ -53,14 +53,14 @@ function eventCardHtml(event) {
               ${statusPill}
             </div>
             
-            <h3 class="h5 fw-bold text-dark mb-1">${escapeHtml(event.title)}</h3>
+            <h3 class="fs-6 fw-bold text-dark mb-1">${escapeHtml(event.title)}</h3>
             ${tagline}
-            <p class="text-subtle small mb-3 event-desc-clamp">
+            <p class="text-subtle small mb-2 event-desc-clamp">
               ${escapeHtml(event.description)}
             </p>
             
-            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 pt-3 border-top mt-auto">
-              <div class="d-flex align-items-center gap-3 text-subtle small fw-medium">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 pt-2 border-top mt-auto">
+              <div class="d-flex align-items-center gap-2 text-subtle small fw-medium" style="font-size: 0.78rem;">
                 <span><i class="bi bi-clock me-1"></i>${time}</span>
                 <span><i class="bi bi-geo-alt me-1"></i>${escapeHtml(event.location)}</span>
               </div>
