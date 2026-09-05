@@ -10,15 +10,15 @@ function escapeHtml(str) {
 function getRankDetails(position) {
   const p = (position || "").toLowerCase();
   if (p.includes("1st") || p.includes("first") || p.trim() === "1") {
-    return { class: "rank-gold", icon: "🥇", label: "1ST PLACE", rankNum: 1 };
+    return { class: "rank-gold", icon: "🥇", label: "1ST PLACE", shortLabel: "1ST" };
   }
   if (p.includes("2nd") || p.includes("second") || p.trim() === "2") {
-    return { class: "rank-silver", icon: "🥈", label: "2ND PLACE", rankNum: 2 };
+    return { class: "rank-silver", icon: "🥈", label: "2ND PLACE", shortLabel: "2ND" };
   }
   if (p.includes("3rd") || p.includes("third") || p.trim() === "3") {
-    return { class: "rank-bronze", icon: "🥉", label: "3RD PLACE", rankNum: 3 };
+    return { class: "rank-bronze", icon: "🥉", label: "3RD PLACE", shortLabel: "3RD" };
   }
-  return { class: "rank-general", icon: "🏆", label: escapeHtml(position), rankNum: 4 };
+  return { class: "rank-general", icon: "🏆", label: escapeHtml(position), shortLabel: escapeHtml(position) };
 }
 
 function winnerCardHtml(winner) {
@@ -26,14 +26,15 @@ function winnerCardHtml(winner) {
   const meta = [winner.department, winner.year].filter(Boolean).join(" · ");
 
   return `
-    <div class="col-12 col-md-4">
-      <div class="winner-podium-card ${rank.class}">
-        <div class="winner-podium-header">
-          <span class="winner-rank-badge">${rank.icon} ${rank.label}</span>
+    <div class="col-4 col-md-4">
+      <div class="winner-podium-card square-card ${rank.class}">
+        <div class="winner-podium-header mb-2">
+          <span class="winner-rank-badge d-none d-sm-inline-block">${rank.icon} ${rank.label}</span>
+          <span class="winner-rank-badge d-inline-block d-sm-none">${rank.icon} ${rank.shortLabel}</span>
         </div>
-        <div class="winner-podium-body">
-          <h3 class="winner-name h5 fw-bold mb-1">${escapeHtml(winner.name)}</h3>
-          ${meta ? `<p class="winner-meta small text-subtle mb-0">${escapeHtml(meta)}</p>` : ""}
+        <div class="winner-podium-body text-center">
+          <h3 class="winner-name fw-bold mb-1">${escapeHtml(winner.name)}</h3>
+          ${meta ? `<p class="winner-meta text-subtle mb-0">${escapeHtml(meta)}</p>` : ""}
         </div>
       </div>
     </div>
@@ -49,7 +50,7 @@ function eventGroupHtml(event) {
 
   return `
     <div class="winners-event-group mb-5">
-      <div class="card-fluent p-4 mb-4 winner-event-header-card">
+      <div class="card-fluent p-3 p-md-4 mb-4 winner-event-header-card">
         <div class="d-flex align-items-center gap-3 flex-wrap">
           ${posterHtml}
           <div class="flex-grow-1">
@@ -62,7 +63,7 @@ function eventGroupHtml(event) {
           <a href="event.html?id=${event.id}" class="btn btn-fluent-secondary btn-sm">Event details &rarr;</a>
         </div>
       </div>
-      <div class="row g-3 justify-content-center">
+      <div class="row g-2 g-md-4 justify-content-center">
         ${event.winners.map(winnerCardHtml).join("")}
       </div>
     </div>
