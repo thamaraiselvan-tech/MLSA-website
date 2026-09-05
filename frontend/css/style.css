@@ -1370,8 +1370,8 @@ html.lenis, html.lenis body {
 }
 
 .winner-podium-card {
-  border-radius: 18px;
-  padding: 0.85rem 0.5rem;
+  border-radius: 16px;
+  padding: 1rem 0.75rem;
   background: #ffffff;
   border: 1px solid var(--fluent-border);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
@@ -1383,24 +1383,27 @@ html.lenis, html.lenis body {
   text-align: center;
   aspect-ratio: 1 / 1;
   width: 100%;
+  max-width: 210px;
+  max-height: 210px;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .winner-podium-card {
-    padding: 1.5rem 1.25rem;
+    padding: 1.25rem 1rem;
   }
 }
 
 .winner-podium-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
 }
 
 .winner-rank-badge {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.05em;
-  padding: 0.3em 0.7em;
+  padding: 0.25em 0.65em;
   border-radius: 999px;
   display: inline-block;
 }
@@ -1416,15 +1419,21 @@ html.lenis, html.lenis body {
 }
 
 @media (max-width: 576px) {
+  .winner-podium-card {
+    max-width: 130px;
+    max-height: 130px;
+    padding: 0.5rem 0.25rem;
+    border-radius: 12px;
+  }
   .winner-name {
-    font-size: 0.82rem;
+    font-size: 0.75rem;
   }
   .winner-meta {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
   .winner-rank-badge {
-    font-size: 10px;
-    padding: 0.25em 0.5em;
+    font-size: 9px;
+    padding: 0.2em 0.4em;
   }
 }
 

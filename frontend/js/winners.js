@@ -26,7 +26,7 @@ function winnerCardHtml(winner) {
   const meta = [winner.department, winner.year].filter(Boolean).join(" · ");
 
   return `
-    <div class="col-4 col-md-4">
+    <div class="col-4 col-md-3 d-flex justify-content-center">
       <div class="winner-podium-card square-card ${rank.class}">
         <div class="winner-podium-header mb-2">
           <span class="winner-rank-badge d-none d-sm-inline-block">${rank.icon} ${rank.label}</span>
