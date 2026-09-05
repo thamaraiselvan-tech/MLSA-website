@@ -141,12 +141,18 @@ body {
 
 /* ---------- Offcanvas Side Navigation (Mobile Drawer) ---------- */
 @media (max-width: 767.98px) {
+  .navbar-mlsa {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .navbar-mlsa .offcanvas-md {
     width: 280px;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.12);
+    background: #ffffff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
   }
 
   .navbar-mlsa .offcanvas-header {
@@ -166,6 +172,15 @@ body {
     font-weight: 600;
     padding: 0.75rem 1rem !important;
     border-radius: 10px;
+  }
+
+  /* Disable heavy CSS blur animation on mobile GPUs to prevent lag */
+  .hero-mesh-blob {
+    animation: none !important;
+    filter: blur(40px);
+  }
+  .hero-particles {
+    display: none !important;
   }
 }
 

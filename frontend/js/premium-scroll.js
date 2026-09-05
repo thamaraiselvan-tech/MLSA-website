@@ -2,9 +2,11 @@
 // Handles hero text entrance, staggered section card reveals, smooth scrolling, and scroll-triggered animations.
 
 (function () {
-  // ---- Lenis smooth scroll ----
+  // ---- Lenis smooth scroll (Desktop only — mobile uses 100% fast native scrolling) ----
   let lenis;
-  if (typeof Lenis !== "undefined") {
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth < 768);
+
+  if (typeof Lenis !== "undefined" && !isTouchDevice) {
     lenis = new Lenis({
       duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -109,16 +111,17 @@
   const updatesGrid = document.getElementById("updatesGrid");
   if (updatesGrid) {
     const observer = new MutationObserver(() => {
-      const cards = updatesGrid.querySelectorAll(".col-md-6");
+      const cards = updatesGrid.querySelectorAll(".update-item, .col-md-6, .col-12");
       if (cards.length === 0) return;
       observer.disconnect();
 
       gsap.from(cards, {
-        y: 40,
+        y: 35,
         opacity: 0,
         duration: 0.6,
-        stagger: 0.12,
+        stagger: 0.1,
         ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: updatesGrid,
           start: "top 85%",
@@ -133,16 +136,17 @@
   const eventsGrid = document.getElementById("eventsGrid");
   if (eventsGrid) {
     const observer = new MutationObserver(() => {
-      const cards = eventsGrid.querySelectorAll(".col-sm-6");
+      const cards = eventsGrid.querySelectorAll(".event-item, .col-sm-6, .col-12");
       if (cards.length === 0) return;
       observer.disconnect();
 
       gsap.from(cards, {
-        y: 50,
+        y: 40,
         opacity: 0,
-        duration: 0.7,
+        duration: 0.65,
         stagger: 0.1,
         ease: "power3.out",
+        clearProps: "transform",
         scrollTrigger: {
           trigger: eventsGrid,
           start: "top 85%",

@@ -47,6 +47,14 @@
     }
 
     e.preventDefault();
+    
+    // Dismiss offcanvas mobile navigation drawer if open
+    const offcanvasEl = document.getElementById("navMenu");
+    if (offcanvasEl && typeof bootstrap !== "undefined" && bootstrap.Offcanvas) {
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+      if (bsOffcanvas) bsOffcanvas.hide();
+    }
+
     overlay.classList.add("is-active");
 
     setTimeout(() => {
