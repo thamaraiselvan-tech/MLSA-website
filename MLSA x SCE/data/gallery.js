@@ -38,6 +38,6 @@ window.galleryData = [
     category: "MLSA x SCE",
     date: "August 2026",
     image: "assets/gallery/5.jpeg",
-    caption: "The AI Startup Arena organizing team poses with Dr S Ravimaran, Head of the Department of Artificial Intelligence and Data Science, in grateful of his support for the event. His encouragement played a key role in helping the initiative gain institutional backing and visibility. This moment reflects the collaborative spirit between student organizers and faculty in driving campus innovation. A fitting close to a successful event journey."
+    caption: "The AI Startup Arena organizing team with Dr. S Ravimaran, Head of the Department of Artificial Intelligence and Data Science, in grateful of his support for the event. His encouragement played a key role in helping the initiative gain institutional backing and visibility. This moment reflects the collaborative spirit between student organizers and faculty in driving campus innovation. A fitting close to a successful event journey."
   }
 ];
