@@ -40,11 +40,11 @@ function eventCardHtml(event) {
     : "";
 
   return `
-    <div class="col-12 col-sm-6 col-md-4 col-xl-3 event-item" data-closed="${closed}">
+    <div class="col-12 col-md-6 col-lg-6 event-item" data-closed="${closed}">
       <a href="event.html?id=${event.id}" class="text-decoration-none text-reset d-block h-100">
         <div class="card-fluent card-hover event-ticket-card h-100 d-flex flex-column ${closed ? 'is-completed' : 'is-open'}">
           ${imageHtml}
-          <div class="p-2.5 p-sm-3 d-flex flex-column flex-fill">
+          <div class="p-3 p-md-4 d-flex flex-column flex-fill">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <div class="event-date-pill">
                 <span class="event-month">${month}</span>
