@@ -820,7 +820,7 @@ body {
 
 .event-card-image {
   width: 100%;
-  height: 135px;
+  height: 105px;
   object-fit: cover;
   background: var(--fluent-bg);
   transition: transform 0.4s var(--ease-out-expo);
@@ -1472,40 +1472,42 @@ html.lenis, html.lenis body {
   color: #4E2710;
 }
 
-/* ---------- Asymmetric Event Ticket Cards ---------- */
+/* ---------- Asymmetric Event Ticket Cards (Ultra Compact) ---------- */
 .event-ticket-card {
-  border-radius: 20px 8px 20px 8px;
+  max-width: 320px;
+  width: 100%;
+  border-radius: 16px 6px 16px 6px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 120, 212, 0.12);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   transition: transform 0.35s var(--ease-out-expo), box-shadow 0.35s var(--ease-out-expo), border-color 0.35s var(--ease-standard);
 }
 
 .event-ticket-card:hover {
-  transform: translateY(-4px) scale(1.01);
+  transform: translateY(-3px) scale(1.01);
   border-color: rgba(0, 120, 212, 0.3);
-  box-shadow: 0 14px 32px rgba(0, 120, 212, 0.12);
+  box-shadow: 0 10px 24px rgba(0, 120, 212, 0.12);
 }
 
 .event-card-img-wrapper {
-  border-radius: 20px 8px 0 0;
+  border-radius: 16px 6px 0 0;
   overflow: hidden;
-  height: 135px;
-  max-height: 135px;
+  height: 105px;
+  max-height: 105px;
   background: #f8fafc;
 }
 
 .event-card-img-wrapper img {
   width: 100%;
-  height: 135px;
+  height: 105px;
   object-fit: cover;
   transition: transform 0.4s var(--ease-out-expo);
 }
 
 .event-ticket-card:hover .event-card-img-wrapper img {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .event-date-pill {
@@ -1515,13 +1517,13 @@ html.lenis, html.lenis body {
   justify-content: center;
   background: rgba(0, 120, 212, 0.08);
   border: 1px solid rgba(0, 120, 212, 0.18);
-  border-radius: 8px;
-  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  padding: 0.2rem 0.45rem;
   line-height: 1;
 }
 
 .event-month {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 800;
   text-transform: uppercase;
   color: var(--fluent-primary);
@@ -1529,13 +1531,24 @@ html.lenis, html.lenis body {
 }
 
 .event-day {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 800;
   color: var(--fluent-ink);
 }
 
+.event-card-title {
+  font-size: 0.88rem;
+  line-height: 1.3;
+}
+
+.event-card-tagline {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--fluent-primary);
+}
+
 .event-action-link {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--fluent-primary);
   transition: transform 0.25s var(--ease-standard);
@@ -1551,8 +1564,8 @@ html.lenis, html.lenis body {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 0.82rem;
-  line-height: 1.4;
+  font-size: 0.76rem;
+  line-height: 1.35;
 }
 
 /* ---------- Respect reduced-motion ---------- */
