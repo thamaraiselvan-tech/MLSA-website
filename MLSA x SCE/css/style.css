@@ -1012,14 +1012,15 @@ body.loader-active {
   object-fit: contain;
   margin: auto;
   display: block;
-  background: #ffffff;
+  background: transparent;
   mix-blend-mode: multiply;
   filter: contrast(103%) brightness(101%);
-  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 38%, rgba(0,0,0,0.82) 58%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0) 88%);
-  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 38%, rgba(0,0,0,0.82) 58%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0) 88%);
+  -webkit-mask-image: radial-gradient(ellipse at 46% 50%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.7) 48%, rgba(0,0,0,0) 76%);
+  mask-image: radial-gradient(ellipse at 46% 50%, rgba(0,0,0,1) 22%, rgba(0,0,0,0.7) 48%, rgba(0,0,0,0) 76%);
   border-radius: 0;
   border: none;
   box-shadow: none;
+  outline: none;
 }
 
 @media (min-width: 768px) {
