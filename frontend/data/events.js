@@ -63,13 +63,17 @@ const EVENTS = [
     title: "AI StartUp Arena",
     tagline: "Build a Unicorn in 60 Minutes using Microsoft Copilot & Microsoft Designer",
     description: "AI Startup Arena is a fast-paced innovation challenge where participants use Microsoft Copilot and Microsoft Designer to transform an idea into a startup within 60 minutes. Working in teams of 3-4 members, participants will leverage Microsoft's AI tools to create a startup concept, build its brand identity, and develop a simple business model. All submissions will be collected through Microsoft Forms and evaluated after the event",
-    date: "2026-08-09T10:00",
+    date: "2026-08-13T11:00",
     location: "Offline",
     capacity: "all students",
     registrationDeadline: "2026-08-07T10:00",
     registrationUrl: "https://forms.cloud.microsoft/r/ieXJvtJQrt",
     isOpen: true,
     image: "assets/events/aistartup.png",
-    winners: []
+    winners: [
+      { name: "Team MARK 44", position: "1st", department: "CSBS", year: "3d Year" },
+      { name: "Team OPS PROTOCOL", position: "2nd", department: "CSE", year: "2nd Year" },
+      { name: "Team SQUARE SQUAD", position: "3rd", department: "CSBS", year: "2nd Year" },
+    ]
   }
 ];
