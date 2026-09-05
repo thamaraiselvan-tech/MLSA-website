@@ -119,7 +119,7 @@
         } else {
           track.scrollBy({ left: getScrollStep(), behavior: "smooth" });
         }
-      }, 3000);
+      }, 2500);
     }
 
     function pauseAutoPlay() {
@@ -127,7 +127,7 @@
         clearInterval(autoPlayTimer);
         autoPlayTimer = null;
       }
-      setTimeout(startAutoPlay, 5000); // Resume auto-play after 8s of inactivity
+      setTimeout(startAutoPlay, 2000); // Resume auto-play after 8s of inactivity
     }
 
     track.addEventListener("mouseenter", pauseAutoPlay);

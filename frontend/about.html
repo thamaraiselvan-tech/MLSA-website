@@ -26,16 +26,25 @@
           <span class="subtitle d-none d-sm-block">Dept. of AI &amp; Data Science</span>
         </span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMenu" aria-controls="navMenu" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav ms-auto align-items-md-center gap-1">
-          <li class="nav-item"><a class="nav-link" href="index.html">Updates</a></li>
-          <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
-          <li class="nav-item"><a class="nav-link" href="winners.html">Winners</a></li>
-          <li class="nav-item"><a class="nav-link active" href="about.html">About the Chapter</a></li>
-        </ul>
+      <div class="offcanvas-md offcanvas-end" tabindex="-1" id="navMenu" aria-labelledby="navMenuLabel">
+        <div class="offcanvas-header border-bottom">
+          <div class="d-flex align-items-center gap-2">
+            <img src="assets/mlsa-badge.png" alt="MLSA" style="height: 28px;">
+            <span class="fw-bold fs-6 text-dark" id="navMenuLabel">Navigation</span>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#navMenu" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ms-auto align-items-md-center gap-1">
+            <li class="nav-item"><a class="nav-link" href="index.html">Updates</a></li>
+            <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="winners.html">Winners</a></li>
+            <li class="nav-item"><a class="nav-link active" href="about.html">About the Chapter</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>

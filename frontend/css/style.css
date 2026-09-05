@@ -139,6 +139,36 @@ body {
   background-color: rgba(0, 120, 212, 0.06);
 }
 
+/* ---------- Offcanvas Side Navigation (Mobile Drawer) ---------- */
+@media (max-width: 767.98px) {
+  .navbar-mlsa .offcanvas-md {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .navbar-mlsa .offcanvas-header {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .navbar-mlsa .offcanvas-body {
+    padding: 1.5rem;
+  }
+
+  .navbar-mlsa .navbar-nav {
+    gap: 0.5rem !important;
+  }
+
+  .navbar-mlsa .nav-link {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0.75rem 1rem !important;
+    border-radius: 10px;
+  }
+}
+
 /* Animated underline */
 .navbar-mlsa .nav-link::after {
   content: "";
@@ -969,6 +999,9 @@ body.loader-active {
   display: block;
   background: #ffffff;
   mix-blend-mode: multiply;
+  filter: contrast(103%) brightness(101%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 92%);
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 92%);
   border-radius: 0;
   border: none;
   box-shadow: none;
@@ -1137,9 +1170,8 @@ html.lenis, html.lenis body {
   position: absolute;
   inset: auto 0 0 0;
   padding: 1.25rem 1.25rem 1rem 1.25rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.5) 65%, transparent 100%);
   color: #ffffff;
-  backdrop-filter: blur(4px);
 }
 
 .gallery-badge {
