@@ -61,9 +61,11 @@
 
     // 2. Carousel Controls & Drag/Swipe
     let isDown = false;
+    let isHovered = false;
     let startX;
     let scrollLeft;
     let autoPlayTimer = null;
+    let touchResumeTimer = null;
 
     // Scroll calculation helper
     function getScrollStep() {
@@ -73,20 +75,62 @@
     }
 
     function checkInfiniteLoopReset() {
-      const singleSetWidth = (track.scrollWidth / 2);
-      if (track.scrollLeft >= singleSetWidth) {
-        // Jump back to middle seamlessly
+      const singleSetWidth = track.scrollWidth / 2;
+      if (!singleSetWidth) return;
+      if (track.scrollLeft >= singleSetWidth - 10) {
+        track.style.scrollSnapType = "none";
+        track.style.scrollBehavior = "auto";
         track.scrollLeft -= singleSetWidth;
-      } else if (track.scrollLeft <= 0) {
+        void track.offsetHeight;
+        track.style.scrollBehavior = "";
+        track.style.scrollSnapType = "";
+      } else if (track.scrollLeft <= 5) {
+        track.style.scrollSnapType = "none";
+        track.style.scrollBehavior = "auto";
         track.scrollLeft += singleSetWidth;
+        void track.offsetHeight;
+        track.style.scrollBehavior = "";
+        track.style.scrollSnapType = "";
       }
+    }
+
+    let animFrameId = null;
+
+    // Smooth gliding scroll helper with customizable duration (default 1200ms)
+    function smoothGlidedScroll(delta, duration = 1200) {
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      
+      const startLeft = track.scrollLeft;
+      const targetLeft = startLeft + delta;
+      const startTime = performance.now();
+
+      // Temporarily disable scrollSnap during custom smooth animation
+      track.style.scrollSnapType = "none";
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Ease-out cubic curve (slow, graceful deceleration)
+        const ease = 1 - Math.pow(1 - progress, 3);
+        track.scrollLeft = startLeft + (delta * ease);
+
+        if (progress < 1) {
+          animFrameId = requestAnimationFrame(step);
+        } else {
+          track.style.scrollSnapType = "";
+          animFrameId = null;
+        }
+      }
+
+      animFrameId = requestAnimationFrame(step);
     }
 
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
         pauseAutoPlay();
         checkInfiniteLoopReset();
-        track.scrollBy({ left: -getScrollStep(), behavior: "smooth" });
+        smoothGlidedScroll(-getScrollStep(), 1200);
       });
     }
 
@@ -94,13 +138,14 @@
       nextBtn.addEventListener("click", () => {
         pauseAutoPlay();
         checkInfiniteLoopReset();
-        track.scrollBy({ left: getScrollStep(), behavior: "smooth" });
+        smoothGlidedScroll(getScrollStep(), 1200);
       });
     }
 
-    // Drag / Touch gestures
+    // Mouse Drag gestures
     track.addEventListener("mousedown", (e) => {
       isDown = true;
+      if (animFrameId) cancelAnimationFrame(animFrameId);
       track.classList.add("is-dragging");
       startX = e.pageX - track.offsetLeft;
       scrollLeft = track.scrollLeft;
@@ -109,7 +154,12 @@
 
     track.addEventListener("mouseleave", () => {
       isDown = false;
+      isHovered = false;
       track.classList.remove("is-dragging");
+    });
+
+    track.addEventListener("mouseenter", () => {
+      isHovered = true;
     });
 
     track.addEventListener("mouseup", () => {
@@ -125,23 +175,44 @@
       track.scrollLeft = scrollLeft - walk;
     });
 
-    // Auto Play loop - seamless continuous forward movement
+    // Mobile Touch events
+    track.addEventListener("touchstart", () => {
+      isDown = true;
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      pauseAutoPlay();
+    }, { passive: true });
+
+    track.addEventListener("touchend", () => {
+      isDown = false;
+      if (touchResumeTimer) clearTimeout(touchResumeTimer);
+      touchResumeTimer = setTimeout(startAutoPlay, 3000);
+    }, { passive: true });
+
+    track.addEventListener("touchcancel", () => {
+      isDown = false;
+      if (touchResumeTimer) clearTimeout(touchResumeTimer);
+      touchResumeTimer = setTimeout(startAutoPlay, 3000);
+    }, { passive: true });
+
+    // Auto Play loop - 3.5s pause with slow 1.2s smooth sliding transition
     function startAutoPlay() {
       if (autoPlayTimer) clearInterval(autoPlayTimer);
       autoPlayTimer = setInterval(() => {
-        if (track.matches(":hover") || isDown) return;
+        if (isHovered || isDown) return;
         
         const singleSetWidth = track.scrollWidth / 2;
-        if (track.scrollLeft >= singleSetWidth) {
-          // Instantly reset scroll to start of 1st set without animation
+        if (singleSetWidth > 0 && track.scrollLeft >= singleSetWidth - 20) {
+          // Instantly reset scroll to start of set without animation
+          if (animFrameId) cancelAnimationFrame(animFrameId);
+          track.style.scrollSnapType = "none";
           track.style.scrollBehavior = "auto";
           track.scrollLeft -= singleSetWidth;
-          // Force layout reflow
           void track.offsetHeight;
           track.style.scrollBehavior = "";
+          track.style.scrollSnapType = "";
         }
 
-        track.scrollBy({ left: getScrollStep(), behavior: "smooth" });
+        smoothGlidedScroll(getScrollStep(), 1200);
       }, 2500);
     }
 
@@ -150,11 +221,7 @@
         clearInterval(autoPlayTimer);
         autoPlayTimer = null;
       }
-      setTimeout(startAutoPlay, 2000); // Resume auto-play after 8s of inactivity
     }
-
-    track.addEventListener("mouseenter", pauseAutoPlay);
-    track.addEventListener("touchstart", pauseAutoPlay, { passive: true });
 
     startAutoPlay();
 
