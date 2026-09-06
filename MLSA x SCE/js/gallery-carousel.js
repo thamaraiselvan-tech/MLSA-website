@@ -15,18 +15,23 @@
     const lightboxDate = document.getElementById("lightboxDate");
     const lightboxClose = document.getElementById("lightboxClose");
 
-    // 1. Render Gallery Cards
+    // 1. Render Gallery Cards (with duplicates for seamless infinite loop)
     renderGalleryCards();
 
     function renderGalleryCards() {
       track.innerHTML = "";
-      window.galleryData.forEach((item, index) => {
+      const originalItems = window.galleryData;
+      // Duplicate items to enable infinite forward loop
+      const itemsToRender = [...originalItems, ...originalItems];
+
+      itemsToRender.forEach((item, realIndex) => {
+        const originalIndex = realIndex % originalItems.length;
         const card = document.createElement("div");
         card.className = "gallery-card-item";
         card.setAttribute("role", "button");
         card.setAttribute("tabindex", "0");
         card.setAttribute("aria-label", `View ${item.title}`);
-        card.dataset.index = index;
+        card.dataset.index = originalIndex;
 
         card.innerHTML = `
           <div class="gallery-card-inner">
@@ -42,11 +47,11 @@
           </div>
         `;
 
-        card.addEventListener("click", () => openLightbox(index));
+        card.addEventListener("click", () => openLightbox(originalIndex));
         card.addEventListener("keydown", (e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            openLightbox(index);
+            openLightbox(originalIndex);
           }
         });
 
@@ -67,9 +72,20 @@
       return firstCard.offsetWidth + 20; // card width + gap
     }
 
+    function checkInfiniteLoopReset() {
+      const singleSetWidth = (track.scrollWidth / 2);
+      if (track.scrollLeft >= singleSetWidth) {
+        // Jump back to middle seamlessly
+        track.scrollLeft -= singleSetWidth;
+      } else if (track.scrollLeft <= 0) {
+        track.scrollLeft += singleSetWidth;
+      }
+    }
+
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
         pauseAutoPlay();
+        checkInfiniteLoopReset();
         track.scrollBy({ left: -getScrollStep(), behavior: "smooth" });
       });
     }
@@ -77,6 +93,7 @@
     if (nextBtn) {
       nextBtn.addEventListener("click", () => {
         pauseAutoPlay();
+        checkInfiniteLoopReset();
         track.scrollBy({ left: getScrollStep(), behavior: "smooth" });
       });
     }
@@ -108,17 +125,23 @@
       track.scrollLeft = scrollLeft - walk;
     });
 
-    // Auto Play loop
+    // Auto Play loop - seamless continuous forward movement
     function startAutoPlay() {
       if (autoPlayTimer) clearInterval(autoPlayTimer);
       autoPlayTimer = setInterval(() => {
         if (track.matches(":hover") || isDown) return;
-        const maxScrollLeft = track.scrollWidth - track.clientWidth;
-        if (track.scrollLeft >= maxScrollLeft - 10) {
-          track.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          track.scrollBy({ left: getScrollStep(), behavior: "smooth" });
+        
+        const singleSetWidth = track.scrollWidth / 2;
+        if (track.scrollLeft >= singleSetWidth) {
+          // Instantly reset scroll to start of 1st set without animation
+          track.style.scrollBehavior = "auto";
+          track.scrollLeft -= singleSetWidth;
+          // Force layout reflow
+          void track.offsetHeight;
+          track.style.scrollBehavior = "";
         }
+
+        track.scrollBy({ left: getScrollStep(), behavior: "smooth" });
       }, 2500);
     }
 
