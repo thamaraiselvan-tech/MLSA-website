@@ -1,4 +1,4 @@
-// Gallery Carousel controller with continuous infinite marquee glide, touch drag, navigation controls, and Lightbox modal.
+// Gallery Carousel controller with step-by-step auto-play (move -> pause -> move forward), touch drag, and Lightbox modal.
 
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
@@ -19,7 +19,7 @@
     const N = originalItems.length;
     if (N === 0) return;
 
-    // Render 3 sets of items for seamless infinite continuous looping
+    // Render 3 sets of items for seamless infinite forward looping
     const itemsToRender = [...originalItems, ...originalItems, ...originalItems];
 
     renderGalleryCards();
@@ -60,127 +60,152 @@
         track.appendChild(card);
       });
 
-      // Initial scroll position to set 1 (middle set)
-      requestAnimationFrame(() => {
-        const firstSetStart = track.children[N];
-        if (firstSetStart) {
-          track.scrollLeft = firstSetStart.offsetLeft - track.offsetLeft;
+      // Initial scroll position set to Set 1 (middle set: index N)
+      setTimeout(() => {
+        const initialCard = track.children[N];
+        if (initialCard) {
+          track.scrollLeft = initialCard.offsetLeft - track.offsetLeft;
         }
-      });
+      }, 50);
     }
 
     let isDown = false;
     let isHovered = false;
-    let isPausedByInteraction = false;
     let startX = 0;
     let scrollLeft = 0;
-    let pauseTimer = null;
+    let autoPlayTimer = null;
     let animFrameId = null;
-    let arrowAnimId = null;
 
-    const SPEED = 0.6; // pixels per frame continuous marquee speed
-
-    function getSingleSetWidth() {
+    // Find card closest to current scrollLeft position
+    function getClosestCardIndex() {
       const cards = track.children;
-      if (!cards || cards.length < 2 * N) return 0;
-      return cards[N].offsetLeft - cards[0].offsetLeft;
+      if (!cards || cards.length === 0) return 0;
+      const currentScroll = track.scrollLeft;
+
+      let closestIdx = 0;
+      let minDiff = Infinity;
+
+      for (let i = 0; i < cards.length; i++) {
+        const targetLeft = cards[i].offsetLeft - track.offsetLeft;
+        const diff = Math.abs(currentScroll - targetLeft);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = i;
+        }
+      }
+      return closestIdx;
     }
 
-    function checkLoopBounds() {
-      const setWidth = getSingleSetWidth();
-      if (setWidth <= 0) return;
+    function animateToCard(targetIndex, duration = 1600) {
+      if (animFrameId) cancelAnimationFrame(animFrameId);
 
       const cards = track.children;
-      const set0Start = cards[0].offsetLeft - track.offsetLeft;
-      const set1Start = cards[N].offsetLeft - track.offsetLeft;
-      const set2Start = cards[2 * N].offsetLeft - track.offsetLeft;
+      if (!cards || !cards[targetIndex]) return;
 
-      // Reset seamlessly if scrolled into Set 2 or Set 0
-      if (track.scrollLeft >= set2Start - 10) {
-        track.scrollLeft -= setWidth;
-      } else if (track.scrollLeft <= set0Start + 10) {
-        track.scrollLeft += setWidth;
+      const startLeft = track.scrollLeft;
+      const targetLeft = cards[targetIndex].offsetLeft - track.offsetLeft;
+      const delta = targetLeft - startLeft;
+
+      if (Math.abs(delta) < 2) {
+        normalizeScrollPosition(targetIndex);
+        return;
       }
-    }
 
-    // Continuous marquee frame loop
-    function marqueeLoop() {
-      if (!isHovered && !isDown && !isPausedByInteraction) {
-        track.scrollLeft += SPEED;
-        checkLoopBounds();
-      }
-      animFrameId = requestAnimationFrame(marqueeLoop);
-    }
-
-    animFrameId = requestAnimationFrame(marqueeLoop);
-
-    function triggerTemporaryPause(ms = 3000) {
-      isPausedByInteraction = true;
-      if (pauseTimer) clearTimeout(pauseTimer);
-      pauseTimer = setTimeout(() => {
-        isPausedByInteraction = false;
-      }, ms);
-    }
-
-    // Smooth button step animation
-    function smoothStepBy(amount, duration = 400) {
-      if (arrowAnimId) cancelAnimationFrame(arrowAnimId);
-      triggerTemporaryPause(3000);
-
-      const start = track.scrollLeft;
-      const target = start + amount;
       const startTime = performance.now();
 
       function step(now) {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        const ease = 1 - Math.pow(1 - progress, 3);
+        const ease = 1 - Math.pow(1 - progress, 4); // Smooth Ease-out Quartic
 
-        track.scrollLeft = start + (amount * ease);
-        checkLoopBounds();
+        track.scrollLeft = startLeft + (delta * ease);
 
         if (progress < 1) {
-          arrowAnimId = requestAnimationFrame(step);
+          animFrameId = requestAnimationFrame(step);
         } else {
-          arrowAnimId = null;
+          animFrameId = null;
+          normalizeScrollPosition(targetIndex);
         }
       }
-      arrowAnimId = requestAnimationFrame(step);
+
+      animFrameId = requestAnimationFrame(step);
     }
 
-    function getScrollStep() {
-      const card = track.querySelector(".gallery-card-item");
-      if (!card) return 340;
-      const style = window.getComputedStyle(track);
-      const gap = parseFloat(style.gap) || 20;
-      return card.offsetWidth + gap;
+    function normalizeScrollPosition(index) {
+      const cards = track.children;
+      if (!cards) return;
+
+      let resetIndex = index;
+      if (index >= 2 * N) {
+        resetIndex = index - N;
+      } else if (index < N) {
+        resetIndex = index + N;
+      }
+
+      if (resetIndex !== index && cards[resetIndex]) {
+        track.scrollLeft = cards[resetIndex].offsetLeft - track.offsetLeft;
+      }
+    }
+
+    function stepForward() {
+      const currentIdx = getClosestCardIndex();
+      animateToCard(currentIdx + 1, 1600);
+    }
+
+    function stepBackward() {
+      const currentIdx = getClosestCardIndex();
+      animateToCard(currentIdx - 1, 1600);
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayTimer = setInterval(() => {
+        if (isHovered || isDown) return;
+        stepForward();
+      }, 4500); // 4.5s pause between smooth glides
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    function pauseAndRestartAutoPlay() {
+      stopAutoPlay();
+      setTimeout(startAutoPlay, 4000);
     }
 
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
-        smoothStepBy(-getScrollStep(), 400);
+        pauseAndRestartAutoPlay();
+        stepBackward();
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener("click", () => {
-        smoothStepBy(getScrollStep(), 400);
+        pauseAndRestartAutoPlay();
+        stepForward();
       });
     }
 
-    // Mouse events
+    // Drag / Touch gestures
     track.addEventListener("mousedown", (e) => {
       isDown = true;
+      if (animFrameId) cancelAnimationFrame(animFrameId);
       track.classList.add("is-dragging");
       startX = e.pageX - track.offsetLeft;
       scrollLeft = track.scrollLeft;
-      triggerTemporaryPause(3000);
+      stopAutoPlay();
     });
 
     track.addEventListener("mouseleave", () => {
       isDown = false;
       isHovered = false;
       track.classList.remove("is-dragging");
+      startAutoPlay();
     });
 
     track.addEventListener("mouseenter", () => {
@@ -190,7 +215,7 @@
     track.addEventListener("mouseup", () => {
       isDown = false;
       track.classList.remove("is-dragging");
-      triggerTemporaryPause(2000);
+      pauseAndRestartAutoPlay();
     });
 
     track.addEventListener("mousemove", (e) => {
@@ -199,26 +224,28 @@
       const x = e.pageX - track.offsetLeft;
       const walk = (x - startX) * 1.5;
       track.scrollLeft = scrollLeft - walk;
-      checkLoopBounds();
     });
 
     // Touch events for mobile
-    track.addEventListener("touchstart", (e) => {
+    track.addEventListener("touchstart", () => {
       isDown = true;
-      triggerTemporaryPause(3000);
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      stopAutoPlay();
     }, { passive: true });
 
     track.addEventListener("touchend", () => {
       isDown = false;
       isHovered = false;
-      triggerTemporaryPause(2500);
+      pauseAndRestartAutoPlay();
     }, { passive: true });
 
     track.addEventListener("touchcancel", () => {
       isDown = false;
       isHovered = false;
-      triggerTemporaryPause(2500);
+      pauseAndRestartAutoPlay();
     }, { passive: true });
+
+    startAutoPlay();
 
     // Lightbox Popup Handling
     let currentIndex = 0;
@@ -238,7 +265,7 @@
       lightbox.classList.add("is-active");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
-      triggerTemporaryPause(10000);
+      stopAutoPlay();
     }
 
     function closeLightbox() {
@@ -246,7 +273,7 @@
       lightbox.classList.remove("is-active");
       lightbox.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
-      triggerTemporaryPause(1000);
+      pauseAndRestartAutoPlay();
     }
 
     if (lightboxClose) {
@@ -276,4 +303,5 @@
     });
   });
 })();
+
 
