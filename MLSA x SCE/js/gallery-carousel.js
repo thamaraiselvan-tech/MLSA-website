@@ -1,4 +1,4 @@
-// Gallery Carousel controller with touch drag, auto-play, navigation arrows, and Lightbox modal.
+// Gallery Carousel controller with continuous infinite marquee glide, touch drag, navigation controls, and Lightbox modal.
 
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
@@ -15,17 +15,19 @@
     const lightboxDate = document.getElementById("lightboxDate");
     const lightboxClose = document.getElementById("lightboxClose");
 
-    // 1. Render Gallery Cards (with duplicates for seamless infinite loop)
+    const originalItems = window.galleryData;
+    const N = originalItems.length;
+    if (N === 0) return;
+
+    // Render 3 sets of items for seamless infinite continuous looping
+    const itemsToRender = [...originalItems, ...originalItems, ...originalItems];
+
     renderGalleryCards();
 
     function renderGalleryCards() {
       track.innerHTML = "";
-      const originalItems = window.galleryData;
-      // Duplicate items to enable infinite forward loop
-      const itemsToRender = [...originalItems, ...originalItems];
-
       itemsToRender.forEach((item, realIndex) => {
-        const originalIndex = realIndex % originalItems.length;
+        const originalIndex = realIndex % N;
         const card = document.createElement("div");
         card.className = "gallery-card-item";
         card.setAttribute("role", "button");
@@ -57,99 +59,122 @@
 
         track.appendChild(card);
       });
+
+      // Initial scroll position to set 1 (middle set)
+      requestAnimationFrame(() => {
+        const firstSetStart = track.children[N];
+        if (firstSetStart) {
+          track.scrollLeft = firstSetStart.offsetLeft - track.offsetLeft;
+        }
+      });
     }
 
-    // 2. Carousel Controls & Drag/Swipe
     let isDown = false;
     let isHovered = false;
-    let startX;
-    let scrollLeft;
-    let autoPlayTimer = null;
-    let touchResumeTimer = null;
+    let isPausedByInteraction = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let pauseTimer = null;
+    let animFrameId = null;
+    let arrowAnimId = null;
 
-    // Scroll calculation helper
-    function getScrollStep() {
-      const firstCard = track.querySelector(".gallery-card-item");
-      if (!firstCard) return 320;
-      return firstCard.offsetWidth + 20; // card width + gap
+    const SPEED = 0.6; // pixels per frame continuous marquee speed
+
+    function getSingleSetWidth() {
+      const cards = track.children;
+      if (!cards || cards.length < 2 * N) return 0;
+      return cards[N].offsetLeft - cards[0].offsetLeft;
     }
 
-    function checkInfiniteLoopReset() {
-      const singleSetWidth = track.scrollWidth / 2;
-      if (!singleSetWidth) return;
-      if (track.scrollLeft >= singleSetWidth - 10) {
-        track.style.scrollSnapType = "none";
-        track.style.scrollBehavior = "auto";
-        track.scrollLeft -= singleSetWidth;
-        void track.offsetHeight;
-        track.style.scrollBehavior = "";
-        track.style.scrollSnapType = "";
-      } else if (track.scrollLeft <= 5) {
-        track.style.scrollSnapType = "none";
-        track.style.scrollBehavior = "auto";
-        track.scrollLeft += singleSetWidth;
-        void track.offsetHeight;
-        track.style.scrollBehavior = "";
-        track.style.scrollSnapType = "";
+    function checkLoopBounds() {
+      const setWidth = getSingleSetWidth();
+      if (setWidth <= 0) return;
+
+      const cards = track.children;
+      const set0Start = cards[0].offsetLeft - track.offsetLeft;
+      const set1Start = cards[N].offsetLeft - track.offsetLeft;
+      const set2Start = cards[2 * N].offsetLeft - track.offsetLeft;
+
+      // Reset seamlessly if scrolled into Set 2 or Set 0
+      if (track.scrollLeft >= set2Start - 10) {
+        track.scrollLeft -= setWidth;
+      } else if (track.scrollLeft <= set0Start + 10) {
+        track.scrollLeft += setWidth;
       }
     }
 
-    let animFrameId = null;
+    // Continuous marquee frame loop
+    function marqueeLoop() {
+      if (!isHovered && !isDown && !isPausedByInteraction) {
+        track.scrollLeft += SPEED;
+        checkLoopBounds();
+      }
+      animFrameId = requestAnimationFrame(marqueeLoop);
+    }
 
-    // Smooth gliding scroll helper with customizable duration (default 1200ms)
-    function smoothGlidedScroll(delta, duration = 1200) {
-      if (animFrameId) cancelAnimationFrame(animFrameId);
-      
-      const startLeft = track.scrollLeft;
-      const targetLeft = startLeft + delta;
+    animFrameId = requestAnimationFrame(marqueeLoop);
+
+    function triggerTemporaryPause(ms = 3000) {
+      isPausedByInteraction = true;
+      if (pauseTimer) clearTimeout(pauseTimer);
+      pauseTimer = setTimeout(() => {
+        isPausedByInteraction = false;
+      }, ms);
+    }
+
+    // Smooth button step animation
+    function smoothStepBy(amount, duration = 400) {
+      if (arrowAnimId) cancelAnimationFrame(arrowAnimId);
+      triggerTemporaryPause(3000);
+
+      const start = track.scrollLeft;
+      const target = start + amount;
       const startTime = performance.now();
 
-      // Temporarily disable scrollSnap during custom smooth animation
-      track.style.scrollSnapType = "none";
-
-      function step(currentTime) {
-        const elapsed = currentTime - startTime;
+      function step(now) {
+        const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
-        // Ease-out cubic curve (slow, graceful deceleration)
         const ease = 1 - Math.pow(1 - progress, 3);
-        track.scrollLeft = startLeft + (delta * ease);
+
+        track.scrollLeft = start + (amount * ease);
+        checkLoopBounds();
 
         if (progress < 1) {
-          animFrameId = requestAnimationFrame(step);
+          arrowAnimId = requestAnimationFrame(step);
         } else {
-          track.style.scrollSnapType = "";
-          animFrameId = null;
+          arrowAnimId = null;
         }
       }
+      arrowAnimId = requestAnimationFrame(step);
+    }
 
-      animFrameId = requestAnimationFrame(step);
+    function getScrollStep() {
+      const card = track.querySelector(".gallery-card-item");
+      if (!card) return 340;
+      const style = window.getComputedStyle(track);
+      const gap = parseFloat(style.gap) || 20;
+      return card.offsetWidth + gap;
     }
 
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
-        pauseAutoPlay();
-        checkInfiniteLoopReset();
-        smoothGlidedScroll(-getScrollStep(), 1200);
+        smoothStepBy(-getScrollStep(), 400);
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener("click", () => {
-        pauseAutoPlay();
-        checkInfiniteLoopReset();
-        smoothGlidedScroll(getScrollStep(), 1200);
+        smoothStepBy(getScrollStep(), 400);
       });
     }
 
-    // Mouse Drag gestures
+    // Mouse events
     track.addEventListener("mousedown", (e) => {
       isDown = true;
-      if (animFrameId) cancelAnimationFrame(animFrameId);
       track.classList.add("is-dragging");
       startX = e.pageX - track.offsetLeft;
       scrollLeft = track.scrollLeft;
-      pauseAutoPlay();
+      triggerTemporaryPause(3000);
     });
 
     track.addEventListener("mouseleave", () => {
@@ -165,6 +190,7 @@
     track.addEventListener("mouseup", () => {
       isDown = false;
       track.classList.remove("is-dragging");
+      triggerTemporaryPause(2000);
     });
 
     track.addEventListener("mousemove", (e) => {
@@ -173,59 +199,28 @@
       const x = e.pageX - track.offsetLeft;
       const walk = (x - startX) * 1.5;
       track.scrollLeft = scrollLeft - walk;
+      checkLoopBounds();
     });
 
-    // Mobile Touch events
-    track.addEventListener("touchstart", () => {
+    // Touch events for mobile
+    track.addEventListener("touchstart", (e) => {
       isDown = true;
-      if (animFrameId) cancelAnimationFrame(animFrameId);
-      pauseAutoPlay();
+      triggerTemporaryPause(3000);
     }, { passive: true });
 
     track.addEventListener("touchend", () => {
       isDown = false;
-      if (touchResumeTimer) clearTimeout(touchResumeTimer);
-      touchResumeTimer = setTimeout(startAutoPlay, 3000);
+      isHovered = false;
+      triggerTemporaryPause(2500);
     }, { passive: true });
 
     track.addEventListener("touchcancel", () => {
       isDown = false;
-      if (touchResumeTimer) clearTimeout(touchResumeTimer);
-      touchResumeTimer = setTimeout(startAutoPlay, 3000);
+      isHovered = false;
+      triggerTemporaryPause(2500);
     }, { passive: true });
 
-    // Auto Play loop - 3.5s pause with slow 1.2s smooth sliding transition
-    function startAutoPlay() {
-      if (autoPlayTimer) clearInterval(autoPlayTimer);
-      autoPlayTimer = setInterval(() => {
-        if (isHovered || isDown) return;
-        
-        const singleSetWidth = track.scrollWidth / 2;
-        if (singleSetWidth > 0 && track.scrollLeft >= singleSetWidth - 20) {
-          // Instantly reset scroll to start of set without animation
-          if (animFrameId) cancelAnimationFrame(animFrameId);
-          track.style.scrollSnapType = "none";
-          track.style.scrollBehavior = "auto";
-          track.scrollLeft -= singleSetWidth;
-          void track.offsetHeight;
-          track.style.scrollBehavior = "";
-          track.style.scrollSnapType = "";
-        }
-
-        smoothGlidedScroll(getScrollStep(), 1200);
-      }, 2500);
-    }
-
-    function pauseAutoPlay() {
-      if (autoPlayTimer) {
-        clearInterval(autoPlayTimer);
-        autoPlayTimer = null;
-      }
-    }
-
-    startAutoPlay();
-
-    // 3. Lightbox Popup Handling
+    // Lightbox Popup Handling
     let currentIndex = 0;
 
     function openLightbox(index) {
@@ -243,6 +238,7 @@
       lightbox.classList.add("is-active");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+      triggerTemporaryPause(10000);
     }
 
     function closeLightbox() {
@@ -250,6 +246,7 @@
       lightbox.classList.remove("is-active");
       lightbox.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      triggerTemporaryPause(1000);
     }
 
     if (lightboxClose) {
@@ -270,12 +267,13 @@
       if (e.key === "Escape") {
         closeLightbox();
       } else if (e.key === "ArrowRight") {
-        const nextIdx = (currentIndex + 1) % window.galleryData.length;
+        const nextIdx = (currentIndex + 1) % N;
         openLightbox(nextIdx);
       } else if (e.key === "ArrowLeft") {
-        const prevIdx = (currentIndex - 1 + window.galleryData.length) % window.galleryData.length;
+        const prevIdx = (currentIndex - 1 + N) % N;
         openLightbox(prevIdx);
       }
     });
   });
 })();
+
