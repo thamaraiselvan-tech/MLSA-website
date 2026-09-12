@@ -1,0 +1,11 @@
+# robots.txt — MLSA × Saranathan College of Engineering
+# Allows all search engines to crawl the entire site.
+
+User-agent: *
+Allow: /
+
+# Disallow internal/temporary files
+Disallow: /submission-form-snippet.html
+
+# Sitemap location (update domain when deployed)
+Sitemap: https://mlsa-sce.vercel.app/sitemap.xml
