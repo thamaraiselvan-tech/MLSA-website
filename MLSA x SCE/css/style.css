@@ -1841,3 +1841,32 @@ html.lenis, html.lenis body {
     transform: none !important;
   }
 }
+
+/* ---------- Mobile Responsive Alignment & Touch Polish ---------- */
+@media (max-width: 575.98px) {
+  /* Prevent horizontal page overflow on small screens */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Optimize card inner padding for mobile devices */
+  .card-fluent {
+    padding: 1.25rem !important;
+  }
+
+  /* Touch target sizes for links & buttons */
+  .btn, .nav-link, .dropdown-item {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Responsive typography line heights */
+  h1, .display-4, .display-5, .display-6 {
+    line-height: 1.25 !important;
+  }
+
+  h2, h3, h4 {
+    line-height: 1.35 !important;
+  }
+}
