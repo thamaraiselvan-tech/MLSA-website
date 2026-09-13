@@ -1,8 +1,9 @@
-// Smooth page transitions for internal link navigation.
-// Intercepts link clicks to display a subtle full-screen fade transition
-// before navigating, giving the site an integrated app-like feel.
-
+/**
+ * MLSA × SCE - Upgraded Page Transition Controller
+ */
 (function () {
+  'use strict';
+
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   // Create transition overlay element if missing
@@ -14,6 +15,12 @@
     document.body.appendChild(overlay);
   }
 
+  // Entrance animation on load
+  document.addEventListener("DOMContentLoaded", () => {
+    if (overlay) overlay.classList.remove("is-exiting");
+    document.body.style.opacity = "1";
+  });
+
   // Intercept internal link clicks
   document.addEventListener("click", (e) => {
     const link = e.target.closest("a");
@@ -22,7 +29,6 @@
     const href = link.getAttribute("href");
     if (!href) return;
 
-    // Skip anchors (#), javascript:, external links, target="_blank", or modifier key clicks
     if (
       href.startsWith("#") ||
       href.startsWith("javascript:") ||
@@ -36,7 +42,6 @@
       return;
     }
 
-    // Don't transition if navigating to the exact same page & search query
     try {
       const targetUrl = new URL(href, window.location.href);
       if (targetUrl.pathname === window.location.pathname && targetUrl.search === window.location.search) {
@@ -47,25 +52,25 @@
     }
 
     e.preventDefault();
-    
-    // Dismiss offcanvas mobile navigation drawer if open
+
+    // Dismiss offcanvas mobile nav if open
     const offcanvasEl = document.getElementById("navMenu");
     if (offcanvasEl && typeof bootstrap !== "undefined" && bootstrap.Offcanvas) {
       const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
       if (bsOffcanvas) bsOffcanvas.hide();
     }
 
-    overlay.classList.add("is-active");
+    overlay.classList.add("is-exiting");
 
     setTimeout(() => {
       window.location.href = href;
-    }, 300);
+    }, 280);
   });
 
-  // Handle bfcache (browser back/forward button restores state cleanly)
+  // Handle back/forward cache
   window.addEventListener("pageshow", (e) => {
     if (e.persisted) {
-      overlay.classList.remove("is-active");
+      overlay.classList.remove("is-exiting");
     }
   });
 })();

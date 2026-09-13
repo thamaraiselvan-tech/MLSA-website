@@ -941,12 +941,12 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--fluent-border);
-  margin-top: 1rem;
+  margin-top: 0;
 }
 
 @media (min-width: 768px) {
   .footer-mlsa {
-    margin-top: 5rem;
+    margin-top: 1.5rem;
   }
 }
 
@@ -1247,6 +1247,68 @@ html.lenis, html.lenis body {
   background: #ffffff;
   color: var(--fluent-primary);
   transform: scale(1.1);
+}
+
+/* ---------- Testimonial Single Card Slide/Fade Transition ---------- */
+.testimonial-card-wrapper {
+  transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1), transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+}
+
+.testimonial-card-wrapper.slide-out-next {
+  opacity: 0;
+  transform: translateX(-35px) scale(0.98);
+}
+
+.testimonial-card-wrapper.slide-out-prev {
+  opacity: 0;
+  transform: translateX(35px) scale(0.98);
+}
+
+.testimonial-card-wrapper.slide-in-next {
+  animation: testimonialSlideInNext 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.testimonial-card-wrapper.slide-in-prev {
+  animation: testimonialSlideInPrev 0.45s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes testimonialSlideInNext {
+  0% {
+    opacity: 0;
+    transform: translateX(35px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes testimonialSlideInPrev {
+  0% {
+    opacity: 0;
+    transform: translateX(-35px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.testimonial-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 5px;
+  border: none;
+  background: rgba(0, 120, 212, 0.2);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+}
+
+.testimonial-dot.active {
+  width: 28px;
+  background: var(--fluent-primary, #0078d4);
 }
 
 /* ---------- Gallery Lightbox Modal ---------- */
@@ -1578,6 +1640,147 @@ html.lenis, html.lenis body {
   text-overflow: ellipsis;
   font-size: 0.82rem;
   line-height: 1.4;
+}
+
+/* ---------- Feature #21: Announcement Banner ---------- */
+.announcement-banner {
+  background: linear-gradient(90deg, #0078d4, #005a9e, #8764b8);
+  color: #ffffff;
+  font-size: 0.82rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+  z-index: 1030;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.announcement-banner .announcement-link {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-left: 4px;
+}
+
+.announcement-banner .announcement-close {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  line-height: 1;
+  opacity: 0.8;
+  cursor: pointer;
+  padding: 0 4px;
+  margin-left: auto;
+  transition: opacity 0.2s;
+}
+
+.announcement-banner .announcement-close:hover {
+  opacity: 1;
+}
+
+/* ---------- Feature #20: Countdown Card ---------- */
+.timer-unit {
+  min-width: 60px;
+}
+
+.timer-box {
+  background: rgba(13, 17, 23, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 120, 212, 0.4);
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-family: monospace;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 120, 212, 0.15);
+}
+
+.timer-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--fluent-primary);
+  font-weight: 700;
+  margin-top: 4px;
+  display: block;
+}
+
+.timer-separator {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0078d4;
+  align-self: center;
+  margin-bottom: 18px;
+}
+
+/* ---------- Feature #27: Instagram Social Card ---------- */
+.social-instagram-card {
+  background: linear-gradient(135deg, rgba(225, 48, 108, 0.08) 0%, rgba(224, 86, 36, 0.08) 50%, rgba(64, 93, 230, 0.08) 100%);
+  border: 1px solid rgba(225, 48, 108, 0.25) !important;
+  border-radius: 16px;
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+}
+
+.social-instagram-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(225, 48, 108, 0.2);
+}
+
+.btn-share-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 120, 212, 0.08);
+  border: 1px solid rgba(0, 120, 212, 0.18);
+  color: var(--fluent-primary, #0078d4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+}
+
+.btn-share-icon:hover {
+  background: #0078d4;
+  color: #ffffff;
+  border-color: #0078d4;
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
+}
+
+.btn-share-icon:active {
+  transform: scale(0.96);
+}
+
+.contact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+.instagram-icon-gradient {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------- Feature #14: Upgraded Page Transitions ---------- */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--fluent-bg, #f3f9fd);
+  z-index: 999999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.page-transition-overlay.is-exiting {
+  opacity: 1;
+  pointer-events: all;
 }
 
 /* ---------- Respect reduced-motion ---------- */

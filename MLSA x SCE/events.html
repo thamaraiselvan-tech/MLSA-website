@@ -1,10 +1,52 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script src="js/error-boundary.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events - MLSA Saranathan</title>
   <meta name="description" content="Upcoming workshops, sessions, and meetups from the MLSA chapter at Saranathan College of Engineering." />
+
+  <!-- Preload Critical Assets -->
+  <link rel="preload" href="assets/mlsa-badge.png" as="image">
+  <link rel="preload" href="css/style.css?v=19" as="style">
+
+  <!-- PWA Manifest & Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MLSA SCE">
+
+  <!-- JSON-LD ItemList Schema for Events -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "MLSA SCE Chapter Events",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "Event",
+          "name": "Design Your Future - Portfolio Creation",
+          "startDate": "2026-07-18T10:00",
+          "location": { "@type": "Place", "name": "Online" }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "Event",
+          "name": "AI StartUp Arena",
+          "startDate": "2026-08-13T11:00",
+          "location": { "@type": "Place", "name": "Offline - Saranathan College of Engineering" }
+        }
+      }
+    ]
+  }
+  </script>
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -39,6 +81,29 @@
   </script>
 </head>
 <body>
+
+  <!-- ============ PAGE LOAD SCREEN ============ -->
+  <div id="pageLoadScreen" style="
+    position:fixed;inset:0;z-index:99999;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;
+    background:#f3f9fd;
+    transition:opacity 0.4s ease,visibility 0.4s ease;
+  ">
+    <img src="assets/mlsa-badge.png" alt="MLSA" width="52" height="52" style="animation:plsPulse 1.5s ease-in-out infinite;">
+    <div style="width:140px;height:3px;background:rgba(0,120,212,0.12);border-radius:4px;overflow:hidden;">
+      <div style="width:40%;height:100%;background:linear-gradient(90deg,#0078d4,#005a9e);border-radius:4px;animation:plsSlide 1.2s ease-in-out infinite;"></div>
+    </div>
+    <style>
+      @keyframes plsPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+      @keyframes plsSlide{0%{transform:translateX(-100%)}50%{transform:translateX(150%)}100%{transform:translateX(350%)}}
+    </style>
+  </div>
+  <script>
+    window.addEventListener("load",function(){
+      var s=document.getElementById("pageLoadScreen");
+      if(s){s.style.opacity="0";s.style.visibility="hidden";setTimeout(function(){s.remove()},500)}
+    });
+  </script>
 
   <!-- ============ NAVBAR ============ -->
   <nav class="navbar navbar-expand-md navbar-mlsa sticky-top">
@@ -149,6 +214,9 @@
   <script src="js/events.js?v=10"></script>
   <script src="js/motion-effects.js"></script>
   <script src="js/premium-scroll.js"></script>
+  <script src="js/scroll-progress.js"></script>
+  <script src="js/pull-to-refresh.js"></script>
   <script src="js/page-transitions.js"></script>
+  <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(()=>{})}</script>
 </body>
 </html>

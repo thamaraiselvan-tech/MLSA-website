@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found — MLSA · SCE</title>
+  <meta name="description" content="The page you're looking for doesn't exist." />
+  <meta name="theme-color" content="#0078d4" />
+  <link rel="icon" type="image/png" href="assets/mlsa-badge.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #f3f9fd;
+      color: #201f1e;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Animated ambient background */
+    .bg-ambient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0,120,212,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(135,100,184,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, #f3f9fd 0%, #e9f2fb 100%);
+    }
+
+    .bg-ambient::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,120,212,0.06) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .bg-ambient::after {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(135,100,184,0.05) 0%, transparent 70%);
+      bottom: -80px;
+      left: -80px;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -20px) scale(1.05); }
+    }
+
+    .error-container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      max-width: 520px;
+    }
+
+    .error-code {
+      font-size: clamp(6rem, 18vw, 10rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #0078d4 0%, #005a9e 40%, #8764b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      letter-spacing: -4px;
+      margin-bottom: 0.5rem;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .error-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      animation: fadeInUp 0.6s ease-out 0.1s both;
+    }
+
+    .error-message {
+      font-size: 0.95rem;
+      color: #605e5c;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    .error-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.6s ease-out 0.3s both;
+    }
+
+    .btn-primary-fluent {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      background: #0078d4;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0,120,212,0.25);
+    }
+
+    .btn-primary-fluent:hover {
+      background: #005a9e;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,120,212,0.35);
+    }
+
+    .btn-secondary-fluent {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.5rem;
+      background: rgba(0,0,0,0.04);
+      color: #201f1e;
+      border: 1px solid #e1e7ec;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-secondary-fluent:hover {
+      background: rgba(0,0,0,0.08);
+      border-color: #c8cdd2;
+      transform: translateY(-1px);
+    }
+
+    .error-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid #e1e7ec;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #605e5c;
+      backdrop-filter: blur(8px);
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    .error-badge img {
+      height: 18px;
+      width: auto;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating decorative shapes */
+    .shape {
+      position: fixed;
+      border-radius: 16px;
+      opacity: 0.08;
+      z-index: 0;
+    }
+
+    .shape-1 {
+      width: 80px; height: 80px;
+      background: #0078d4;
+      top: 15%; left: 8%;
+      transform: rotate(15deg);
+      animation: floatShape 7s ease-in-out infinite;
+    }
+
+    .shape-2 {
+      width: 50px; height: 50px;
+      background: #8764b8;
+      top: 25%; right: 12%;
+      border-radius: 50%;
+      animation: floatShape 9s ease-in-out infinite reverse;
+    }
+
+    .shape-3 {
+      width: 60px; height: 60px;
+      background: #0078d4;
+      bottom: 20%; right: 15%;
+      transform: rotate(-20deg);
+      animation: floatShape 8s ease-in-out infinite 1s;
+    }
+
+    .shape-4 {
+      width: 40px; height: 40px;
+      background: #8764b8;
+      bottom: 30%; left: 12%;
+      border-radius: 50%;
+      animation: floatShape 6s ease-in-out infinite 0.5s reverse;
+    }
+
+    @keyframes floatShape {
+      0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+      50% { transform: translateY(-15px) rotate(var(--r, 0deg)); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-ambient"></div>
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+  <div class="shape shape-3"></div>
+  <div class="shape shape-4"></div>
+
+  <div class="error-container">
+    <div class="error-code">404</div>
+    <h1 class="error-title">Page not found</h1>
+    <p class="error-message">
+      The page you're looking for doesn't exist or may have been moved.
+      Let's get you back on track.
+    </p>
+    <div class="error-actions">
+      <a href="index.html" class="btn-primary-fluent">
+        ← Back to Home
+      </a>
+      <a href="events.html" class="btn-secondary-fluent">
+        View Events
+      </a>
+    </div>
+    <div class="error-badge">
+      <img src="assets/mlsa-badge.png" alt="MLSA badge">
+      <span>MLSA · Saranathan College of Engineering</span>
+    </div>
+  </div>
+
+</body>
+</html>

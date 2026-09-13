@@ -1,10 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script src="js/error-boundary.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About - MLSA Saranathan</title>
   <meta name="description" content="Learn about the Microsoft Learn Student Ambassador chapter at Saranathan College of Engineering, Department of AI & Data Science." />
+
+  <!-- Preload Critical Assets -->
+  <link rel="preload" href="assets/mlsa-badge.png" as="image">
+  <link rel="preload" href="css/style.css" as="style">
+
+  <!-- PWA Manifest & Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MLSA SCE">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -39,6 +50,29 @@
   </script>
 </head>
 <body>
+
+  <!-- ============ PAGE LOAD SCREEN ============ -->
+  <div id="pageLoadScreen" style="
+    position:fixed;inset:0;z-index:99999;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;
+    background:#f3f9fd;
+    transition:opacity 0.4s ease,visibility 0.4s ease;
+  ">
+    <img src="assets/mlsa-badge.png" alt="MLSA" width="52" height="52" style="animation:plsPulse 1.5s ease-in-out infinite;">
+    <div style="width:140px;height:3px;background:rgba(0,120,212,0.12);border-radius:4px;overflow:hidden;">
+      <div style="width:40%;height:100%;background:linear-gradient(90deg,#0078d4,#005a9e);border-radius:4px;animation:plsSlide 1.2s ease-in-out infinite;"></div>
+    </div>
+    <style>
+      @keyframes plsPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+      @keyframes plsSlide{0%{transform:translateX(-100%)}50%{transform:translateX(150%)}100%{transform:translateX(350%)}}
+    </style>
+  </div>
+  <script>
+    window.addEventListener("load",function(){
+      var s=document.getElementById("pageLoadScreen");
+      if(s){s.style.opacity="0";s.style.visibility="hidden";setTimeout(function(){s.remove()},500)}
+    });
+  </script>
 
   <!-- ============ NAVBAR ============ -->
   <nav class="navbar navbar-expand-md navbar-mlsa sticky-top">
@@ -75,25 +109,155 @@
     </div>
   </nav>
 
-  <section class="container py-4 py-md-5">
-    <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">About</p>
-    <h1 class="h3 fw-bold mb-4">The Chapter</h1>
-
-    <div class="card-fluent p-4">
-      <p class="text-subtle mb-3">
-        This platform is run by the <strong>Microsoft Student Ambassadors of Saranathan College of
-        Engineering</strong>, Department of Artificial Intelligence and Data Science. The Microsoft
-        Learn Student Ambassador (MLSA) program connects students worldwide who are passionate about
-        technology, community building, and helping their peers learn — this is the chapter's
-        official home for daily updates, workshops, and event registration.
-      </p>
-      <p class="text-subtle mb-0">
-        Here you'll find announcements on certifications, hands-on sessions on Microsoft
-        technologies, and opportunities to get involved — whether that's attending a workshop,
-        joining a hackathon prep session, or just following along with what the chapter is building.
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="container py-4 py-md-5">
+    
+    <!-- Header / Title -->
+    <div class="text-center mx-auto mb-5" style="max-width: 780px;">
+      <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 font-monospace text-uppercase mb-2" style="font-size: 11px; letter-spacing: 1px;">Official Campus Platform</span>
+      <h1 class="display-6 fw-bold mb-3">About MLSA × SCE Chapter</h1>
+      <p class="text-secondary fs-6 lead mb-0">
+        Empowering campus innovation through Microsoft technology, peer mentorship, hands-on workshops, and real-world developer experiences.
       </p>
     </div>
-  </section>
+
+    <!-- Section 1: Our Chapter Mission -->
+    <div class="card-fluent p-4 p-md-5 mb-5 rounded-4" style="border: 1px solid rgba(0, 120, 212, 0.18) !important;">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-8">
+          <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">Our Purpose</p>
+          <h2 class="h4 fw-bold mb-3">Chapter Mission & Vision</h2>
+          <p class="text-subtle mb-3" style="line-height: 1.7;">
+            The <strong>MLSA × SCE Chapter</strong> was established within the <strong>Department of Artificial Intelligence and Data Science</strong> at Saranathan College of Engineering with a single core goal: to democratize cutting-edge tech skills and make cloud computing, AI, and developer tools accessible to every student on campus, regardless of prior experience.
+          </p>
+          <p class="text-subtle mb-0" style="line-height: 1.7;">
+            What started as a small cohort of passionate student builders has evolved into a thriving campus community. We organize structured learning paths, practical deployment sessions, Microsoft certification prep, and high-energy hackathons — equipping peers with industry-ready capabilities beyond standard textbook curricula.
+          </p>
+        </div>
+        <div class="col-12 col-lg-4 text-center">
+          <img src="assets/ms-sa.png" alt="MLSA Badge" class="img-fluid" style="max-width: 210px;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: What is the Global MLSA Program? -->
+    <div class="mb-5">
+      <div class="mb-4">
+        <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">The Worldwide Initiative</p>
+        <h2 class="h4 fw-bold mb-2">What is the Microsoft Learn Student Ambassadors Program?</h2>
+        <p class="text-subtle mb-0">
+          The global MLSA program brings together tech-passionate students from universities across the globe to learn, lead, and share knowledge.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <div class="card-fluent p-4 h-100 rounded-4">
+            <div class="feature-icon mb-3 fs-2 text-primary">⚡</div>
+            <h3 class="h6 fw-bold mb-2">Early Technology Access</h3>
+            <p class="text-subtle small mb-0" style="line-height: 1.6;">
+              Ambassadors receive access to Microsoft Azure cloud credits, Visual Studio Enterprise tools, Microsoft Copilot APIs, and exclusive developer preview resources to experiment and build campus solutions.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card-fluent p-4 h-100 rounded-4">
+            <div class="feature-icon mb-3 fs-2 text-primary">🌐</div>
+            <h3 class="h6 fw-bold mb-2">Peer Mentorship & Events</h3>
+            <p class="text-subtle small mb-0" style="line-height: 1.6;">
+              Ambassadors lead workshops, hackathons, and study groups on their own campus — gaining public speaking, leadership, and community management experience alongside global peers.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card-fluent p-4 h-100 rounded-4">
+            <div class="feature-icon mb-3 fs-2 text-primary">🏆</div>
+            <h3 class="h6 fw-bold mb-2">Milestone Recognition</h3>
+            <p class="text-subtle small mb-0" style="line-height: 1.6;">
+              Students advance through tiered ambassador milestones — <b>New</b>, <b>Alpha</b>, <b>Beta</b>, and <b>Gold</b> — unlocking mentorship from Microsoft MVPs, event sponsorships, and career guidance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: What We Do at SCE (Flagship Initiatives) -->
+    <div class="mb-5">
+      <div class="mb-4">
+        <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">Campus Pillars</p>
+        <h2 class="h4 fw-bold mb-2">Our Key Initiatives at Saranathan</h2>
+        <p class="text-subtle mb-0">How our chapter drives continuous skill development for engineering students.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-md-6">
+          <div class="p-4 bg-white rounded-4 border h-100 shadow-sm d-flex gap-3 align-items-start">
+            <div class="fs-3 text-primary flex-shrink-0">🎓</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">Hands-on Technical Workshops</h3>
+              <p class="text-subtle small mb-0" style="line-height: 1.6;">
+                Interactive coding bootcamps covering web development, cloud deployment on Vercel/Azure, AI prompt engineering, and GitHub workflows handled by student ambassadors.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-4 bg-white rounded-4 border h-100 shadow-sm d-flex gap-3 align-items-start">
+            <div class="fs-3 text-primary flex-shrink-0">📜</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">Certification & Azure Readiness</h3>
+              <p class="text-subtle small mb-0" style="line-height: 1.6;">
+                Guiding students through claiming free Azure for Students credits ($100), understanding cloud fundamentals, and preparing for official Microsoft certification exams.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-4 bg-white rounded-4 border h-100 shadow-sm d-flex gap-3 align-items-start">
+            <div class="fs-3 text-primary flex-shrink-0">🚀</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">Hackathons & Pitch Competitions</h3>
+              <p class="text-subtle small mb-0" style="line-height: 1.6;">
+                Flagship events like <i>AI StartUp Arena</i> where student teams ideate, prototype, and pitch AI startup concepts using Microsoft Copilot and Designer in 60 minutes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="p-4 bg-white rounded-4 border h-100 shadow-sm d-flex gap-3 align-items-start">
+            <div class="fs-3 text-primary flex-shrink-0">🤝</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">Open Community & Mentorship</h3>
+              <p class="text-subtle small mb-0" style="line-height: 1.6;">
+                An active WhatsApp community and peer network connecting junior students with senior mentors to solve project roadblocks, share resources, and collaborate.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Institutional Support -->
+    <div class="card-fluent p-4 p-md-5 rounded-4 border mb-4">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-md-3 text-center">
+          <img src="assets/college-logo.png" alt="Saranathan College Logo" class="img-fluid" style="max-width: 140px;">
+        </div>
+        <div class="col-12 col-md-9">
+          <h2 class="h5 fw-bold mb-2">Department & Faculty Collaboration</h2>
+          <p class="text-subtle small mb-0" style="line-height: 1.7;">
+            The MLSA × SCE Chapter operates with institutional backing from the <b>Department of Artificial Intelligence and Data Science</b> at Saranathan College of Engineering, under the guidance of Dr. S. Ravimaran (Head of the Department). This collaboration ensures student initiatives receive guidance, venue support, and academic visibility across campus.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </main>
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer-mlsa">
@@ -142,6 +306,9 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
   <script src="js/motion-effects.js"></script>
   <script src="js/premium-scroll.js"></script>
+  <script src="js/scroll-progress.js"></script>
+  <script src="js/pull-to-refresh.js"></script>
   <script src="js/page-transitions.js"></script>
+  <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(()=>{})}</script>
 </body>
 </html>

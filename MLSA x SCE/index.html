@@ -1,10 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script src="js/error-boundary.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MLSA - Saranathan College of Engineering</title>
   <meta name="description" content="Official platform for the Microsoft Learn Student Ambassador chapter — daily updates, events, and registration." />
+
+  <!-- Preload Critical Assets -->
+  <link rel="preload" href="assets/mlsa-badge.png" as="image">
+  <link rel="preload" href="css/style.css?v=19" as="style">
+
+  <!-- PWA Manifest & Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MLSA SCE">
+
+  <!-- JSON-LD Structured Data for Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MLSA · Saranathan College of Engineering",
+    "url": "https://mlsa-sce.vercel.app",
+    "logo": "https://mlsa-sce.vercel.app/assets/mlsa-badge.png",
+    "sameAs": ["https://www.instagram.com/mlsa_sce"]
+  }
+  </script>
 
   <!-- Open Graph (WhatsApp, LinkedIn, Facebook) -->
   <meta property="og:type" content="website" />
@@ -40,6 +63,33 @@
 </head>
 <body>
 
+  <!-- ============ PAGE LOAD SCREEN (shows instantly on slow connections) ============ -->
+  <div id="pageLoadScreen" style="
+    position:fixed;inset:0;z-index:99999;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;
+    background:#f3f9fd;
+    transition:opacity 0.4s ease,visibility 0.4s ease;
+  ">
+    <img src="assets/mlsa-badge.png" alt="MLSA" width="52" height="52" style="animation:plsPulse 1.5s ease-in-out infinite;">
+    <div style="
+      width:140px;height:3px;background:rgba(0,120,212,0.12);border-radius:4px;overflow:hidden;
+    ">
+      <div style="
+        width:40%;height:100%;background:linear-gradient(90deg,#0078d4,#005a9e);border-radius:4px;
+        animation:plsSlide 1.2s ease-in-out infinite;
+      "></div>
+    </div>
+    <style>
+      @keyframes plsPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+      @keyframes plsSlide{0%{transform:translateX(-100%)}50%{transform:translateX(150%)}100%{transform:translateX(350%)}}
+    </style>
+  </div>
+  <script>
+    window.addEventListener("load",function(){
+      var s=document.getElementById("pageLoadScreen");
+      if(s){s.style.opacity="0";s.style.visibility="hidden";setTimeout(function(){s.remove()},500)}
+    });
+  </script>
   <!-- ============ SITE LOADER (plays once per session) ============ -->
   <div id="siteLoader" class="site-loader">
     <video id="loaderVideo" class="site-loader-video" autoplay muted playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" preload="auto">
@@ -47,6 +97,30 @@
     </video>
     <button id="loaderSkip" class="site-loader-skip" type="button" aria-label="Skip intro">Skip &rarr;</button>
   </div>
+
+  <!-- ============ ANNOUNCEMENT BANNER ============ -->
+  <div id="announcementBanner" class="announcement-banner" style="display:none;">
+    <div class="container d-flex align-items-center justify-content-center gap-2 flex-wrap text-center">
+      <span>🔥</span>
+      <span><b>AI StartUp Arena</b> winners announced & event gallery is live!</span>
+      <a href="winners.html" class="announcement-link">View Winners &rarr;</a>
+      <button class="announcement-close" onclick="dismissBanner()" aria-label="Dismiss banner">&times;</button>
+    </div>
+  </div>
+  <script>
+    if (!sessionStorage.getItem('bannerDismissed')) {
+      var ab = document.getElementById('announcementBanner');
+      if (ab) ab.style.display = 'block';
+    }
+    function dismissBanner() {
+      var b = document.getElementById('announcementBanner');
+      if (b) {
+        b.style.opacity = '0';
+        setTimeout(function() { b.remove(); }, 300);
+      }
+      sessionStorage.setItem('bannerDismissed', 'true');
+    }
+  </script>
 
   <!-- ============ NAVBAR ============ -->
   <nav class="navbar navbar-expand-md navbar-mlsa sticky-top">
@@ -124,6 +198,9 @@
     </div>
   </section>
 
+  <!-- ============ EVENT COUNTDOWN ============ -->
+  <section id="nextEventCountdown" class="container py-3" style="display:none;"></section>
+
   <!-- ============ UPDATES FEED ============ -->
   <section class="container py-4 py-md-5">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
@@ -173,16 +250,20 @@
   <section id="about" class="container py-4 py-md-5">
     <div class="row align-items-center g-4 g-lg-5 justify-content-center">
       <div class="col-12 col-md-4 col-lg-3 text-center text-md-start">
-        <img src="assets/ms-sa.png" alt="Microsoft Learn Student Ambassador badge" class="img-fluid" style="max-width: 250px;">
+        <img src="assets/ms-sa.png" alt="Microsoft Learn Student Ambassador badge" class="img-fluid" style="max-width: 210px;">
       </div>
       <div class="col-12 col-md-8 col-lg-7">
         <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">About</p>
         <h2 class="h3 fw-bold mb-3">The Chapter</h2>
-        <p class="text-subtle mb-3">
-          We're the Microsoft Learn Student Ambassadors of Saranathan College of Engineering, Department of Artificial Intelligence and Data Science — a student-run community helping peers learn Microsoft technologies through workshops, certifications, and hands-on events. Our chapter was built with a simple goal: make cutting-edge technology accessible to every student on campus, regardless of their background or prior experience.
-           <br><br>Beyond technical workshops, we run flagship initiatives like hackathons and startup ideation events that give students real, hands-on exposure to building and shipping projects. What started as a small group of enthusiasts has grown into an active community driving innovation, collaboration, and continuous learning across the department.
+        <p class="text-subtle mb-3" style="line-height: 1.7; font-size: 0.95rem;">
+          We are the Microsoft Learn Student Ambassadors of <b>Saranathan College of Engineering (Dept. of Artificial Intelligence and Data Science)</b> — a student-driven tech community committed to making cutting-edge technology accessible to everyone on campus. Our chapter organizes hands-on Azure cloud workshops, Microsoft certification bootcamps, and flagship hackathons like <i>AI StartUp Arena</i>. Through peer-to-peer mentorship and practical project building, we empower students across departments to bridge the gap between academic theory and real-world industry skills.
         </p>
-        <a href="about.html" class="link-fluent small">Read more about the chapter &rarr;</a>
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2">🎓 Hands-on Workshops</span>
+          <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2">📜 Azure Certifications</span>
+          <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2">🚀 Flagship Hackathons</span>
+        </div>
+        <a href="about.html" class="btn btn-outline-primary btn-sm rounded-pill px-4 py-2 fw-semibold">Read Full Chapter Story &rarr;</a>
       </div>
     </div>
   </section>
@@ -190,18 +271,38 @@
   <hr class="section-divider">
 
   <!-- ============ WHAT IS MLSA ============ -->
-  <section id="what-is-mlsa" class="section-alt">
-    <div class="container py-4 py-md-5">
+  <section id="what-is-mlsa" class="section-alt py-4 py-md-5">
+    <div class="container">
       <div class="row align-items-center g-4 g-lg-5 justify-content-center">
         <div class="col-12 col-md-8 col-lg-7 order-2 order-md-1">
-          <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">The Program</p>
+          <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">The Global Program</p>
           <h2 class="h3 fw-bold mb-3">What is MLSA?</h2>
-          <p class="text-subtle mb-0">
-            The Microsoft Learn Student Ambassadors (MLSA) program is a global community of student leaders passionate about technology. Ambassadors get early access to Microsoft tools and resources, mentorship opportunities, and the chance to lead workshops, hackathons, and study groups on their own campus — earning recognition through tiered badges like Associate along the way. The program is designed to bridge the gap between academic learning and industry-ready skills, giving students a platform to teach, build, and grow alongside a worldwide network of peers. <br> <br> It's as much about developing leadership and communication skills as it is about technology, since ambassadors are expected to organize events, mentor juniors, and represent their institution within the broader Microsoft Learn network. For many students, MLSA becomes a launchpad — opening doors to internships, certifications, and a lasting network of like-minded builders.
+          <p class="text-subtle mb-4" style="line-height: 1.7; font-size: 0.95rem;">
+            The <b>Microsoft Learn Student Ambassadors (MLSA)</b> program is a global network of passionate student leaders dedicated to technology, community building, and peer learning. Ambassadors receive early access to Microsoft developer tools, Azure cloud credits, and mentorship from industry MVPs to host campus workshops and study circles. Designed to foster both technical expertise and leadership qualities, MLSA serves as a launchpad for students to build real-world software, earn industry certifications, and connect with a global community of innovators.
           </p>
+          <div class="row g-3">
+            <div class="col-12 col-sm-4">
+              <div class="p-3 bg-white rounded-3 border h-100 shadow-sm">
+                <div class="fw-bold text-primary mb-1" style="font-size: 0.88rem;">⚡ Early Tech Access</div>
+                <div class="text-subtle small">Azure credits, Copilot tools, and Microsoft developer resources.</div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="p-3 bg-white rounded-3 border h-100 shadow-sm">
+                <div class="fw-bold text-primary mb-1" style="font-size: 0.88rem;">🌐 Global Network</div>
+                <div class="text-subtle small">Connect with student builders & Microsoft MVPs worldwide.</div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="p-3 bg-white rounded-3 border h-100 shadow-sm">
+                <div class="fw-bold text-primary mb-1" style="font-size: 0.88rem;">🏆 Tiered Badges</div>
+                <div class="text-subtle small">Milestones & recognition from New to Gold Ambassador.</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-12 col-md-4 col-lg-3 text-center text-md-start order-1 order-md-2">
-          <img src="assets/Program-badge.png" alt="Microsoft Learn Student Ambassadors" class="img-fluid rounded-3" style="max-width: 190px;margin-left: 20px;">
+        <div class="col-12 col-md-4 col-lg-3 text-center order-1 order-md-2">
+          <img src="assets/Program-badge.png" alt="Microsoft Learn Student Ambassadors" class="img-fluid rounded-3" style="max-width: 180px;">
         </div>
       </div>
     </div>
@@ -244,27 +345,82 @@
       </div>
     </div>
   </section>
-  <br>
+  <!-- ============ TESTIMONIALS ============ -->
+  <section id="testimonials" class="section-alt py-5">
+    <div class="container text-center">
+      <p class="text-fluent-primary fw-semibold small text-uppercase mb-1"><i class="bi bi-patch-check-fill me-1 text-success"></i> Genuine Students Feedback</p>
+      <h2 class="h3 fw-bold mb-2">What Students Say</h2>
+      <p class="text-subtle small mb-4 mx-auto" style="max-width: 620px;">
+        Real, unedited feedback submitted by participants through official post-event feedback forms.
+      </p>
+      <div id="testimonialTrack" class="position-relative"></div>
+    </div>
+  </section>
+
   <hr class="section-divider">
 
   <!-- ============ CONTACT ============ -->
   <section id="contact" style="background: var(--fluent-bg);">
-    <div class="container py-4 py-md-5 text-center">
+    <div class="container pt-4 pb-3 pt-md-4 pb-md-3 text-center">
       <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">Get in touch</p>
-      <h2 class="h3 fw-bold mb-3">Contact us</h2>
-      <div class="card-fluent p-4 mx-auto text-start" style="max-width: 32rem;">
-        <p class="text-subtle small mb-3">Questions about the chapter, want to collaborate, or interested in joining the core team? Reach out.</p>
-        <ul class="list-unstyled small mb-0">
-            <li class="mb-2"><i class="bi bi-instagram" style="color: #E1306C;"></i> <a href="https://www.instagram.com/mlsa_sce?igsh=MTg5bWdjeHpqeXJidg==" class="link-fluent">  Instagram</a></li>
-            <li class="mb-0"><i class="bi bi-whatsapp" style="color: #25D366;"></i> <a href="https://chat.whatsapp.com/GVYIwJOGfIBFzmBXpIcuxA" class="link-fluent">  WhatsApp community</a></li>
-        </ul>
+      <h2 class="h3 fw-bold mb-4">Contact us & Connect</h2>
+      
+      <div class="row g-4 justify-content-center mx-auto" style="max-width: 840px;">
+        <!-- Instagram Card -->
+        <div class="col-12 col-md-6 d-flex">
+          <a href="https://www.instagram.com/mlsa_sce?igsh=MTg5bWdjeHpqeXJidg==" target="_blank" rel="noopener" class="text-decoration-none text-reset w-100 d-flex">
+            <div class="contact-card p-4 rounded-4 bg-white border h-100 w-100 d-flex flex-column justify-content-between text-start" style="
+              border-color: rgba(225, 48, 108, 0.25) !important;
+              box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+            ">
+              <div>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <i class="bi bi-instagram fs-2 instagram-icon-gradient"></i>
+                  <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-3 py-1 font-monospace" style="font-size: 11px;">@mlsa_sce</span>
+                </div>
+                <h3 class="h5 fw-bold text-dark mb-2">Follow our Instagram</h3>
+                <p class="text-secondary small mb-3">Catch real-time stories, workshop highlights, and event updates.</p>
+              </div>
+              <div class="d-flex align-items-center gap-1 text-danger fw-semibold small mt-auto">
+                <span>View Profile</span>
+                <i class="bi bi-arrow-up-right ms-1"></i>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- WhatsApp Card -->
+        <div class="col-12 col-md-6 d-flex">
+          <a href="https://chat.whatsapp.com/GVYIwJOGfIBFzmBXpIcuxA" target="_blank" rel="noopener" class="text-decoration-none text-reset w-100 d-flex">
+            <div class="contact-card p-4 rounded-4 bg-white border h-100 w-100 d-flex flex-column justify-content-between text-start" style="
+              border-color: rgba(37, 211, 102, 0.25) !important;
+              box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+            ">
+              <div>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <i class="bi bi-whatsapp fs-2 text-success"></i>
+                  <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 font-monospace" style="font-size: 11px;">Official Group</span>
+                </div>
+                <h3 class="h5 fw-bold text-dark mb-2">Join WhatsApp Community</h3>
+                <p class="text-secondary small mb-3">Get instant notifications for event registrations and learning paths.</p>
+              </div>
+              <div class="d-flex align-items-center gap-1 text-success fw-semibold small mt-auto">
+                <span>Join Community Chat</span>
+                <i class="bi bi-arrow-up-right ms-1"></i>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
+
     </div>
   </section>
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer-mlsa">
-    <div class="container py-4 py-md-5">
+    <div class="container pt-4 pb-3 pt-md-4 pb-md-4">
       <div class="row g-4 g-md-5">
         <div class="col-12 col-md-5">
           <p class="fw-semibold mb-1">MLSA &middot; Saranathan College of Engineering</p>
@@ -327,11 +483,18 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
   <script src="data/updates.js"></script>
   <script src="data/gallery.js"></script>
+  <script src="data/events.js"></script>
+  <script src="data/testimonials.js"></script>
   <script src="js/home.js"></script>
   <script src="js/gallery-carousel.js?v=19"></script>
   <script src="js/motion-effects.js"></script>
   <script src="js/site-loader.js?v=20"></script>
   <script src="js/premium-scroll.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/testimonials.js"></script>
+  <script src="js/scroll-progress.js"></script>
+  <script src="js/pull-to-refresh.js"></script>
   <script src="js/page-transitions.js"></script>
+  <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(()=>{})}</script>
 </body>
 </html>

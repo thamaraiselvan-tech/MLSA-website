@@ -37,7 +37,10 @@
 
         card.innerHTML = `
           <div class="gallery-card-inner">
-            <img src="${item.image}" alt="${item.title}" loading="lazy" class="gallery-card-img">
+            <picture>
+              <source srcset="${item.image}" type="image/webp">
+              <img src="${item.fallback || item.image}" alt="${item.title}" loading="lazy" class="gallery-card-img">
+            </picture>
             <div class="gallery-card-overlay">
               <span class="badge gallery-badge mb-2">${item.category}</span>
               <h3 class="gallery-card-title h6 fw-bold mb-1">${item.title}</h3>

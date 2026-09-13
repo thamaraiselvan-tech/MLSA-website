@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're Offline — MLSA · SCE</title>
+  <meta name="theme-color" content="#0078d4" />
+  <link rel="icon" type="image/png" href="assets/mlsa-badge.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #f3f9fd;
+      color: #201f1e;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .bg-ambient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 25% 35%, rgba(0,120,212,0.07) 0%, transparent 50%),
+        radial-gradient(circle at 75% 65%, rgba(135,100,184,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, #f3f9fd 0%, #e9f2fb 100%);
+    }
+
+    .offline-container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      max-width: 480px;
+    }
+
+    /* Animated WiFi icon */
+    .wifi-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      animation: fadeInDown 0.5s ease-out;
+    }
+
+    .wifi-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wifi-bar {
+      fill: none;
+      stroke: #0078d4;
+      stroke-width: 3;
+      stroke-linecap: round;
+      opacity: 0.2;
+    }
+
+    .wifi-bar.animate {
+      animation: pulse-bar 2s ease-in-out infinite;
+    }
+
+    .wifi-bar-1.animate { animation-delay: 0s; }
+    .wifi-bar-2.animate { animation-delay: 0.3s; }
+    .wifi-bar-3.animate { animation-delay: 0.6s; }
+
+    .wifi-dot {
+      fill: #0078d4;
+      opacity: 0.3;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .wifi-slash {
+      stroke: #a80000;
+      stroke-width: 3;
+      stroke-linecap: round;
+      opacity: 0.7;
+    }
+
+    @keyframes pulse-bar {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 0.7; }
+    }
+
+    .offline-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      animation: fadeInUp 0.5s ease-out 0.1s both;
+    }
+
+    .offline-message {
+      font-size: 0.95rem;
+      color: #605e5c;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.5s ease-out 0.2s both;
+    }
+
+    .offline-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.5s ease-out 0.3s both;
+    }
+
+    .btn-retry {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.6rem;
+      background: #0078d4;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0,120,212,0.25);
+    }
+
+    .btn-retry:hover {
+      background: #005a9e;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,120,212,0.35);
+    }
+
+    .btn-retry:active {
+      transform: translateY(0);
+    }
+
+    .btn-retry .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    .btn-retry.is-loading .spinner { display: inline-block; }
+    .btn-retry.is-loading .btn-text { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.45rem 1rem;
+      background: rgba(168,0,0,0.06);
+      border: 1px solid rgba(168,0,0,0.15);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #a80000;
+      animation: fadeInUp 0.5s ease-out 0.4s both;
+      transition: all 0.3s ease;
+    }
+
+    .status-indicator.is-online {
+      background: rgba(16,124,16,0.06);
+      border-color: rgba(16,124,16,0.15);
+      color: #107c10;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #a80000;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    .status-indicator.is-online .status-dot {
+      background: #107c10;
+      animation: none;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .error-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0.45rem 0.9rem;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid #e1e7ec;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #605e5c;
+      backdrop-filter: blur(6px);
+      animation: fadeInUp 0.5s ease-out 0.5s both;
+    }
+
+    .error-badge img { height: 16px; width: auto; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-ambient"></div>
+
+  <div class="offline-container">
+    <!-- Animated WiFi-off icon -->
+    <div class="wifi-icon">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <path class="wifi-bar wifi-bar-3 animate" d="M8 24 C18 12, 46 12, 56 24" />
+        <path class="wifi-bar wifi-bar-2 animate" d="M16 34 C22 26, 42 26, 48 34" />
+        <path class="wifi-bar wifi-bar-1 animate" d="M24 43 C28 38, 36 38, 40 43" />
+        <circle class="wifi-dot" cx="32" cy="52" r="3.5" />
+        <line class="wifi-slash" x1="12" y1="14" x2="52" y2="54" />
+      </svg>
+    </div>
+
+    <h1 class="offline-title">You're offline</h1>
+    <p class="offline-message">
+      It looks like your internet connection dropped.
+      Check your Wi-Fi or mobile data and try again.
+    </p>
+
+    <div class="offline-actions">
+      <button class="btn-retry" id="retryBtn" onclick="retryConnection()">
+        <span class="btn-text">↻ Try Again</span>
+        <span class="spinner"></span>
+      </button>
+    </div>
+
+    <div class="status-indicator" id="statusIndicator">
+      <span class="status-dot"></span>
+      <span id="statusText">No connection</span>
+    </div>
+
+    <div class="error-badge">
+      <img src="assets/mlsa-badge.png" alt="MLSA">
+      <span>MLSA · Saranathan College of Engineering</span>
+    </div>
+  </div>
+
+  <script>
+    function retryConnection() {
+      const btn = document.getElementById("retryBtn");
+      btn.classList.add("is-loading");
+
+      setTimeout(() => {
+        if (navigator.onLine) {
+          window.location.href = "index.html";
+        } else {
+          btn.classList.remove("is-loading");
+          const indicator = document.getElementById("statusIndicator");
+          indicator.style.animation = "none";
+          void indicator.offsetHeight;
+          indicator.style.animation = "fadeInUp 0.3s ease-out both";
+        }
+      }, 1500);
+    }
+
+    // Auto-detect when connection comes back
+    window.addEventListener("online", () => {
+      const indicator = document.getElementById("statusIndicator");
+      const statusText = document.getElementById("statusText");
+      indicator.classList.add("is-online");
+      statusText.textContent = "Back online — redirecting...";
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1200);
+    });
+
+    window.addEventListener("offline", () => {
+      const indicator = document.getElementById("statusIndicator");
+      const statusText = document.getElementById("statusText");
+      indicator.classList.remove("is-online");
+      statusText.textContent = "No connection";
+    });
+  </script>
+
+</body>
+</html>

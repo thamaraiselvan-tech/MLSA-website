@@ -23,6 +23,31 @@ function isEventClosed(event) {
 
 let activeEventFilter = "all";
 
+window.shareEvent = function(e, title, tagline, id) {
+  e.preventDefault();
+  e.stopPropagation();
+  const url = window.location.origin + window.location.pathname.replace(/events\.html.*$/, '') + 'event.html?id=' + id;
+  if (navigator.share) {
+    navigator.share({
+      title: title,
+      text: tagline || title,
+      url: url
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url).then(() => {
+      const toast = document.createElement('div');
+      Object.assign(toast.style, {
+        position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)',
+        background: '#0078d4', color: '#fff', padding: '8px 16px', borderRadius: '20px',
+        fontSize: '12px', zIndex: '99999', boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+      });
+      toast.textContent = 'Link copied to clipboard!';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2500);
+    });
+  }
+};
+
 function eventCardHtml(event) {
   const { month, day, fullDate, time } = formatEventDate(event.date);
   const closed = isEventClosed(event);
@@ -50,7 +75,12 @@ function eventCardHtml(event) {
                 <span class="event-month">${month}</span>
                 <span class="event-day">${day}</span>
               </div>
-              ${statusPill}
+              <div class="d-flex align-items-center gap-2">
+                ${statusPill}
+                <button onclick="shareEvent(event, '${escapeHtml(event.title)}', '${escapeHtml(event.tagline || '')}', ${event.id})" class="btn-share-icon" title="Share event" aria-label="Share event">
+                  <i class="bi bi-share"></i>
+                </button>
+              </div>
             </div>
             
             <h3 class="event-card-title fw-bold text-dark mb-1">${escapeHtml(event.title)}</h3>

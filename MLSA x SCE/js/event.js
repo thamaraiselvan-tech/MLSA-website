@@ -55,6 +55,28 @@ function renderEvent(event) {
   document.getElementById("eventLoading").classList.add("d-none");
   document.getElementById("eventContent").classList.remove("d-none");
 
+  // Dynamic JSON-LD Structured Data Injection (#32)
+  try {
+    const schemaScript = document.createElement("script");
+    schemaScript.type = "application/ld+json";
+    schemaScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": event.title,
+      "description": event.description,
+      "startDate": event.date,
+      "location": {
+        "@type": "Place",
+        "name": event.location || "Saranathan College of Engineering"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "MLSA SCE"
+      }
+    });
+    document.head.appendChild(schemaScript);
+  } catch (err) {}
+
   if (event.image) {
     const imgEl = document.getElementById("eventImage");
     imgEl.src = event.image;
@@ -68,6 +90,22 @@ function renderEvent(event) {
   }
 
   document.getElementById("eventTitle").textContent = event.title;
+
+  const shareBtn = document.getElementById("eventShareBtn");
+  if (shareBtn) {
+    shareBtn.onclick = (e) => {
+      if (window.shareEvent) {
+        window.shareEvent(e, event.title, event.tagline || '', event.id);
+      } else if (navigator.share) {
+        navigator.share({ title: event.title, text: event.tagline || event.title, url: window.location.href }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert('Link copied to clipboard!');
+        });
+      }
+    };
+  }
+
   document.getElementById("eventDescription").textContent = event.description;
   if (event.linkUrl) {
     const linkEl = document.getElementById("eventLink");
