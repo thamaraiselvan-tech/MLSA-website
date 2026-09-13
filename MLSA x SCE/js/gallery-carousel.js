@@ -14,6 +14,7 @@
     const lightboxCategory = document.getElementById("lightboxCategory");
     const lightboxDate = document.getElementById("lightboxDate");
     const lightboxClose = document.getElementById("lightboxClose");
+    const lightboxBlurBg = document.getElementById("lightboxBlurBg");
 
     const originalItems = window.galleryData;
     const N = originalItems.length;
@@ -258,6 +259,7 @@
       if (!item || !lightbox) return;
       currentIndex = index;
 
+      if (lightboxBlurBg) lightboxBlurBg.src = item.image;
       lightboxImg.src = item.image;
       lightboxImg.alt = item.title;
       lightboxTitle.textContent = item.title;
