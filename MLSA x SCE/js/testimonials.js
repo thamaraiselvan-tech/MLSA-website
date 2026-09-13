@@ -18,7 +18,7 @@
             return `
                 <div class="testimonial-card-container position-relative mx-auto" style="max-width: 760px;">
                     <!-- Outer Card -->
-                    <div class="testimonial-card rounded-4 p-4 p-md-5 text-start position-relative overflow-hidden" style="
+                    <div class="testimonial-card rounded-4 p-4 p-md-5 text-start position-relative overflow-hidden d-flex flex-column justify-content-between" style="
                         background: linear-gradient(145deg, #ffffff 0%, #f8fbfe 100%);
                         border: 1px solid rgba(0, 120, 212, 0.16);
                         box-shadow: 0 12px 36px rgba(0, 120, 212, 0.08);
@@ -35,10 +35,10 @@
                             </div>
                         </div>
 
-                        <!-- Quote Icon & Text -->
-                        <div class="position-relative mb-4">
+                        <!-- Quote Icon & Text (Flex-grow for uniform height across all quotes) -->
+                        <div class="position-relative mb-4 my-auto flex-grow-1 d-flex align-items-center testimonial-quote-container">
                             <i class="bi bi-quote position-absolute" style="top: -15px; left: -10px; font-size: 48px; color: rgba(0, 120, 212, 0.12); pointer-events: none;"></i>
-                            <p class="testimonial-quote mb-0 text-dark" style="
+                            <p class="testimonial-quote mb-0 text-dark w-100" style="
                                 font-size: 1.05rem;
                                 line-height: 1.75;
                                 font-weight: 500;
@@ -50,8 +50,8 @@
                             </p>
                         </div>
 
-                        <!-- Footer: Avatar + Author Info + Navigation Controls -->
-                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 pt-3 border-top" style="border-color: rgba(0, 120, 212, 0.1) !important;">
+                        <!-- Footer: Avatar + Author Info + Navigation Controls (Pinned at bottom) -->
+                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 pt-3 border-top mt-auto" style="border-color: rgba(0, 120, 212, 0.1) !important;">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="avatar-circle rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm" style="
                                     width: 46px;
