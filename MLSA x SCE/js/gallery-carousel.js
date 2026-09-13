@@ -268,6 +268,7 @@
       lightbox.classList.add("is-active");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
       stopAutoPlay();
     }
 
@@ -276,6 +277,7 @@
       lightbox.classList.remove("is-active");
       lightbox.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
+      document.body.style.touchAction = "";
       pauseAndRestartAutoPlay();
     }
 
