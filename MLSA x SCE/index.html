@@ -98,29 +98,8 @@
     <button id="loaderSkip" class="site-loader-skip" type="button" aria-label="Skip intro">Skip &rarr;</button>
   </div>
 
-  <!-- ============ ANNOUNCEMENT BANNER ============ -->
-  <div id="announcementBanner" class="announcement-banner" style="display:none;">
-    <div class="container d-flex align-items-center justify-content-center gap-2 flex-wrap text-center">
-      <span>🔥</span>
-      <span><b>AI StartUp Arena</b> winners announced & event gallery is live!</span>
-      <a href="winners.html" class="announcement-link">View Winners &rarr;</a>
-      <button class="announcement-close" onclick="dismissBanner()" aria-label="Dismiss banner">&times;</button>
-    </div>
-  </div>
-  <script>
-    if (!sessionStorage.getItem('bannerDismissed')) {
-      var ab = document.getElementById('announcementBanner');
-      if (ab) ab.style.display = 'block';
-    }
-    function dismissBanner() {
-      var b = document.getElementById('announcementBanner');
-      if (b) {
-        b.style.opacity = '0';
-        setTimeout(function() { b.remove(); }, 300);
-      }
-      sessionStorage.setItem('bannerDismissed', 'true');
-    }
-  </script>
+  <!-- ============ ANNOUNCEMENT BANNER (Dynamically loaded when registration is open) ============ -->
+  <div id="announcementBanner" class="announcement-banner" style="display:none;"></div>
 
   <!-- ============ NAVBAR ============ -->
   <nav class="navbar navbar-expand-md navbar-mlsa sticky-top">
@@ -484,6 +463,7 @@
   <script src="data/updates.js"></script>
   <script src="data/gallery.js"></script>
   <script src="data/events.js"></script>
+  <script src="js/announcement.js"></script>
   <script src="data/testimonials.js"></script>
   <script src="js/home.js"></script>
   <script src="js/gallery-carousel.js?v=19"></script>
