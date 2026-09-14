@@ -176,21 +176,24 @@
       }
     }
 
-    function pauseAndRestartAutoPlay() {
+    let resumeTimeout = null;
+
+    function pauseAndRestartAutoPlay(delay = 3000) {
       stopAutoPlay();
-      setTimeout(startAutoPlay, 4000);
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(startAutoPlay, delay);
     }
 
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
-        pauseAndRestartAutoPlay();
+        pauseAndRestartAutoPlay(3000);
         stepBackward();
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener("click", () => {
-        pauseAndRestartAutoPlay();
+        pauseAndRestartAutoPlay(3000);
         stepForward();
       });
     }
@@ -209,7 +212,7 @@
       isDown = false;
       isHovered = false;
       track.classList.remove("is-dragging");
-      startAutoPlay();
+      pauseAndRestartAutoPlay(3000);
     });
 
     track.addEventListener("mouseenter", () => {

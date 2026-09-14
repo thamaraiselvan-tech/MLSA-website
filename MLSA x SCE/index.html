@@ -289,40 +289,363 @@
 
   <hr class="section-divider">
 
-  <!-- ============ OUR ROLE ============ -->
-  <section id="our-role" class="container pt-4 pt-md-5 pb-5 mb-3 text-center">
-    <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">Our Role</p>
-    <h2 class="h3 fw-bold mb-2 mb-md-3">What we do at SCE</h2> <br>
-    <div class="row g-3 g-md-4 justify-content-center">
-      <div class="col-6 col-md-3">
-        <div class="role-card-square p-3 p-md-3 h-100">
-          <div class="role-card-icon mb-2">🎓</div>
-          <h3 class="role-card-title h6 fw-bold mb-2">Workshops</h3>
-          <p class="role-card-desc text-subtle small mb-0">Hands-on sessions on Azure, AI, and Microsoft tools.</p>
-        </div>
+  <!-- ============ OUR ROLE: NEXT-LEVEL INTERACTIVE TECH STAGE ============ -->
+  <section id="our-role" class="container pt-4 pt-md-5 pb-5 mb-4">
+    <div class="text-center mb-4 mb-md-5">
+      <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 font-monospace text-uppercase mb-2" style="font-size: 11px; letter-spacing: 1px;">The SCE Student Journey</span>
+      <h2 class="display-6 fw-bold mb-2">What We Do at SCE</h2>
+      <p class="text-subtle mb-0 mx-auto" style="max-width: 640px;">Experience how our chapter empowers Saranathan engineering students through practical AI bootcamps, certifications, hackathons, and active mentorship.</p>
+    </div>
+
+    <!-- Floating Interactive Tab Selector -->
+    <div class="d-flex align-items-center justify-content-center gap-2 mb-4 flex-wrap">
+      <div class="pillar-tab-bar">
+        <button class="pillar-nav-btn active" data-pillar="0">
+          <i class="bi bi-laptop-fill me-1.5"></i>Workshops
+        </button>
+        <button class="pillar-nav-btn" data-pillar="1">
+          <i class="bi bi-patch-check-fill me-1.5"></i>Certifications
+        </button>
+        <button class="pillar-nav-btn" data-pillar="2">
+          <i class="bi bi-trophy-fill me-1.5"></i>Competitions
+        </button>
+        <button class="pillar-nav-btn" data-pillar="3">
+          <i class="bi bi-people-fill me-1.5"></i>Community
+        </button>
       </div>
-      <div class="col-6 col-md-3">
-        <div class="role-card-square p-3 p-md-3 h-100">
-          <div class="role-card-icon mb-2">📜</div>
-          <h3 class="role-card-title h6 fw-bold mb-2">Certifications</h3>
-          <p class="role-card-desc text-subtle small mb-0">Helping peers prepare for and pass Microsoft exams.</p>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="role-card-square p-3 p-md-3 h-100">
-          <div class="role-card-icon mb-2">🏆</div>
-          <h3 class="role-card-title h6 fw-bold mb-2">Competitions</h3>
-          <p class="role-card-desc text-subtle small mb-0">Hackathons & challenges that turn ideas into projects.</p>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="role-card-square p-3 p-md-3 h-100">
-          <div class="role-card-icon mb-2">🤝</div>
-          <h3 class="role-card-title h6 fw-bold mb-2">Community</h3>
-          <p class="role-card-desc text-subtle small mb-0">Connecting students who love building with tech.</p>
+    </div>
+
+    <!-- Main Interactive Stage Canvas -->
+    <div class="pillar-stage-canvas" id="pillarStageCanvas">
+      <div class="pillar-stage-backdrop" id="pillarStageBackdrop"></div>
+
+      <div class="pillar-stage-viewport overflow-hidden w-100">
+        <div class="pillar-stage-track d-flex" id="pillarStageTrack">
+          
+          <!-- Slide 0: Workshops -->
+          <div class="pillar-stage-slide active" data-slide="0">
+            <div class="row align-items-center g-4 g-lg-5">
+              <div class="col-12 col-lg-6">
+                <div class="pillar-slide-badge azure">
+                  <i class="bi bi-cpu-fill me-1.5"></i> PILLAR 01 &middot; LEARN
+                </div>
+                <h3 class="pillar-slide-title">Hands-on Technical Workshops</h3>
+                <p class="pillar-slide-desc">
+                  Interactive coding bootcamps covering web development, cloud deployment on Vercel & Azure, AI prompt engineering, and GitHub workflows handled by student ambassadors.
+                </p>
+                <div class="pillar-feature-list mb-4">
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i> Real-world deployment on Azure & Vercel
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i> Live prompt engineering & Copilot AI labs
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i> GitHub repository portfolio building
+                  </div>
+                </div>
+                <a href="events.html" class="btn btn-fluent-primary rounded-pill px-4 py-2">
+                  Explore Workshops <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="pillar-visual-card azure">
+                  <div class="code-editor-mockup">
+                    <div class="code-editor-header">
+                      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                      <span class="editor-title">workshop-demo.js</span>
+                    </div>
+                    <pre class="code-editor-body"><code><span class="c-purple">import</span> { CopilotClient } <span class="c-purple">from</span> <span class="c-green">'@azure/ai'</span>;
+
+<span class="c-blue">const</span> app = <span class="c-blue">new</span> CopilotClient();
+<span class="c-blue">await</span> app.deployToAzure({
+  chapter: <span class="c-green">'MLSA SCE'</span>,
+  college: <span class="c-green">'Saranathan'</span>,
+  status: <span class="c-green">'Active Workshop'</span>
+});</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 1: Certifications -->
+          <div class="pillar-stage-slide" data-slide="1">
+            <div class="row align-items-center g-4 g-lg-5">
+              <div class="col-12 col-lg-6">
+                <div class="pillar-slide-badge amber">
+                  <i class="bi bi-award-fill me-1.5"></i> PILLAR 02 &middot; CERTIFY
+                </div>
+                <h3 class="pillar-slide-title">Certification & Azure Credits</h3>
+                <p class="pillar-slide-desc">
+                  Guiding students to claim free $100 Azure for Students credits, understand cloud fundamentals, and pass official Microsoft certification exams with structured study paths.
+                </p>
+                <div class="pillar-feature-list mb-4">
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-warning me-2"></i> Free $100 Azure Cloud Credits activation
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-warning me-2"></i> AZ-900 & AI-900 exam preparation tracks
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-warning me-2"></i> Official Microsoft digital badge recognition
+                  </div>
+                </div>
+                <a href="https://learn.microsoft.com" target="_blank" rel="noopener" class="btn btn-fluent-primary rounded-pill px-4 py-2">
+                  Microsoft Learn Portal <i class="bi bi-box-arrow-up-right ms-1"></i>
+                </a>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="pillar-visual-card amber text-center p-4">
+                  <div class="cert-badge-showcase">
+                    <div class="cert-icon-circle">
+                      <i class="bi bi-patch-check-fill"></i>
+                    </div>
+                    <h4 class="h5 fw-bold mb-1" style="color: #002050;">Microsoft Certified</h4>
+                    <p class="text-subtle small mb-3">Azure Cloud & AI Fundamentals</p>
+                    <div class="d-inline-flex gap-2 flex-wrap justify-content-center">
+                      <span class="badge bg-warning-subtle text-warning border px-3 py-1.5 rounded-pill"><i class="bi bi-lightning-fill me-1"></i> $100 Credits</span>
+                      <span class="badge bg-primary-subtle text-primary border px-3 py-1.5 rounded-pill"><i class="bi bi-shield-check me-1"></i> Official Exam</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Competitions -->
+          <div class="pillar-stage-slide" data-slide="2">
+            <div class="row align-items-center g-4 g-lg-5">
+              <div class="col-12 col-lg-6">
+                <div class="pillar-slide-badge purple">
+                  <i class="bi bi-trophy-fill me-1.5"></i> PILLAR 03 &middot; COMPETE
+                </div>
+                <h3 class="pillar-slide-title">Hackathons & Pitch Arena</h3>
+                <p class="pillar-slide-desc">
+                  Flagship innovation challenges like <i>AI StartUp Arena</i> where student teams build startup concepts using Microsoft Copilot & Designer in 60 minutes.
+                </p>
+                <div class="pillar-feature-list mb-4">
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-purple me-2"></i> 60-Minute rapid startup ideation
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-purple me-2"></i> Microsoft Copilot & Designer AI workflow
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-purple me-2"></i> Cash prizes, swag kits & certificates
+                  </div>
+                </div>
+                <a href="events.html" class="btn btn-fluent-primary rounded-pill px-4 py-2">
+                  View Hackathons <i class="bi bi-trophy ms-1"></i>
+                </a>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="pillar-visual-card purple text-center p-4">
+                  <div class="arena-podium-showcase">
+                    <div class="trophy-glowing-icon">🏆</div>
+                    <h4 class="h5 fw-bold mb-1" style="color: #002050;">AI StartUp Arena</h4>
+                    <p class="text-subtle small mb-3">60-Min AI Innovation Challenge</p>
+                    <div class="d-flex justify-content-center gap-2">
+                      <span class="badge bg-primary-subtle text-primary border px-3 py-1.5 rounded-pill">🥇 1st Place: Team MARK 44</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3: Community -->
+          <div class="pillar-stage-slide" data-slide="3">
+            <div class="row align-items-center g-4 g-lg-5">
+              <div class="col-12 col-lg-6">
+                <div class="pillar-slide-badge teal">
+                  <i class="bi bi-people-fill me-1.5"></i> PILLAR 04 &middot; CONNECT
+                </div>
+                <h3 class="pillar-slide-title">Active Community & Mentorship</h3>
+                <p class="pillar-slide-desc">
+                  An active WhatsApp community and peer network connecting junior students with senior mentors to solve project roadblocks, share resources, and collaborate.
+                </p>
+                <div class="pillar-feature-list mb-4">
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i> Dedicated WhatsApp group for Instant Q&A
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i> Senior student mentorship for college projects
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i> Peer code reviews & career guidance
+                  </div>
+                </div>
+                <a href="about.html" class="btn btn-fluent-primary rounded-pill px-4 py-2">
+                  Meet Ambassadors <i class="bi bi-heart ms-1"></i>
+                </a>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="pillar-visual-card teal text-center p-4">
+                  <div class="community-card-showcase">
+                    <div class="whatsapp-icon-glowing">
+                      <i class="bi bi-whatsapp"></i>
+                    </div>
+                    <h4 class="h5 fw-bold mb-1" style="color: #002050;">MLSA SCE WhatsApp Hub</h4>
+                    <p class="text-subtle small mb-3">Connecting 200+ Saranathan Builders</p>
+                    <span class="badge bg-success-subtle text-success border px-3 py-1.5 rounded-pill"><i class="bi bi-shield-check me-1"></i> Open Peer Network</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
+
+    <!-- Script to handle Pillar Stage Tab Switching & Smooth Flex Sliding -->
+    <script>
+      (function() {
+        const btns = document.querySelectorAll('.pillar-nav-btn');
+        const slides = document.querySelectorAll('.pillar-stage-slide');
+        const stageTrack = document.getElementById('pillarStageTrack');
+        const canvas = document.getElementById('pillarStageCanvas');
+        const backdrop = document.getElementById('pillarStageBackdrop');
+        const backdrops = [
+          'radial-gradient(circle, rgba(0, 120, 212, 0.14) 0%, rgba(255, 255, 255, 0) 70%)',
+          'radial-gradient(circle, rgba(242, 153, 74, 0.16) 0%, rgba(255, 255, 255, 0) 70%)',
+          'radial-gradient(circle, rgba(135, 100, 184, 0.16) 0%, rgba(255, 255, 255, 0) 70%)',
+          'radial-gradient(circle, rgba(37, 211, 102, 0.14) 0%, rgba(255, 255, 255, 0) 70%)'
+        ];
+        let currentIndex = 0;
+        let autoRotateTimer = null;
+        let isHovered = false;
+        let isDragging = false;
+        let startX = 0;
+        let currentDragOffset = 0;
+
+        function showPillar(index, animate = true) {
+          currentIndex = (index + slides.length) % slides.length;
+          if (stageTrack) {
+            stageTrack.style.transition = animate ? 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
+            stageTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+          }
+          btns.forEach((btn, i) => btn.classList.toggle('active', i === currentIndex));
+          slides.forEach((slide, i) => slide.classList.toggle('active', i === currentIndex));
+          if (backdrop && backdrops[currentIndex]) {
+            backdrop.style.background = backdrops[currentIndex];
+          }
+        }
+
+        btns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const idx = parseInt(this.getAttribute('data-pillar'), 10);
+            showPillar(idx, true);
+            resetAutoRotate();
+          });
+        });
+
+        if (canvas && stageTrack) {
+          canvas.addEventListener('mouseenter', () => { isHovered = true; });
+          canvas.addEventListener('mouseleave', () => { isHovered = false; isDragging = false; resetAutoRotate(); });
+
+          // Mouse Drag
+          stageTrack.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            currentDragOffset = 0;
+            stageTrack.style.transition = 'none';
+            stopAutoRotate();
+          });
+
+          window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentDragOffset = e.clientX - startX;
+            const trackWidth = canvas.offsetWidth || 1;
+            const percent = (currentDragOffset / trackWidth) * 100;
+            stageTrack.style.transform = `translateX(calc(-${currentIndex * 100}% + ${percent}%))`;
+          });
+
+          window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            const threshold = 45;
+            if (currentDragOffset < -threshold) {
+              showPillar(currentIndex + 1, true);
+            } else if (currentDragOffset > threshold) {
+              showPillar(currentIndex - 1, true);
+            } else {
+              showPillar(currentIndex, true);
+            }
+            currentDragOffset = 0;
+            resetAutoRotate();
+          });
+
+          // Touch Swipe
+          let touchStartX = 0;
+          let touchMoveX = 0;
+
+          stageTrack.addEventListener('touchstart', (e) => {
+            if (!e.touches || !e.touches[0]) return;
+            isDragging = true;
+            touchStartX = e.touches[0].clientX;
+            touchMoveX = touchStartX;
+            stageTrack.style.transition = 'none';
+            stopAutoRotate();
+          }, { passive: true });
+
+          stageTrack.addEventListener('touchmove', (e) => {
+            if (!isDragging || !e.touches || !e.touches[0]) return;
+            touchMoveX = e.touches[0].clientX;
+            const diffX = touchMoveX - touchStartX;
+            const trackWidth = canvas.offsetWidth || 1;
+            const percent = (diffX / trackWidth) * 100;
+            stageTrack.style.transform = `translateX(calc(-${currentIndex * 100}% + ${percent}%))`;
+          }, { passive: true });
+
+          stageTrack.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            const diffX = touchMoveX - touchStartX;
+            const threshold = 45;
+            if (diffX < -threshold) {
+              showPillar(currentIndex + 1, true);
+            } else if (diffX > threshold) {
+              showPillar(currentIndex - 1, true);
+            } else {
+              showPillar(currentIndex, true);
+            }
+            touchStartX = 0;
+            touchMoveX = 0;
+            resetAutoRotate();
+          }, { passive: true });
+        }
+
+        let resumeTimeout = null;
+
+        function startAutoRotate() {
+          if (autoRotateTimer) clearInterval(autoRotateTimer);
+          autoRotateTimer = setInterval(() => {
+            if (!isHovered && !isDragging) {
+              showPillar(currentIndex + 1, true);
+            }
+          }, 5000);
+        }
+
+        function stopAutoRotate() {
+          if (autoRotateTimer) clearInterval(autoRotateTimer);
+          if (resumeTimeout) clearTimeout(resumeTimeout);
+        }
+
+        function resetAutoRotate(delay = 3000) {
+          stopAutoRotate();
+          resumeTimeout = setTimeout(() => {
+            if (!isHovered && !isDragging) {
+              showPillar(currentIndex + 1, true);
+            }
+            startAutoRotate();
+          }, delay);
+        }
+
+        startAutoRotate();
+      })();
+    </script>
   </section>
   <!-- ============ TESTIMONIALS ============ -->
   <section id="testimonials" class="section-alt py-5">

@@ -178,18 +178,26 @@
             renderTestimonial(newIndex, 'next');
         }
 
+        let resumeTimeout = null;
+
         function startTimer() {
             if (autoRotateTimer) clearInterval(autoRotateTimer);
+            if (resumeTimeout) clearTimeout(resumeTimeout);
             autoRotateTimer = setInterval(nextSlide, 5500); // Smooth 5.5s interval
         }
 
-        function resetTimer() {
-            startTimer();
+        function resetTimer(delay = 3000) {
+            if (autoRotateTimer) clearInterval(autoRotateTimer);
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => {
+                nextSlide();
+                startTimer();
+            }, delay);
         }
 
-        // Restart auto-rotation immediately on mouse leave
+        // Restart auto-rotation 3s after mouse leave
         track.addEventListener('mouseleave', () => {
-            resetTimer();
+            resetTimer(3000);
         });
 
         // Touch swipe tracking on mobile
