@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <script src="js/error-boundary.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About - MLSA Saranathan</title>
-  <meta name="description" content="Learn about the Microsoft Learn Student Ambassador chapter at Saranathan College of Engineering, Department of AI & Data Science." />
+  <meta name="description"
+    content="Learn about the Microsoft Learn Student Ambassador chapter at Saranathan College of Engineering, Department of AI & Data Science." />
 
   <!-- Preload Critical Assets -->
   <link rel="preload" href="assets/mlsa-badge.png" as="image">
@@ -20,7 +22,8 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="About — MLSA · Saranathan College of Engineering" />
-  <meta property="og:description" content="Learn about the Microsoft Learn Student Ambassador chapter at Saranathan College of Engineering, Department of AI & Data Science." />
+  <meta property="og:description"
+    content="Learn about the Microsoft Learn Student Ambassador chapter at Saranathan College of Engineering, Department of AI & Data Science." />
   <meta property="og:image" content="https://mlsa-sce.vercel.app/assets/mlsa-badge.png" />
   <meta property="og:url" content="https://mlsa-sce.vercel.app/about.html" />
   <meta property="og:site_name" content="MLSA · SCE" />
@@ -28,7 +31,8 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="About — MLSA · Saranathan College of Engineering" />
-  <meta name="twitter:description" content="Learn about the Microsoft Learn Student Ambassador chapter at Saranathan College of Engineering, Department of AI & Data Science." />
+  <meta name="twitter:description"
+    content="Learn about the Microsoft Learn Student Ambassador chapter at Saranathan College of Engineering, Department of AI & Data Science." />
   <meta name="twitter:image" content="https://mlsa-sce.vercel.app/assets/mlsa-badge.png" />
 
   <meta name="theme-color" content="#0078d4" />
@@ -42,13 +46,14 @@
 
   <!-- Microsoft Clarity Analytics -->
   <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window,document,"clarity","script","yhbajb5ukp");
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "yhbajb5ukp");
   </script>
 </head>
+
 <body>
 
   <!-- ============ PAGE LOAD SCREEN ============ -->
@@ -58,19 +63,47 @@
     background:#f3f9fd;
     transition:opacity 0.4s ease,visibility 0.4s ease;
   ">
-    <img src="assets/mlsa-badge.png" alt="MLSA" width="52" height="52" style="animation:plsPulse 1.5s ease-in-out infinite;">
+    <img src="assets/mlsa-badge.png" alt="MLSA" width="52" height="52"
+      style="animation:plsPulse 1.5s ease-in-out infinite;">
     <div style="width:140px;height:3px;background:rgba(0,120,212,0.12);border-radius:4px;overflow:hidden;">
-      <div style="width:40%;height:100%;background:linear-gradient(90deg,#0078d4,#005a9e);border-radius:4px;animation:plsSlide 1.2s ease-in-out infinite;"></div>
+      <div
+        style="width:40%;height:100%;background:linear-gradient(90deg,#0078d4,#005a9e);border-radius:4px;animation:plsSlide 1.2s ease-in-out infinite;">
+      </div>
     </div>
     <style>
-      @keyframes plsPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
-      @keyframes plsSlide{0%{transform:translateX(-100%)}50%{transform:translateX(150%)}100%{transform:translateX(350%)}}
+      @keyframes plsPulse {
+
+        0%,
+        100% {
+          opacity: .6;
+          transform: scale(1)
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.05)
+        }
+      }
+
+      @keyframes plsSlide {
+        0% {
+          transform: translateX(-100%)
+        }
+
+        50% {
+          transform: translateX(150%)
+        }
+
+        100% {
+          transform: translateX(350%)
+        }
+      }
     </style>
   </div>
   <script>
-    window.addEventListener("load",function(){
-      var s=document.getElementById("pageLoadScreen");
-      if(s){s.style.opacity="0";s.style.visibility="hidden";setTimeout(function(){s.remove()},500)}
+    window.addEventListener("load", function () {
+      var s = document.getElementById("pageLoadScreen");
+      if (s) { s.style.opacity = "0"; s.style.visibility = "hidden"; setTimeout(function () { s.remove() }, 500) }
     });
   </script>
 
@@ -78,15 +111,16 @@
   <nav class="navbar navbar-expand-md navbar-mlsa sticky-top">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img src="assets/college-logo.png" alt="Saranathan College of Engineering logo" class="brand-badge brand-sce">
-        <span class="brand-divider d-none d-md-inline-block"></span>
-        <img src="assets/mlsa-badge.png" alt="Microsoft Learn Student Ambassador badge" class="brand-badge brand-mlsa">
+        <img src="assets/college-logo.png" alt="Saranathan College of Engineering logo" class="brand-badge">
+        <span class="brand-divider"></span>
+        <img src="assets/mlsa-badge.png" alt="Microsoft Learn Student Ambassador badge" class="brand-badge">
         <span class="brand-text">
           <span class="title d-block">MLSA &middot; SCE</span>
           <span class="subtitle d-none d-sm-block">Dept. of AI &amp; Data Science</span>
         </span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMenu" aria-controls="navMenu" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="offcanvas-md offcanvas-end" tabindex="-1" id="navMenu" aria-labelledby="navMenuLabel">
@@ -95,7 +129,8 @@
             <img src="assets/mlsa-badge.png" alt="MLSA" style="height: 28px;">
             <span class="fw-bold fs-6 text-dark" id="navMenuLabel">Navigation</span>
           </div>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#navMenu" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#navMenu"
+            aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav ms-auto align-items-md-center gap-1">
@@ -111,18 +146,21 @@
 
   <!-- ============ MAIN CONTENT ============ -->
   <main class="container py-4 py-md-5">
-    
+
     <!-- Hero Banner with Radiant Glow -->
     <div class="about-hero-card mb-5 text-center text-md-start">
       <div class="about-hero-glow"></div>
       <div class="row align-items-center g-4">
         <div class="col-12 col-lg-8">
-          <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 font-monospace text-uppercase mb-3" style="font-size: 11px; letter-spacing: 1px;">Official Campus Platform</span>
+          <span
+            class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 font-monospace text-uppercase mb-3"
+            style="font-size: 11px; letter-spacing: 1px;">Official Campus Platform</span>
           <h1 class="display-6 fw-bold mb-3" style="color: #002050;">MLSA × SCE Chapter</h1>
           <p class="text-secondary fs-6 lead mb-4" style="line-height: 1.7;">
-            Empowering students through Microsoft cloud technology, peer mentorship, practical coding bootcamps, and real-world developer experiences.
+            Empowering students through Microsoft technologies, peer mentorship, practical coding bootcamps, and
+            real-world developer experiences.
           </p>
-          
+
           <!-- Chapter Info Chips -->
           <div class="d-flex align-items-center gap-2.5 flex-wrap justify-content-center justify-content-md-start">
             <div class="about-stats-chip">
@@ -142,7 +180,8 @@
 
         <div class="col-12 col-lg-4 text-center d-none d-lg-block">
           <div class="p-3 position-relative d-inline-block">
-            <img src="assets/mlsa-badge.png" alt="MLSA Emblem" style="max-width: 170px; filter: drop-shadow(0 14px 30px rgba(0,120,212,0.22));">
+            <img src="assets/mlsa-badge.png" alt="MLSA Emblem"
+              style="max-width: 170px; filter: drop-shadow(0 14px 30px rgba(0,120,212,0.22));">
           </div>
         </div>
       </div>
@@ -151,15 +190,18 @@
     <!-- Section 1: Chapter Leadership & Student Ambassadors (1st Position) -->
     <div class="mb-5">
       <div class="mb-4 text-center">
-        <p class="text-fluent-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 1px;">Chapter Leadership</p>
+        <p class="text-fluent-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 1px;">Chapter
+          Leadership</p>
         <h2 class="h4 fw-bold mb-2" style="color: #002050;">Student Ambassadors & Lead Organizers</h2>
-        <p class="text-subtle mb-0 mx-auto" style="max-width: 600px;">Spearheading technical workshops, community engagement, and student innovation at Saranathan.</p>
+        <p class="text-subtle mb-0 mx-auto" style="max-width: 600px;">Spearheading technical workshops, community
+          engagement, and student innovation at Saranathan.</p>
       </div>
 
       <div class="row g-4 justify-content-center">
         <!-- Ambassador 1 (Luxury Card) -->
         <div class="col-12 col-sm-6 col-md-5 col-lg-4">
-          <div class="ambassador-luxury-card p-4 h-100 text-center d-flex flex-column align-items-center justify-content-between">
+          <div
+            class="ambassador-luxury-card p-4 h-100 text-center d-flex flex-column align-items-center justify-content-between">
             <div class="d-flex flex-column align-items-center w-100">
               <!-- Profile Avatar Ring -->
               <div class="avatar-glowing-ring mb-3">
@@ -168,10 +210,10 @@
                   <i class="bi bi-patch-check-fill"></i>
                 </div>
               </div>
-              
+
               <!-- Name -->
               <h3 class="h5 fw-bold mb-2" style="color: #002050; letter-spacing: -0.3px;">Thamarai Selvan S</h3>
-              
+
               <!-- Luxury Badge for Role -->
               <div class="ambassador-luxury-badge mb-3">
                 <i class="bi bi-microsoft me-1" style="font-size: 11px;"></i>
@@ -180,7 +222,8 @@
             </div>
 
             <!-- Dept & Year Details -->
-            <div class="pt-3 border-top w-100 mt-2 d-flex align-items-center justify-content-center gap-2 flex-wrap" style="border-color: rgba(0, 120, 212, 0.12) !important;">
+            <div class="pt-3 border-top w-100 mt-2 d-flex align-items-center justify-content-center gap-2 flex-wrap"
+              style="border-color: rgba(0, 120, 212, 0.12) !important;">
               <span class="ambassador-detail-pill">
                 <i class="bi bi-cpu-fill text-primary me-1"></i> Dept of AI & DS
               </span>
@@ -193,7 +236,8 @@
 
         <!-- Ambassador 2 (Luxury Card) -->
         <div class="col-12 col-sm-6 col-md-5 col-lg-4">
-          <div class="ambassador-luxury-card p-4 h-100 text-center d-flex flex-column align-items-center justify-content-between">
+          <div
+            class="ambassador-luxury-card p-4 h-100 text-center d-flex flex-column align-items-center justify-content-between">
             <div class="d-flex flex-column align-items-center w-100">
               <!-- Profile Avatar Ring -->
               <div class="avatar-glowing-ring mb-3">
@@ -202,10 +246,10 @@
                   <i class="bi bi-patch-check-fill"></i>
                 </div>
               </div>
-              
+
               <!-- Name -->
               <h3 class="h5 fw-bold mb-2" style="color: #002050; letter-spacing: -0.3px;">Vijayaragavan V</h3>
-              
+
               <!-- Luxury Badge for Role -->
               <div class="ambassador-luxury-badge mb-3">
                 <i class="bi bi-microsoft me-1" style="font-size: 11px;"></i>
@@ -214,7 +258,8 @@
             </div>
 
             <!-- Dept & Year Details -->
-            <div class="pt-3 border-top w-100 mt-2 d-flex align-items-center justify-content-center gap-2 flex-wrap" style="border-color: rgba(0, 120, 212, 0.12) !important;">
+            <div class="pt-3 border-top w-100 mt-2 d-flex align-items-center justify-content-center gap-2 flex-wrap"
+              style="border-color: rgba(0, 120, 212, 0.12) !important;">
               <span class="ambassador-detail-pill">
                 <i class="bi bi-cpu-fill text-primary me-1"></i> Dept of AI & DS
               </span>
@@ -236,14 +281,20 @@
           </div>
         </div>
         <div class="col-12 col-md-9 text-center text-md-start">
-          <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 font-monospace mb-2" style="font-size: 10px;">Institutional Backing</span>
+          <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 font-monospace mb-2"
+            style="font-size: 10px;">Institutional Backing</span>
           <h2 class="h5 fw-bold mb-2" style="color: #002050;">Department Collaboration & Guidance</h2>
           <p class="text-subtle small mb-3" style="line-height: 1.75;">
-            The MLSA × SCE Chapter operates under the institutional guidance of the <b>Department of Artificial Intelligence and Data Science</b> at Saranathan College of Engineering, led by <b>Dr. S. Ravimaran (Head of Department)</b>. This strong academic synergy ensures all student-led technical workshops, certifications, and hackathons receive official venue support and academic visibility.
+            The MLSA × SCE Chapter operates under the institutional guidance of the <b>Department of Artificial
+              Intelligence and Data Science</b> at Saranathan College of Engineering, led by <b>Dr. S. Ravimaran (Head
+              of Department)</b>. This strong academic synergy ensures all student-led technical workshops,
+            certifications, and hackathons receive official venue support and academic visibility.
           </p>
           <div class="d-inline-flex gap-2 flex-wrap justify-content-center justify-content-md-start">
-            <span class="badge bg-white border text-dark shadow-sm px-3 py-1.5 rounded-pill"><i class="bi bi-building me-1 text-primary"></i> SCE Campus Venue</span>
-            <span class="badge bg-white border text-dark shadow-sm px-3 py-1.5 rounded-pill"><i class="bi bi-shield-check me-1 text-success"></i> Academic Endorsement</span>
+            <span class="badge bg-white border text-dark shadow-sm px-3 py-1.5 rounded-pill"><i
+                class="bi bi-building me-1 text-primary"></i> SCE Campus</span>
+            <span class="badge bg-white border text-dark shadow-sm px-3 py-1.5 rounded-pill"><i
+                class="bi bi-shield-check me-1 text-success"></i> Academic Endorsement</span>
           </div>
         </div>
       </div>
@@ -253,30 +304,36 @@
     <div class="purpose-canvas-card mb-5">
       <div class="row align-items-center g-4 g-lg-5">
         <div class="col-12 col-lg-7">
-          <p class="text-fluent-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 1px;">Our Purpose</p>
+          <p class="text-fluent-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 1px;">Our Purpose
+          </p>
           <h2 class="h3 fw-bold mb-3" style="color: #002050;">Democratizing Tech Skills on Campus</h2>
           <p class="text-subtle mb-3" style="line-height: 1.75;">
-            The <strong>MLSA × SCE Chapter</strong> was founded with a clear goal: to make cloud computing, artificial intelligence, and professional software development tools accessible to every Saranathan engineering student, regardless of prior experience.
+            The <strong>MLSA × SCE Chapter</strong> was founded with a clear goal: to make cloud computing, artificial
+            intelligence, and professional software development tools accessible to every Saranathan engineering
+            student, regardless of prior experience.
           </p>
-          
+
           <div class="purpose-highlight-box">
             <p class="mb-0 text-dark fw-semibold small" style="line-height: 1.65; color: #003a70 !important;">
               <i class="bi bi-quote fs-4 align-middle me-1 text-primary"></i>
-              Equipping students with industry-ready capabilities beyond standard textbook curricula through practical building and peer mentorship.
+              Equipping students with industry-ready capabilities beyond standard textbook curricula through practical
+              building and peer mentorship.
             </p>
           </div>
 
           <p class="text-subtle mb-0 small" style="line-height: 1.75;">
-            What started as a small cohort of student builders has grown into an active campus hub organizing structured study paths, Azure deployment labs, certification prep, and rapid startup hackathons.
+            What started as a small cohort of student builders has grown into an active campus hub organizing structured
+            study paths, Azure deployment labs, certification prep, and rapid startup hackathons.
           </p>
         </div>
-        
+
         <div class="col-12 col-lg-5 text-center">
           <div class="emblem-stage-card">
             <img src="assets/ms-sa.png" alt="MLSA Badge" class="mb-3">
             <h4 class="h6 fw-bold mb-1" style="color: #002050;">Microsoft Learn Ambassador Chapter</h4>
             <p class="text-subtle small mb-3">Saranathan College of Engineering</p>
-            <a href="https://mvp.microsoft.com/studentambassadors" target="_blank" rel="noopener" class="btn btn-sm btn-fluent-secondary rounded-pill px-3 py-1.5" style="font-size: 12px;">
+            <a href="https://mvp.microsoft.com/studentambassadors" target="_blank" rel="noopener"
+              class="btn btn-sm btn-fluent-secondary rounded-pill px-3 py-1.5" style="font-size: 12px;">
               Global Program Info <i class="bi bi-box-arrow-up-right ms-1"></i>
             </a>
           </div>
@@ -287,9 +344,12 @@
     <!-- Section 4: What is the Global MLSA Program? (Asymmetric Bento Grid Layout) -->
     <div class="mb-5">
       <div class="mb-4 text-center text-md-start">
-        <p class="text-fluent-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 1px;">Worldwide Ecosystem</p>
-        <h2 class="h4 fw-bold mb-2" style="color: #002050;">What is the Microsoft Learn Student Ambassadors Program?</h2>
-        <p class="text-subtle mb-0">A global community of student leaders dedicated to learning, sharing, and building together.</p>
+        <p class="text-fluent-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 1px;">Worldwide
+          Ecosystem</p>
+        <h2 class="h4 fw-bold mb-2" style="color: #002050;">What is the Microsoft Learn Student Ambassadors Program?
+        </h2>
+        <p class="text-subtle mb-0">A global community of student leaders dedicated to learning, sharing, and building
+          together.</p>
       </div>
 
       <div class="row g-4">
@@ -302,19 +362,27 @@
                   <i class="bi bi-lightning-charge-fill"></i>
                 </div>
                 <div>
-                  <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-0.5 font-monospace mb-1" style="font-size: 10px;">Developer Resources</span>
-                  <h3 class="h5 fw-bold mb-0" style="color: #002050; line-height: 1.3;">Early Technology & Cloud Access</h3>
+                  <span
+                    class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-0.5 font-monospace mb-1"
+                    style="font-size: 10px;">Developer Resources</span>
+                  <h3 class="h5 fw-bold mb-0" style="color: #002050; line-height: 1.3;">Early Technology & Cloud Access
+                  </h3>
                 </div>
               </div>
               <p class="text-subtle small mb-3" style="line-height: 1.7;">
-                Ambassadors receive direct access to Microsoft Azure cloud credits ($100), Visual Studio Enterprise subscriptions, Copilot AI APIs, and developer preview tools to build real-world campus applications.
+                Ambassadors receive direct access to Microsoft Azure cloud credits ($100), Visual Studio Enterprise
+                subscriptions, Copilot AI APIs, and developer preview tools to build real-world campus applications.
               </p>
             </div>
-            
-            <div class="d-flex align-items-center gap-2 flex-wrap pt-3 border-top" style="border-color: rgba(0, 120, 212, 0.12) !important;">
-              <span class="badge bg-white border text-primary px-3 py-1 rounded-pill"><i class="bi bi-cloud-fill me-1"></i> Azure $100 Credits</span>
-              <span class="badge bg-white border text-purple px-3 py-1 rounded-pill" style="color: #8764b8 !important;"><i class="bi bi-robot me-1"></i> Copilot AI API</span>
-              <span class="badge bg-white border text-dark px-3 py-1 rounded-pill"><i class="bi bi-code-square me-1"></i> VS Enterprise</span>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap pt-3 border-top"
+              style="border-color: rgba(0, 120, 212, 0.12) !important;">
+              <span class="badge bg-white border text-primary px-3 py-1 rounded-pill"><i
+                  class="bi bi-cloud-fill me-1"></i> Azure $100 Credits</span>
+              <span class="badge bg-white border text-purple px-3 py-1 rounded-pill"
+                style="color: #8764b8 !important;"><i class="bi bi-robot me-1"></i> Copilot AI API</span>
+              <span class="badge bg-white border text-dark px-3 py-1 rounded-pill"><i
+                  class="bi bi-code-square me-1"></i> VS Enterprise</span>
             </div>
           </div>
         </div>
@@ -324,17 +392,20 @@
           <div class="bento-card d-flex flex-column justify-content-between">
             <div>
               <div class="d-flex align-items-center gap-3 mb-3">
-                <div class="bento-icon-box flex-shrink-0 mb-0" style="background: rgba(135, 100, 184, 0.1); color: #8764b8;">
+                <div class="bento-icon-box flex-shrink-0 mb-0"
+                  style="background: rgba(135, 100, 184, 0.1); color: #8764b8;">
                   <i class="bi bi-people-fill"></i>
                 </div>
                 <h3 class="h6 fw-bold mb-0" style="color: #002050; line-height: 1.35;">Peer Mentorship & Events</h3>
               </div>
               <p class="text-subtle small mb-0" style="line-height: 1.65;">
-                Ambassadors lead hands-on bootcamps, hackathons, and study groups — developing leadership, public speaking, and community organization skills.
+                Ambassadors lead hands-on bootcamps, hackathons, and study groups — developing leadership, public
+                speaking, and community organization skills.
               </p>
             </div>
             <div class="mt-3 pt-3 border-top" style="border-color: rgba(0, 120, 212, 0.1) !important;">
-              <span class="text-primary fw-semibold small"><i class="bi bi-check-circle-fill me-1"></i> Campus Workshops</span>
+              <span class="text-primary fw-semibold small"><i class="bi bi-check-circle-fill me-1"></i> Campus
+                Workshops</span>
             </div>
           </div>
         </div>
@@ -344,13 +415,15 @@
           <div class="bento-card d-flex flex-column justify-content-between">
             <div>
               <div class="d-flex align-items-center gap-3 mb-3">
-                <div class="bento-icon-box flex-shrink-0 mb-0" style="background: rgba(242, 153, 74, 0.12); color: #d97706;">
+                <div class="bento-icon-box flex-shrink-0 mb-0"
+                  style="background: rgba(242, 153, 74, 0.12); color: #d97706;">
                   <i class="bi bi-trophy-fill"></i>
                 </div>
                 <h3 class="h6 fw-bold mb-0" style="color: #002050; line-height: 1.35;">Milestone Progression</h3>
               </div>
-              <p class="text-subtle small mb-2" style="line-height: 1.5;">Tiered ambassador milestones unlocking exclusive perks:</p>
-              
+              <p class="text-subtle small mb-2" style="line-height: 1.5;">Tiered ambassador milestones unlocking
+                exclusive perks:</p>
+
               <!-- Milestone Progression Stepper -->
               <div class="milestone-stepper">
                 <span class="milestone-step">New</span>
@@ -371,7 +444,8 @@
     <!-- Section 5: Key Initiatives at SCE (Interactive Pillar Matrix) -->
     <div class="mb-5">
       <div class="mb-4 text-center text-md-start">
-        <p class="text-fluent-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 1px;">Campus Pillars</p>
+        <p class="text-fluent-primary fw-semibold small text-uppercase mb-1" style="letter-spacing: 1px;">Campus Pillars
+        </p>
         <h2 class="h4 fw-bold mb-2" style="color: #002050;">Our Key Initiatives at Saranathan</h2>
         <p class="text-subtle mb-0">How our chapter drives continuous skill development for engineering students.</p>
       </div>
@@ -388,11 +462,13 @@
                 <h3 class="h6 fw-bold mb-0" style="color: #002050; line-height: 1.35;">Hands-on Technical Workshops</h3>
               </div>
               <p class="text-subtle small mb-3" style="line-height: 1.65;">
-                Interactive coding bootcamps covering web development, cloud deployment on Vercel/Azure, and GitHub portfolio workflows.
+                Interactive coding bootcamps covering web development, cloud deployment on Vercel/Azure, and GitHub
+                portfolio workflows.
               </p>
             </div>
             <div class="mt-auto pt-2">
-              <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 font-monospace" style="font-size: 10px;">Pillar 01 &middot; Learn</span>
+              <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 font-monospace"
+                style="font-size: 10px;">Pillar 01 &middot; Learn</span>
             </div>
           </div>
         </div>
@@ -405,14 +481,17 @@
                 <div class="initiative-icon-badge amber flex-shrink-0 mb-0">
                   <i class="bi bi-patch-check-fill"></i>
                 </div>
-                <h3 class="h6 fw-bold mb-0" style="color: #002050; line-height: 1.35;">Certification & Azure Readiness</h3>
+                <h3 class="h6 fw-bold mb-0" style="color: #002050; line-height: 1.35;">Certification & Azure Readiness
+                </h3>
               </div>
               <p class="text-subtle small mb-3" style="line-height: 1.65;">
-                Guiding students through claiming free $100 Azure credits and preparing for official AZ-900 & AI-900 Microsoft exams.
+                Guiding students through claiming free $100 Azure credits and preparing for Microsoft certification
+                exams.
               </p>
             </div>
             <div class="mt-auto pt-2">
-              <span class="badge bg-warning-subtle text-warning border rounded-pill px-2.5 py-1 font-monospace" style="font-size: 10px;">Pillar 02 &middot; Certify</span>
+              <span class="badge bg-warning-subtle text-warning border rounded-pill px-2.5 py-1 font-monospace"
+                style="font-size: 10px;">Pillar 02 &middot; Certify</span>
             </div>
           </div>
         </div>
@@ -428,11 +507,14 @@
                 <h3 class="h6 fw-bold mb-0" style="color: #002050; line-height: 1.35;">Hackathons & Pitch Arena</h3>
               </div>
               <p class="text-subtle small mb-3" style="line-height: 1.65;">
-                Flagship events like <i>AI StartUp Arena</i> where student teams build and pitch AI concepts using Copilot & Designer in 60 minutes.
+                Flagship events like <i>AI StartUp Arena</i> where student teams build and pitch AI concepts using
+                Copilot & Designer in 60 minutes.
               </p>
             </div>
             <div class="mt-auto pt-2">
-              <span class="badge bg-purple-subtle text-purple border rounded-pill px-2.5 py-1 font-monospace" style="font-size: 10px; background: rgba(135,100,184,0.1); color: #6d28d9;">Pillar 03 &middot; Compete</span>
+              <span class="badge bg-purple-subtle text-purple border rounded-pill px-2.5 py-1 font-monospace"
+                style="font-size: 10px; background: rgba(135,100,184,0.1); color: #6d28d9;">Pillar 03 &middot;
+                Compete</span>
             </div>
           </div>
         </div>
@@ -448,11 +530,13 @@
                 <h3 class="h6 fw-bold mb-0" style="color: #002050; line-height: 1.35;">Open Community & Mentorship</h3>
               </div>
               <p class="text-subtle small mb-3" style="line-height: 1.65;">
-                An active WhatsApp community and peer network connecting junior students with senior mentors to solve project roadblocks.
+                An active WhatsApp community and peer network connecting junior students with senior mentors to solve
+                project roadblocks.
               </p>
             </div>
             <div class="mt-auto pt-2">
-              <span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 font-monospace" style="font-size: 10px;">Pillar 04 &middot; Connect</span>
+              <span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 font-monospace"
+                style="font-size: 10px;">Pillar 04 &middot; Connect</span>
             </div>
           </div>
         </div>
@@ -485,8 +569,10 @@
         <div class="col-6 col-md-3">
           <p class="fw-semibold mb-2">Program</p>
           <ul class="list-unstyled small">
-            <li class="mb-1"><a href="https://mvp.microsoft.com/studentambassadors" target="_blank" rel="noreferrer">Microsoft Learn Student Ambassadors</a></li>
-            <li class="mb-1"><a href="https://learn.microsoft.com" target="_blank" rel="noreferrer">Microsoft Learn</a></li>
+            <li class="mb-1"><a href="https://mvp.microsoft.com/studentambassadors" target="_blank"
+                rel="noreferrer">Microsoft Learn Student Ambassadors</a></li>
+            <li class="mb-1"><a href="https://learn.microsoft.com" target="_blank" rel="noreferrer">Microsoft Learn</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -499,7 +585,8 @@
         </div>
       </div>
     </div>
-    <div class="disclaimer">This is a student-run chapter platform, independently built and not officially operated by Microsoft.</div>
+    <div class="disclaimer">This is a student-run chapter platform, independently built and not officially operated by
+      Microsoft.</div>
   </footer>
 
   <!-- ============ MOBILE FLOATING GLASS DOCK (< 768px) ============ -->
@@ -520,7 +607,8 @@
       <i class="bi bi-people-fill"></i>
       <span>About</span>
     </a>
-    <button class="mobile-dock-item border-0 bg-transparent" onclick="if(window.openSpotlightSearch)window.openSpotlightSearch()">
+    <button class="mobile-dock-item border-0 bg-transparent"
+      onclick="if(window.openSpotlightSearch)window.openSpotlightSearch()">
       <i class="bi bi-search text-primary"></i>
       <span>Search</span>
     </button>
@@ -535,6 +623,7 @@
   <script src="js/scroll-progress.js"></script>
   <script src="js/pull-to-refresh.js"></script>
   <script src="js/page-transitions.js"></script>
-  <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(()=>{})}</script>
+  <script>if ("serviceWorker" in navigator) { navigator.serviceWorker.register("/sw.js").catch(() => { }) }</script>
 </body>
+
 </html>
