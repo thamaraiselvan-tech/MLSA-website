@@ -32,15 +32,28 @@ function rankPillClass(position) {
   return "pill-rank";
 }
 
-function winnerCardHtml(winner) {
+function winnerCardHtml(winner, index) {
   const cls = rankPillClass(winner.position);
   const meta = [winner.department, winner.year].filter(Boolean).join(" · ");
+  const hasDetails = Boolean(winner.projectTitle || winner.description || winner.projectUrl || (winner.members && winner.members.length > 0));
+
   return `
-    <div class="winner-card">
-      <span class="pill ${cls}">${escapeHtml(winner.position || "")}</span>
-      <div>
-        <p class="fw-semibold mb-0">${escapeHtml(winner.name)}</p>
-        ${meta ? `<p class="text-subtle small mb-0">${escapeHtml(meta)}</p>` : ""}
+    <div class="winner-card p-3 rounded-3 border d-flex align-items-center justify-content-between ${hasDetails ? 'has-project-details' : ''}"
+         data-winner-idx="${index}"
+         role="button"
+         tabindex="0"
+         style="cursor: pointer; transition: all 0.25s ease;"
+         aria-label="View project details for ${escapeHtml(winner.name)}">
+      <div class="d-flex align-items-center gap-3">
+        <span class="pill ${cls}">${escapeHtml(winner.position || "")}</span>
+        <div>
+          <p class="fw-bold text-dark mb-0">${escapeHtml(winner.name)}</p>
+          ${meta ? `<p class="text-subtle small mb-0">${escapeHtml(meta)}</p>` : ""}
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-1.5 text-primary small fw-bold ms-auto">
+        <span class="d-none d-sm-inline">View Project Details</span>
+        <i class="bi bi-arrow-right-short fs-5"></i>
       </div>
     </div>
   `;
@@ -146,7 +159,24 @@ function renderEvent(event) {
 
   if (event.winners && event.winners.length > 0) {
     document.getElementById("winnersCard").classList.remove("d-none");
-    document.getElementById("winnersList").innerHTML = event.winners.map(winnerCardHtml).join("");
+    const winnersListEl = document.getElementById("winnersList");
+    winnersListEl.innerHTML = event.winners.map((w, idx) => winnerCardHtml(w, idx)).join("");
+
+    const cards = winnersListEl.querySelectorAll(".winner-card");
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        const winnerIdx = parseInt(card.dataset.winnerIdx, 10);
+        if (!isNaN(winnerIdx) && event.winners[winnerIdx] && window.openWinnerModal) {
+          window.openWinnerModal(event.winners[winnerIdx], event);
+        }
+      });
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
   }
 }
 

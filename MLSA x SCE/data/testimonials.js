@@ -41,5 +41,12 @@ window.testimonialsData = [
     role: "Event: AI StartUp Arena",
     quote: "This event was really helpful and gave us a great opportunity to learn many new things, especially how to create and develop a website. We gained practical knowledge and learned a lot throughout the session. Thank you for organizing such a useful event! One small suggestion would be to provide a little more time, as the given time felt slightly short to explore and complete everything comfortably.",
     avatar: "S6"
+  },
+  {
+    id: 7,
+    name: "Student Feedback #7",
+    role: "Event: AI StartUp Arena",
+    quote: "The event was informative and well organized. I enjoyed participating in the activities and gained useful knowledge from this event . I would be happy to attend similar events in the future.",
+    avatar: "S7"
   }
 ];

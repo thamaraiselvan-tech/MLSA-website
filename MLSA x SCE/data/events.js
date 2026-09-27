@@ -1,42 +1,16 @@
 // ============================================================================
-// EVENTS
+// EVENTS & WINNERS DATA
 // ============================================================================
-// This is the only file you need to edit to post a new event.
-//
-// TO ADD AN EVENT:
-//   1. Copy one whole block below, from the opening { to the closing },
-//   2. Paste it anywhere inside the "const EVENTS = [ ... ]" list - they
-//      sort by date automatically, you don't need to order them.
-//   3. Give it a unique "id" (just bump the highest existing id by 1).
-//   4. Fill in your own details.
-//   5. Save this file and push to GitHub - that's it, no build step.
-//
-// REGISTRATION (no backend needed - uses Google Forms):
-//   1. Create a Google Form for the event (Google Forms -> Blank form).
-//   2. Add whatever fields you want to collect (name, email, department...).
-//   3. Click Send -> the link icon -> copy the link.
-//   4. Paste that link into "registrationUrl" below.
-//   5. The event page will embed the form directly on the page. Leave
-//      registrationUrl as "" to show "Registration opening soon" instead.
-//
-// TO REMOVE AN EVENT: delete its whole { ... } block, including the
-// comma after it.
-//
-// FIELDS:
-//   id                    - unique number, used in the event's URL
-//   title                 - event name
-//   tagline               - short line shown on the card, optional ("")
-//   description           - full description shown on the event page
-//   date                  - "YYYY-MM-DDTHH:mm", 24-hour time, e.g. "14:30" = 2:30 PM
-//   location              - e.g. "Seminar Hall, AI & DS Block" or "Online"
-//   capacity              - a number, or null for unlimited
-//   registrationDeadline  - "YYYY-MM-DDTHH:mm", or "" for no deadline
-//   registrationUrl       - your Google Form link, or "" if not open yet
-//   isOpen                - false manually closes registration early
-//   image                 - path to a photo, e.g. "assets/events/photo1.jpg"
-//                           leave as "" for no image
-//  linkUrl                - "https://forms.cloud.microsoft/r/ieXJvtJQrt",   // <-- new
-//  linkLabel:             -"View the portfolio guide",                     // <-- new, optional
+// FIELDS FOR WINNERS:
+//   name          - Winner name or Team name
+//   position      - "1st", "2nd", "3rd"
+//   department    - e.g. "CSBS", "AI & DS", "CSE"
+//   year          - e.g. "2nd Year", "3rd Year"
+//   projectTitle  - Title of the project built
+//   description   - Brief 2-3 sentence overview of what they built & pitched
+//   tools         - Array of tools used, e.g. ["Microsoft Copilot", "Microsoft Designer"]
+//   members       - Array of student names on the team, e.g. ["Student A", "Student B"]
+//   projectUrl    - Direct link to live website, Canva presentation deck, or GitHub repo
 // ============================================================================
 
 const EVENTS = [
@@ -44,7 +18,7 @@ const EVENTS = [
     id: 1,
     title: "Design Your Future - Portfolio Creation",
     tagline: "Create a Portfolio that represents You!",
-    description: " Personal Portfolio is one of the most valuable assets for students, enabling them to showcase their skills, projects, achievements, and technical journey beyond a traditional resume. Participants are expected to create a digital version of themself to complete the event.",
+    description: "Personal Portfolio is one of the most valuable assets for students, enabling them to showcase their skills, projects, achievements, and technical journey beyond a traditional resume. Participants are expected to create a digital version of themself to complete the event.",
     date: "2026-07-18T10:00",
     location: "Online",
     capacity: "",
@@ -53,16 +27,46 @@ const EVENTS = [
     isOpen: false,
     image: "assets/events/portfolio.jpeg",
     winners: [
-  { name: "Aarthi. R", position: "1st", department: "CSBS", year: "2nd Year" },
-  { name: "Shrihari V", position: "2nd", department: "AI & DS", year: "2nd Year" },
-  { name: "Kamalini P", position: "3rd", department: "AI & DS", year: "3rd Year" },
-]
+      { 
+        name: "Aarthi. R", 
+        position: "1st", 
+        department: "CSBS", 
+        year: "2nd Year",
+        projectTitle: "Developer Portfolio Website",
+        description: "A clean, digital portfolio website built to showcase web projects, technical certifications, and GitHub repositories with responsive mobile layout.",
+        tools: ["HTML5", "CSS3", "JavaScript", "GitHub Pages"],
+        members: ["Aarthi. R"],
+        projectUrl: "https://aarthi-ramu.github.io/my-portfolio/"
+      },
+      { 
+        name: "Shrihari V", 
+        position: "2nd", 
+        department: "AI & DS", 
+        year: "2nd Year",
+        projectTitle: "AI & Data Science Portfolio",
+        description: "Personal portfolio emphasizing machine learning projects, data analytics dashboards, and interactive technical documentation.",
+        tools: ["HTML5", "CSS3", "Bootstrap", "Python"],
+        members: ["Shrihari V"],
+        projectUrl: "https://shrihari73.github.io/portfolio/#"
+      },
+      { 
+        name: "Kamalini P", 
+        position: "3rd", 
+        department: "AI & DS", 
+        year: "3rd Year",
+        projectTitle: "Student Developer Showcase",
+        description: "Interactive portfolio highlight page built during the Design Your Future workshop, featuring dark mode aesthetic and project cards.",
+        tools: ["HTML5", "CSS3", "JavaScript"],
+        members: ["Kamalini P"],
+        projectUrl: "https://kamalini66.github.io/portfolio_web/"
+      }
+    ]
   },
   {
     id: 2,
     title: "AI StartUp Arena",
     tagline: "Build a Unicorn in 60 Minutes using Microsoft Copilot & Microsoft Designer",
-    description: "AI Startup Arena is a fast-paced innovation challenge where participants use Microsoft Copilot and Microsoft Designer to transform an idea into a startup within 60 minutes. Working in teams of 3-4 members, participants will leverage Microsoft's AI tools to create a startup concept, build its brand identity, and develop a simple business model. All submissions will be collected through Microsoft Forms and evaluated after the event",
+    description: "AI Startup Arena is a fast-paced innovation challenge where participants use Microsoft Copilot and Microsoft Designer to transform an idea into a startup within 60 minutes. Working in teams of 3-4 members, participants will leverage Microsoft's AI tools to create a startup concept, build its brand identity, and develop a simple business model.",
     date: "2026-08-13T11:00",
     location: "Offline",
     capacity: "all students",
@@ -71,9 +75,39 @@ const EVENTS = [
     isOpen: true,
     image: "assets/events/aistartup.png",
     winners: [
-      { name: "Team MARK 44", position: "1st", department: "CSBS", year: "3d Year" },
-      { name: "Team OPS PROTOCOL", position: "2nd", department: "CSE", year: "2nd Year" },
-      { name: "Team SQUARE SQUAD", position: "3rd", department: "CSBS", year: "2nd Year" },
+      { 
+        name: "Team MARK 44", 
+        position: "1st", 
+        department: "CSBS", 
+        year: "3rd Year",
+        projectTitle: "Escape Room Creator",
+        description: "Escape AI is an AI-powered learning platform that transforms any topic into an interactive escape-room experience. It uses AI to generate engaging puzzles, questions, clues, and challenges based on the selected topic. The platform combines education with gamification to make learning more fun, interactive, and memorable. Students can explore concepts by solving challenges and progressing through different levels. Escape AI aims to improve learner engagement, critical thinking, and problem-solving skills through an innovative AI-driven approach.",
+        tools: ["Microsoft Copilot", "Microsoft Designer", "Azure AI"],
+        members: ["HARIHARAN K", "VIVIN RAJ V", "ANBU RAJA S", "GOWTHAM K"],
+        projectUrl: "https://escape-ai-umber.vercel.app/" 
+      },
+      { 
+        name: "Team OPS PROTOCOL", 
+        position: "2nd", 
+        department: "CSE", 
+        year: "2nd Year",
+        projectTitle: "Digital Crime Scene Investigator",
+        description: "ARVIX is an AI-powered Digital Crime Scene Investigation Assistant that collects and analyzes digital evidence from multiple sources such as SMS, bank statements, server logs, emails, and screenshots. It automatically extracts entities, correlates events across time, location, and identity, and reconstructs them into an interactive visual crime scene.Every finding is traceable back to its original evidence, helping reduce AI hallucinations and improve investigation reliability. ARVIX detects anomalies such as impossible travel, suspicious transactions, and unusual login activity to generate investigation risk signals.",
+        tools: ["Microsoft Copilot", "Microsoft Designer", "Power Automate"],
+        members: ["ROSHAN", "SANJEEVI", "SAMINTHA NAVEEN", "NIRMAL HARIHARAN"],
+        projectUrl: "https://ops-6h4a.onrender.com/" 
+      },
+      { 
+        name: "Team SQUARE SQUAD", 
+        position: "3rd", 
+        department: "CSBS", 
+        year: "2nd Year",
+        projectTitle: "AI Skill Matcher for Students",
+        description: "A peer-to-peer talent matching platform connecting student project teams based on complementary coding skills and project requirements.",
+        tools: ["Microsoft Copilot", "Microsoft Designer"],
+        members: ["MALAIARASI G", "JANASHREE K R", "SHALINI M", "DIVYA BHARATHI N"],
+        projectUrl: "https://canva.com" 
+      }
     ]
   }
 ];

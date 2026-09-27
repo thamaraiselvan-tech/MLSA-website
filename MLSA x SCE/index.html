@@ -130,6 +130,13 @@
             <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
             <li class="nav-item"><a class="nav-link" href="winners.html">Winners</a></li>
             <li class="nav-item"><a class="nav-link" href="about.html">About the Chapter</a></li>
+            <li class="nav-item ms-md-2">
+              <button class="btn btn-sm btn-outline-primary rounded-pill d-inline-flex align-items-center gap-2 px-3 py-1.5" onclick="if(window.openSpotlightSearch)window.openSpotlightSearch()" title="Search site (Ctrl+K)">
+                <i class="bi bi-search me-1"></i>
+                <span class="d-none d-lg-inline me-1">Search</span>
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2 py-0.5" style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.3px;">Ctrl+K</span>
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -301,16 +308,16 @@
     <div class="d-flex align-items-center justify-content-center gap-2 mb-4 flex-wrap">
       <div class="pillar-tab-bar">
         <button class="pillar-nav-btn active" data-pillar="0">
-          <i class="bi bi-laptop-fill me-1.5"></i>Workshops
+          <i class="bi bi-laptop-fill me-2"></i>Workshops
         </button>
         <button class="pillar-nav-btn" data-pillar="1">
-          <i class="bi bi-patch-check-fill me-1.5"></i>Certifications
+          <i class="bi bi-patch-check-fill me-2"></i>Certifications
         </button>
         <button class="pillar-nav-btn" data-pillar="2">
-          <i class="bi bi-trophy-fill me-1.5"></i>Competitions
+          <i class="bi bi-trophy-fill me-2"></i>Competitions
         </button>
         <button class="pillar-nav-btn" data-pillar="3">
-          <i class="bi bi-people-fill me-1.5"></i>Community
+          <i class="bi bi-people-fill me-2"></i>Community
         </button>
       </div>
     </div>
@@ -327,7 +334,7 @@
             <div class="row align-items-center g-4 g-lg-5">
               <div class="col-12 col-lg-6">
                 <div class="pillar-slide-badge azure">
-                  <i class="bi bi-cpu-fill me-1.5"></i> PILLAR 01 &middot; LEARN
+                  <i class="bi bi-cpu-fill me-2"></i> PILLAR 01 &middot; LEARN
                 </div>
                 <h3 class="pillar-slide-title">Hands-on Technical Workshops</h3>
                 <p class="pillar-slide-desc">
@@ -349,8 +356,8 @@
                 </a>
               </div>
               <div class="col-12 col-lg-6">
-                <div class="pillar-visual-card azure">
-                  <div class="code-editor-mockup">
+                <div class="pillar-visual-card azure p-3.5">
+                  <div class="code-editor-mockup w-100">
                     <div class="code-editor-header">
                       <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
                       <span class="editor-title">workshop-demo.js</span>
@@ -374,7 +381,7 @@
             <div class="row align-items-center g-4 g-lg-5">
               <div class="col-12 col-lg-6">
                 <div class="pillar-slide-badge amber">
-                  <i class="bi bi-award-fill me-1.5"></i> PILLAR 02 &middot; CERTIFY
+                  <i class="bi bi-award-fill me-2"></i> PILLAR 02 &middot; CERTIFY
                 </div>
                 <h3 class="pillar-slide-title">Certification & Azure Credits</h3>
                 <p class="pillar-slide-desc">
@@ -418,7 +425,7 @@
             <div class="row align-items-center g-4 g-lg-5">
               <div class="col-12 col-lg-6">
                 <div class="pillar-slide-badge purple">
-                  <i class="bi bi-trophy-fill me-1.5"></i> PILLAR 03 &middot; COMPETE
+                  <i class="bi bi-trophy-fill me-2"></i> PILLAR 03 &middot; COMPETE
                 </div>
                 <h3 class="pillar-slide-title">Hackathons & Pitch Arena</h3>
                 <p class="pillar-slide-desc">
@@ -459,7 +466,7 @@
             <div class="row align-items-center g-4 g-lg-5">
               <div class="col-12 col-lg-6">
                 <div class="pillar-slide-badge teal">
-                  <i class="bi bi-people-fill me-1.5"></i> PILLAR 04 &middot; CONNECT
+                  <i class="bi bi-people-fill me-2"></i> PILLAR 04 &middot; CONNECT
                 </div>
                 <h3 class="pillar-slide-title">Active Community & Mentorship</h3>
                 <p class="pillar-slide-desc">
@@ -495,11 +502,58 @@
             </div>
           </div>
 
+          <!-- Slide 4: Workshops (Clone for Seamless Infinite Forward Rotation) -->
+          <div class="pillar-stage-slide" data-slide="4">
+            <div class="row align-items-center g-4 g-lg-5">
+              <div class="col-12 col-lg-6">
+                <div class="pillar-slide-badge azure">
+                  <i class="bi bi-cpu-fill me-2"></i> PILLAR 01 &middot; LEARN
+                </div>
+                <h3 class="pillar-slide-title">Hands-on Technical Workshops</h3>
+                <p class="pillar-slide-desc">
+                  Interactive coding bootcamps covering web development, cloud deployment on Vercel & Azure, AI prompt engineering, and GitHub workflows handled by student ambassadors.
+                </p>
+                <div class="pillar-feature-list mb-4">
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i> Real-world deployment on Azure & Vercel
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i> Live prompt engineering & Copilot AI labs
+                  </div>
+                  <div class="pillar-feature-item">
+                    <i class="bi bi-check-circle-fill text-primary me-2"></i> GitHub repository portfolio building
+                  </div>
+                </div>
+                <a href="events.html" class="btn btn-fluent-primary rounded-pill px-4 py-2">
+                  Explore Workshops <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="pillar-visual-card azure p-3.5">
+                  <div class="code-editor-mockup w-100">
+                    <div class="code-editor-header">
+                      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                      <span class="editor-title">workshop-demo.js</span>
+                    </div>
+                    <pre class="code-editor-body"><code><span class="c-purple">import</span> { CopilotClient } <span class="c-purple">from</span> <span class="c-green">'@azure/ai'</span>;
+
+<span class="c-blue">const</span> app = <span class="c-blue">new</span> CopilotClient();
+<span class="c-blue">await</span> app.deployToAzure({
+  chapter: <span class="c-green">'MLSA SCE'</span>,
+  college: <span class="c-green">'Saranathan'</span>,
+  status: <span class="c-green">'Active Workshop'</span>
+});</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <!-- Script to handle Pillar Stage Tab Switching & Smooth Flex Sliding -->
+    <!-- Script to handle Pillar Stage Tab Switching & Seamless Forward Auto-Rotation -->
     <script>
       (function() {
         const btns = document.querySelectorAll('.pillar-nav-btn');
@@ -511,7 +565,8 @@
           'radial-gradient(circle, rgba(0, 120, 212, 0.14) 0%, rgba(255, 255, 255, 0) 70%)',
           'radial-gradient(circle, rgba(242, 153, 74, 0.16) 0%, rgba(255, 255, 255, 0) 70%)',
           'radial-gradient(circle, rgba(135, 100, 184, 0.16) 0%, rgba(255, 255, 255, 0) 70%)',
-          'radial-gradient(circle, rgba(37, 211, 102, 0.14) 0%, rgba(255, 255, 255, 0) 70%)'
+          'radial-gradient(circle, rgba(37, 211, 102, 0.14) 0%, rgba(255, 255, 255, 0) 70%)',
+          'radial-gradient(circle, rgba(0, 120, 212, 0.14) 0%, rgba(255, 255, 255, 0) 70%)'
         ];
         let currentIndex = 0;
         let autoRotateTimer = null;
@@ -519,22 +574,44 @@
         let isDragging = false;
         let startX = 0;
         let currentDragOffset = 0;
+        let isTransitioning = false;
+
+        function updateTabHighlight(activeIdx) {
+          const tabIndex = activeIdx % 4;
+          btns.forEach((btn, i) => btn.classList.toggle('active', i === tabIndex));
+          slides.forEach((slide, i) => slide.classList.toggle('active', i === activeIdx));
+          if (backdrop && backdrops[tabIndex]) {
+            backdrop.style.background = backdrops[tabIndex];
+          }
+        }
 
         function showPillar(index, animate = true) {
-          currentIndex = (index + slides.length) % slides.length;
+          currentIndex = index;
+          updateTabHighlight(currentIndex);
+
           if (stageTrack) {
             stageTrack.style.transition = animate ? 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
             stageTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
           }
-          btns.forEach((btn, i) => btn.classList.toggle('active', i === currentIndex));
-          slides.forEach((slide, i) => slide.classList.toggle('active', i === currentIndex));
-          if (backdrop && backdrops[currentIndex]) {
-            backdrop.style.background = backdrops[currentIndex];
+
+          // When sliding forward into cloned Slide 4, reset seamlessly to Slide 0 after transition finishes
+          if (currentIndex === 4 && animate) {
+            isTransitioning = true;
+            setTimeout(() => {
+              if (stageTrack) {
+                stageTrack.style.transition = 'none';
+                currentIndex = 0;
+                stageTrack.style.transform = 'translateX(0%)';
+                updateTabHighlight(0);
+              }
+              isTransitioning = false;
+            }, 560);
           }
         }
 
         btns.forEach(btn => {
           btn.addEventListener('click', function() {
+            if (isTransitioning) return;
             const idx = parseInt(this.getAttribute('data-pillar'), 10);
             showPillar(idx, true);
             resetAutoRotate();
@@ -547,6 +624,7 @@
 
           // Mouse Drag
           stageTrack.addEventListener('mousedown', (e) => {
+            if (isTransitioning) return;
             isDragging = true;
             startX = e.clientX;
             currentDragOffset = 0;
@@ -569,7 +647,16 @@
             if (currentDragOffset < -threshold) {
               showPillar(currentIndex + 1, true);
             } else if (currentDragOffset > threshold) {
-              showPillar(currentIndex - 1, true);
+              if (currentIndex === 0) {
+                stageTrack.style.transition = 'none';
+                currentIndex = 4;
+                stageTrack.style.transform = 'translateX(-400%)';
+                setTimeout(() => {
+                  showPillar(3, true);
+                }, 20);
+              } else {
+                showPillar(currentIndex - 1, true);
+              }
             } else {
               showPillar(currentIndex, true);
             }
@@ -582,7 +669,7 @@
           let touchMoveX = 0;
 
           stageTrack.addEventListener('touchstart', (e) => {
-            if (!e.touches || !e.touches[0]) return;
+            if (!e.touches || !e.touches[0] || isTransitioning) return;
             isDragging = true;
             touchStartX = e.touches[0].clientX;
             touchMoveX = touchStartX;
@@ -607,7 +694,16 @@
             if (diffX < -threshold) {
               showPillar(currentIndex + 1, true);
             } else if (diffX > threshold) {
-              showPillar(currentIndex - 1, true);
+              if (currentIndex === 0) {
+                stageTrack.style.transition = 'none';
+                currentIndex = 4;
+                stageTrack.style.transform = 'translateX(-400%)';
+                setTimeout(() => {
+                  showPillar(3, true);
+                }, 20);
+              } else {
+                showPillar(currentIndex - 1, true);
+              }
             } else {
               showPillar(currentIndex, true);
             }
@@ -622,10 +718,10 @@
         function startAutoRotate() {
           if (autoRotateTimer) clearInterval(autoRotateTimer);
           autoRotateTimer = setInterval(() => {
-            if (!isHovered && !isDragging) {
+            if (!isHovered && !isDragging && !isTransitioning) {
               showPillar(currentIndex + 1, true);
             }
-          }, 5000);
+          }, 4500);
         }
 
         function stopAutoRotate() {
@@ -636,7 +732,7 @@
         function resetAutoRotate(delay = 3000) {
           stopAutoRotate();
           resumeTimeout = setTimeout(() => {
-            if (!isHovered && !isDragging) {
+            if (!isHovered && !isDragging && !isTransitioning) {
               showPillar(currentIndex + 1, true);
             }
             startAutoRotate();
@@ -780,6 +876,30 @@
   </div>
 
   <!-- Scripts -->
+  <!-- ============ MOBILE FLOATING GLASS DOCK (< 768px) ============ -->
+  <div class="mobile-glass-dock">
+    <a href="index.html" class="mobile-dock-item active">
+      <i class="bi bi-house-door-fill"></i>
+      <span>Updates</span>
+    </a>
+    <a href="events.html" class="mobile-dock-item">
+      <i class="bi bi-calendar-event"></i>
+      <span>Events</span>
+    </a>
+    <a href="winners.html" class="mobile-dock-item">
+      <i class="bi bi-trophy"></i>
+      <span>Winners</span>
+    </a>
+    <a href="about.html" class="mobile-dock-item">
+      <i class="bi bi-people"></i>
+      <span>About</span>
+    </a>
+    <button class="mobile-dock-item border-0 bg-transparent" onclick="if(window.openSpotlightSearch)window.openSpotlightSearch()">
+      <i class="bi bi-search text-primary"></i>
+      <span>Search</span>
+    </button>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
@@ -796,6 +916,7 @@
   <script src="js/premium-scroll.js"></script>
   <script src="js/countdown.js"></script>
   <script src="js/testimonials.js"></script>
+  <script src="js/spotlight-search.js"></script>
   <script src="js/scroll-progress.js"></script>
   <script src="js/pull-to-refresh.js"></script>
   <script src="js/page-transitions.js"></script>

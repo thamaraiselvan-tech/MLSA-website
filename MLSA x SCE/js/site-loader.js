@@ -3,7 +3,7 @@
 
 (function () {
   const SESSION_KEY = "mlsa_loader_shown";
-  const MAX_WAIT_MS = 7000; // hard safety timeout
+  const MAX_WAIT_MS = 10000; // hard safety timeout
 
   const loader = document.getElementById("siteLoader");
   if (!loader) return;
