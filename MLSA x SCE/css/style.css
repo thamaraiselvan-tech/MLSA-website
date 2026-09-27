@@ -207,12 +207,62 @@ body {
   background-color: rgba(0, 120, 212, 0.06);
 }
 
-/* ---------- Offcanvas Side Navigation (Mobile Drawer) ---------- */
+/* ---------- Mobile Centered Brand Header (< 768px) ---------- */
 @media (max-width: 767.98px) {
   .navbar-mlsa {
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  .navbar-mlsa .container {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    justify-content: space-between !important;
+  }
+
+  .navbar-mlsa .navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    margin-right: 0 !important;
+    padding: 4px 0 !important;
+  }
+
+  .navbar-mlsa .brand-mlsa {
+    order: 1 !important;
+    width: 36px !important;
+    height: 36px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .navbar-mlsa .brand-text {
+    order: 2 !important;
+    text-align: center !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .navbar-mlsa .brand-text .title {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #002050 !important;
+    letter-spacing: -0.2px !important;
+    text-align: center !important;
+  }
+
+  .navbar-mlsa .brand-sce {
+    order: 3 !important;
+    width: 36px !important;
+    height: 36px !important;
+    flex-shrink: 0 !important;
   }
 
   /* Hide top hamburger button on mobile in favor of bottom floating dock */
@@ -798,8 +848,9 @@ body {
 /* Right Side Interactive Visual Cards */
 .pillar-visual-card {
   width: 100%;
-  height: 100%;
-  min-height: 220px;
+  height: 260px;
+  min-height: 260px;
+  max-height: 260px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -808,8 +859,18 @@ body {
   border-radius: 20px;
   border: 1px solid rgba(0, 120, 212, 0.15);
   box-shadow: 0 10px 30px rgba(0, 120, 212, 0.08);
+  padding: 1.25rem;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 991.98px) {
+  .pillar-visual-card {
+    height: 230px;
+    min-height: 230px;
+    max-height: 230px;
+    padding: 1rem;
+  }
 }
 
 .pillar-visual-card:hover {
@@ -823,19 +884,23 @@ body {
   overflow: hidden;
   font-family: 'Consolas', 'Courier New', monospace;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .code-editor-header {
   background: #181825;
-  padding: 10px 14px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 .code-editor-header .dot {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   display: inline-block;
 }
@@ -852,52 +917,48 @@ body {
 }
 
 .code-editor-body {
-  padding: 1.2rem 1.4rem;
+  padding: 1rem 1.2rem;
   margin: 0;
   color: #cdd6f4;
-  font-size: 13px;
+  font-size: 12.5px;
   line-height: 1.6;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
 .c-purple { color: #cba6f7; }
 .c-green { color: #a6e3a1; }
 .c-blue { color: #89b4fa; }
 
-/* Cert Showcase */
-.cert-icon-circle {
-  width: 72px;
-  height: 72px;
+/* Cert, Arena & WhatsApp Showcases */
+.cert-icon-circle,
+.arena-icon-circle,
+.whatsapp-icon-glowing {
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f2994a, #f2c94c);
   color: #ffffff;
-  font-size: 2.2rem;
+  font-size: 1.85rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.75rem;
+  flex-shrink: 0;
+}
+
+.cert-icon-circle {
+  background: linear-gradient(135deg, #f2994a, #f2c94c);
   box-shadow: 0 8px 20px rgba(242, 153, 74, 0.3);
 }
 
-/* Arena Showcase */
-.trophy-glowing-icon {
-  font-size: 3.5rem;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-  filter: drop-shadow(0 6px 12px rgba(135, 100, 184, 0.4));
+.arena-icon-circle {
+  background: linear-gradient(135deg, #8764b8, #6d28d9);
+  box-shadow: 0 8px 20px rgba(135, 100, 184, 0.3);
 }
 
-/* WhatsApp Showcase */
 .whatsapp-icon-glowing {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
   background: linear-gradient(135deg, #25d366, #128c7e);
-  color: #ffffff;
-  font-size: 2.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
   box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
 }
 
