@@ -1652,10 +1652,10 @@ body.loader-active {
 .site-loader {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  z-index: 100000;
   background:
-    radial-gradient(circle at 15% 20%, rgba(0, 120, 212, 0.07) 0%, transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(135, 100, 184, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 15% 20%, rgba(0, 120, 212, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(135, 100, 184, 0.08) 0%, transparent 45%),
     radial-gradient(circle at 50% 50%, #ffffff 0%, #f4f8fc 55%, #e9f2fb 100%);
   display: flex;
   align-items: center;
@@ -1671,18 +1671,18 @@ body.loader-active {
 }
 
 .site-loader-video {
-  width: 90%;
+  width: 92%;
   height: auto;
   aspect-ratio: 16 / 9;
-  max-width: 460px;
+  max-width: 480px;
   max-height: 55vh;
   object-fit: contain;
   margin: auto;
   display: block;
   background: transparent;
-  filter: contrast(103%) brightness(101%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 1) 22%, rgba(0, 0, 0, 0.7) 48%, rgba(0, 0, 0, 0) 76%);
-  mask-image: radial-gradient(ellipse at 45% 50%, rgba(0, 0, 0, 1) 22%, rgba(0, 0, 0, 0.7) 48%, rgba(0, 0, 0, 0) 65%);
+  filter: contrast(102%) brightness(101%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.85) 75%, rgba(0, 0, 0, 0) 98%);
+  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.85) 75%, rgba(0, 0, 0, 0) 98%);
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   border-radius: 0;
@@ -1693,30 +1693,37 @@ body.loader-active {
 
 @media (min-width: 768px) {
   .site-loader-video {
-    width: 60%;
-    max-width: 560px;
+    width: 65%;
+    max-width: 580px;
     max-height: 65vh;
   }
 }
 
 .site-loader-skip {
   position: absolute;
-  bottom: 24px;
-  right: 24px;
-  background: rgba(0, 0, 0, 0.06);
-  color: var(--fluent-ink);
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  background: rgba(255, 255, 255, 0.85);
+  color: #002050;
+  border: 1px solid rgba(0, 120, 212, 0.2);
   border-radius: 999px;
-  padding: 0.5rem 1.1rem;
+  padding: 0.55rem 1.25rem;
   font-size: 13px;
   font-weight: 600;
-  backdrop-filter: blur(4px);
-  transition: background-color 0.2s ease, transform 0.2s var(--ease-standard);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 120, 212, 0.1);
+  transition: all 0.25s var(--ease-standard);
+  cursor: pointer;
+  z-index: 100001;
 }
 
 .site-loader-skip:hover {
-  background: rgba(0, 0, 0, 0.12);
-  transform: translateX(4px);
+  background: #0078d4;
+  color: #ffffff;
+  border-color: #005a9e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 120, 212, 0.25);
 }
 
 /* ---------- Hero: staggered fade-up entrance on page load ---------- */
