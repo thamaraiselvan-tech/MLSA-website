@@ -58,22 +58,28 @@ function eventGroupHtml(event, eventIndex) {
   const date = new Date(event.date);
   const dateLabel = date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
   const posterHtml = event.image
-    ? `<img src="${event.image}" alt="${escapeHtml(event.title)}" class="winner-event-thumb">`
-    : `<div class="winner-event-thumb-placeholder"><i class="bi bi-trophy-fill"></i></div>`;
+    ? `<img src="${event.image}" alt="${escapeHtml(event.title)}" class="winner-event-thumb flex-shrink-0">`
+    : `<div class="winner-event-thumb-placeholder flex-shrink-0"><i class="bi bi-trophy-fill"></i></div>`;
 
   return `
     <div class="winners-event-group mb-5">
       <div class="card-fluent p-3 p-md-4 mb-4 winner-event-header-card">
-        <div class="d-flex align-items-center gap-3 flex-wrap">
+        <div class="d-flex align-items-center gap-3 mb-2">
           ${posterHtml}
-          <div class="flex-grow-1">
-            <span class="badge bg-primary-subtle text-primary border mb-1"><i class="bi bi-calendar3 me-1"></i>${dateLabel}</span>
-            <h2 class="h4 fw-bold mb-1">
+          <div class="flex-grow-1 min-w-0">
+            <span class="badge bg-primary-subtle text-primary border mb-1" style="font-size: 11px;">
+              <i class="bi bi-calendar3 me-1"></i>${dateLabel}
+            </span>
+            <h2 class="h5 h4-md fw-bold mb-0 text-dark">
               <a href="event.html?id=${event.id}" class="link-fluent text-dark text-decoration-none">${escapeHtml(event.title)}</a>
             </h2>
-            <p class="text-subtle small mb-0">${escapeHtml(event.tagline || 'Flagship Event Winners & Honors')}</p>
           </div>
-          <a href="event.html?id=${event.id}" class="btn btn-fluent-secondary btn-sm">Event details &rarr;</a>
+        </div>
+        <p class="text-subtle small mb-3">${escapeHtml(event.tagline || 'Flagship Event Winners & Honors')}</p>
+        <div>
+          <a href="event.html?id=${event.id}" class="btn btn-fluent-secondary btn-sm d-inline-flex align-items-center gap-1">
+            <span>Event details</span> &rarr;
+          </a>
         </div>
       </div>
       <div class="row g-2 g-md-4 justify-content-center">
