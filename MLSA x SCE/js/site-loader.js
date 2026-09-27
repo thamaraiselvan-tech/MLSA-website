@@ -16,6 +16,12 @@
     return;
   }
 
+  // Remove initial pageLoadScreen overlay if active so it doesn't block video view
+  const pageLoadScreen = document.getElementById("pageLoadScreen");
+  if (pageLoadScreen) {
+    pageLoadScreen.remove();
+  }
+
   // Lock scrolling while loader is active
   document.documentElement.classList.add("loader-active");
   document.body.classList.add("loader-active");
@@ -31,7 +37,9 @@
     document.body.classList.add("loader-complete");
     window.dispatchEvent(new CustomEvent("loaderDone"));
     sessionStorage.setItem(SESSION_KEY, "1");
-    setTimeout(() => loader.remove(), 600);
+    setTimeout(() => {
+      try { loader.remove(); } catch (e) {}
+    }, 600);
   }
 
   if (video) {
@@ -51,7 +59,7 @@
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // If mobile browser blocks autoplay, unlock on first user touch/pointer interaction
+          // If mobile browser blocks autoplay (e.g. Low Power Mode), unlock on first user touch/pointer interaction
           const unlockPlay = () => {
             video.play().catch(() => hideLoader());
             window.removeEventListener("touchstart", unlockPlay);
@@ -75,13 +83,18 @@
     video.addEventListener("loadeddata", playVideo, { once: true });
     video.addEventListener("ended", hideLoader);
     video.addEventListener("error", hideLoader);
+    video.addEventListener("stalled", () => {
+      setTimeout(() => {
+        if (video.paused && !video.ended) playVideo();
+      }, 1000);
+    });
 
-    // Safety check: if mobile video is stuck at 0s after 2s, retry or fallback
+    // Safety check: if mobile video is stuck at 0s after 1.5s, retry or fallback
     setTimeout(() => {
       if (video.currentTime === 0 && !video.ended) {
         playVideo();
       }
-    }, 2000);
+    }, 1500);
   }
 
   if (skipBtn) skipBtn.addEventListener("click", hideLoader);
