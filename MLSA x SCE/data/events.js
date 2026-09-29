@@ -102,9 +102,9 @@ const EVENTS = [
         position: "3rd", 
         department: "CSBS", 
         year: "2nd Year",
-        projectTitle: "AI Skill Matcher for Students",
-        description: "A peer-to-peer talent matching platform connecting student project teams based on complementary coding skills and project requirements.",
-        tools: ["Microsoft Copilot", "Microsoft Designer"],
+        projectTitle: "TBA",
+        description: "will be updated soon!",
+        tools: [""],
         members: ["MALAIARASI G", "JANASHREE K R", "SHALINI M", "DIVYA BHARATHI N"],
         projectUrl: "https://canva.com" 
       }
