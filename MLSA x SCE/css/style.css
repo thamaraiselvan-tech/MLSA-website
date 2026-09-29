@@ -2799,6 +2799,20 @@ html.lenis body {
   pointer-events: all;
 }
 
+@media (max-width: 767.98px) {
+  .spotlight-modal-overlay {
+    padding: 1.25rem 0.75rem 1rem 0.75rem !important;
+  }
+  .spotlight-container {
+    max-height: 85vh !important;
+    border-radius: 16px !important;
+  }
+  .spotlight-results {
+    max-height: 60vh !important;
+    padding: 0.75rem 1rem !important;
+  }
+}
+
 .spotlight-backdrop {
   position: fixed;
   inset: 0;

@@ -28,10 +28,14 @@
                         <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #0078d4, #8764b8, #0078d4);"></div>
 
                         <!-- Card Top Bar: Star Rating & Verification Badge -->
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="d-flex align-items-center gap-1">
-                                <span style="color: #ffb900; font-size: 16px; letter-spacing: 2px;">★★★★★</span>
-                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill ms-2 font-monospace" style="font-size: 10px;"><i class="bi bi-patch-check-fill me-1"></i> Genuine Feedback Form Submission</span>
+                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                            <div class="d-flex align-items-center gap-1 flex-wrap">
+                                <span style="color: #ffb900; font-size: 15px; letter-spacing: 2px;">★★★★★</span>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill ms-1 ms-sm-2 font-monospace text-wrap" style="font-size: 10px; max-width: 100%;">
+                                    <i class="bi bi-patch-check-fill me-1"></i>
+                                    <span class="d-none d-sm-inline">Genuine Feedback Form Submission</span>
+                                    <span class="d-inline d-sm-none">Genuine Feedback</span>
+                                </span>
                             </div>
                         </div>
 

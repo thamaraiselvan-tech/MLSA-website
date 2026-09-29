@@ -1,11 +1,16 @@
-// Spotlight Search Bar (Ctrl+K / Cmd+K)
+// Spotlight Search Bar (Ctrl+K / Cmd+K / Mobile Search Dock)
 (function () {
   let searchModal = null;
   let searchInput = null;
   let searchResults = null;
 
   function createSpotlightModal() {
-    if (document.getElementById("spotlightSearchModal")) return;
+    if (document.getElementById("spotlightSearchModal")) {
+      searchModal = document.getElementById("spotlightSearchModal");
+      searchInput = document.getElementById("spotlightSearchInput");
+      searchResults = document.getElementById("spotlightSearchResults");
+      return;
+    }
 
     const modalHtml = `
       <div id="spotlightSearchModal" class="spotlight-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
@@ -13,8 +18,9 @@
         <div class="spotlight-container">
           <div class="spotlight-header">
             <i class="bi bi-search spotlight-search-icon"></i>
-            <input type="text" id="spotlightSearchInput" class="spotlight-input" placeholder="Search events, winners, announcements... (ESC to close)" autocomplete="off">
-            <span class="spotlight-badge">ESC</span>
+            <input type="text" id="spotlightSearchInput" class="spotlight-input" placeholder="Search events, winners, ambassadors..." autocomplete="off">
+            <span class="spotlight-badge d-none d-sm-inline-block">ESC</span>
+            <button type="button" class="btn-close ms-2 d-sm-none" id="spotlightCloseBtn" aria-label="Close search"></button>
           </div>
           <div id="spotlightSearchResults" class="spotlight-results">
             <div class="spotlight-hint">Type to search across events, hackathons, and chapter achievements...</div>
@@ -32,7 +38,10 @@
     const backdrop = searchModal.querySelector(".spotlight-backdrop");
     if (backdrop) backdrop.addEventListener("click", closeSpotlight);
 
-    searchInput.addEventListener("input", handleSearchInput);
+    const closeBtn = document.getElementById("spotlightCloseBtn");
+    if (closeBtn) closeBtn.addEventListener("click", closeSpotlight);
+
+    if (searchInput) searchInput.addEventListener("input", handleSearchInput);
   }
 
   function openSpotlight() {
@@ -43,13 +52,13 @@
     searchModal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
 
-    setTimeout(() => {
-      if (searchInput) {
-        searchInput.value = "";
+    if (searchInput) {
+      searchInput.value = "";
+      handleSearchInput();
+      try {
         searchInput.focus();
-        handleSearchInput();
-      }
-    }, 50);
+      } catch (e) {}
+    }
   }
 
   function closeSpotlight() {
@@ -70,7 +79,7 @@
           <div class="d-flex flex-wrap gap-2 mt-2">
             <a href="events.html" class="spotlight-quick-chip"><i class="bi bi-calendar-event me-1"></i> Upcoming Events</a>
             <a href="winners.html" class="spotlight-quick-chip"><i class="bi bi-trophy me-1"></i> Chapter Winners</a>
-            <a href="about.html" class="spotlight-quick-chip"><i class="bi bi-people me-1"></i> About Ambasssadors</a>
+            <a href="about.html" class="spotlight-quick-chip"><i class="bi bi-people me-1"></i> About Ambassadors</a>
           </div>
         </div>
       `;
@@ -147,6 +156,13 @@
     const div = document.createElement("div");
     div.textContent = str;
     return div.innerHTML;
+  }
+
+  // Pre-create modal as soon as DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", createSpotlightModal);
+  } else {
+    createSpotlightModal();
   }
 
   // Keyboard shortcut binding
