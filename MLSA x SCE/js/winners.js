@@ -260,10 +260,12 @@ function bindWinnerModalEvents() {
       }
     }
 
-    // Show Modal
+    // Show Modal & Reset Scroll
     modal.classList.add("is-active");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+    const modalBody = modal.querySelector(".wm-landscape-body");
+    if (modalBody) modalBody.scrollTop = 0;
     if (window.lenis) {
       try { window.lenis.stop(); } catch (err) {}
     }

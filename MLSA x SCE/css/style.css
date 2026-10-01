@@ -3078,55 +3078,83 @@ html.lenis body {
 /* Winner Modal Mobile View Responsiveness */
 @media (max-width: 768px) {
   .winner-modal-overlay {
-    padding: 0.75rem;
+    padding: 0.75rem 0.5rem;
+    align-items: center;
+    justify-content: center;
   }
 
   .winner-modal-container.wm-landscape-container {
-    max-height: 94vh;
+    max-height: 90dvh;
+    max-height: calc(100dvh - 24px);
     border-radius: 20px;
-    min-height: auto;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .wm-hero-header {
-    padding: 1.25rem 1rem 1rem 1rem;
+    padding: 1.15rem 2.75rem 0.85rem 1rem;
+    text-align: center;
+    flex-shrink: 0;
   }
 
   .wm-hero-header .wm-team-title {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
+    line-height: 1.25;
+    word-break: break-word;
   }
 
   .wm-event-badge {
     font-size: 0.72rem;
     padding: 4px 14px;
+    max-width: 100%;
   }
 
   .winner-modal-close-btn {
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    font-size: 0.85rem;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+    z-index: 20;
   }
 
   .wm-landscape-body {
-    padding: 1.25rem 1rem 1.25rem 1rem;
+    padding: 1rem 0.85rem 1.25rem 0.85rem;
+    flex: 1 1 auto;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
+  .wm-landscape-body .row > div[class*="col-"] {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
   }
 
   .wm-project-heading {
     font-size: 1.15rem;
+    line-height: 1.35;
   }
 
   .wm-quote-block {
     padding: 0.85rem 1rem;
+    max-height: none !important;
+    overflow-y: visible !important;
   }
 
   .wm-contributor-card {
     padding: 1rem !important;
+    margin-bottom: 1rem !important;
   }
 
   .wm-launch-btn {
     padding: 12px 18px;
     font-size: 13.5px;
+    margin-top: 0.5rem;
   }
 }
 
