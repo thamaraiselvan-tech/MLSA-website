@@ -3121,7 +3121,7 @@ html.lenis body {
   }
 
   .wm-landscape-body {
-    padding: 1rem 0.85rem 1.25rem 0.85rem;
+    padding: 1rem 0.85rem 2.75rem 0.85rem !important;
     flex: 1 1 auto;
     overflow-y: auto !important;
     overscroll-behavior: contain;
@@ -3155,6 +3155,7 @@ html.lenis body {
     padding: 12px 18px;
     font-size: 13.5px;
     margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 }
 
