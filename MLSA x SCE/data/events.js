@@ -102,11 +102,11 @@ const EVENTS = [
         position: "3rd", 
         department: "CSBS", 
         year: "2nd Year",
-        projectTitle: "TBA",
-        description: "will be updated soon!",
-        tools: [""],
+        projectTitle: "Smart Fraud Alert System",
+        description: "Smart Fraud Alert System is a web-based platform designed to help users identify and understand potential online scams. It analyzes messages and digital communication to detect suspicious or high-risk content. The system provides alerts when potentially fraudulent activity is detected. It supports multiple communication platforms such as WhatsApp, Telegram, SMS, Gmail, Outlook, Instagram, and Facebook. The system classifies detected content into Safe, Suspicious, and High-Risk categories. It provides simple guidance to help users understand why a message may be risky. A security checklist helps users follow basic online safety practices. The system also provides chatbot-based guidance for common fraud-related situations. Users can view useful information and report suspicious incidents through the platform. The project focuses on Prevent, Detect, Guide, and Protect as its main objectives. Overall, it aims to improve digital awareness and help users stay safer from online fraud.",
+        tools: ["Microsoft Copilot", "Microsoft Designer", "GitHub"],
         members: ["MALAIARASI G", "JANASHREE K R", "SHALINI M", "DIVYA BHARATHI N"],
-        projectUrl: "https://canva.com" 
+        projectUrl: "https://smart-fraud-detection.vercel.app/" 
       }
     ]
   }
