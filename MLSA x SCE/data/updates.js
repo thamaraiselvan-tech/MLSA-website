@@ -34,16 +34,4 @@ const UPDATES = [
     pinned: true,
     image: "",
   },
-  
-    {
-    title: "Suggest an Event",
-    body: "Have an event idea? Let's put into work!",
-    category: "Announcement",
-    date: "2026-08-05",
-    pinned: true,
-    image: "",
-    linkUrl: "https://forms.cloud.microsoft/r/U6RzqUFxyq",     
-    linkLabel: "Give your event idea here",            
-
-  },
 ];
