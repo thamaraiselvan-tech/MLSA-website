@@ -1,7 +1,7 @@
 {
   "name": "MLSA · Saranathan College of Engineering",
   "short_name": "MLSA SCE",
-  "description": "Official platform for the Microsoft Learn Student Ambassador chapter — daily updates, events, gallery, and registration.",
+  "description": "Official platform for the Microsoft Student Ambassador chapter — daily updates, events, gallery, and registration.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0d1117",

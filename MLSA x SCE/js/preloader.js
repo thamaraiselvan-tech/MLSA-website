@@ -7,7 +7,7 @@
 
   const phrases = [
     "Initializing Chapter Portal…",
-    "Connecting to Microsoft Learn…",
+    "Connecting to Microsoft Student Ambassadors…",
     "Loading Workshops & Events…",
     "Empowering Saranathan Builders…"
   ];

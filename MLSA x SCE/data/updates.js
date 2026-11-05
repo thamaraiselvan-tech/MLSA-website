@@ -28,7 +28,7 @@
 const UPDATES = [
   {
     title: "Welcome to the MLSA Chapter Platform",
-    body: "This is the new official home for the Microsoft Learn Student Ambassador chapter at Saranathan College of Engineering. We'll post workshop announcements, certification wins, and general updates here — check back often, or bookmark this page.",
+    body: "This is the new official home for the Microsoft Student Ambassador chapter at Saranathan College of Engineering. We'll post workshop announcements, certification wins, and general updates here — check back often, or bookmark this page.",
     category: "Announcement",
     date: "2026-07-18",
     pinned: true,
