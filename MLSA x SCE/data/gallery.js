@@ -39,7 +39,7 @@ window.galleryData = [
   {
     id: "g5",
     title: "The Team!",
-    category: "MLSA x SCE",
+    category: "MSA x SCE",
     date: "August 2026",
     image: "assets/gallery/5.webp",
     fallback: "assets/gallery/5.jpeg",
