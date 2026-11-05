@@ -1,13 +1,16 @@
 // Service Worker — MLSA × SCE
 // Caches critical assets and serves offline.html when network is unavailable.
 
-const CACHE_NAME = "mlsa-sce-v2";
+const CACHE_NAME = "mlsa-sce-v3";
 const OFFLINE_URL = "/offline.html";
 
 // Assets to pre-cache on install
 const PRE_CACHE = [
   OFFLINE_URL,
   "/assets/mlsa-badge.png",
+  "/assets/mlsa-badge.webp",
+  "/assets/college-logo.png",
+  "/assets/college-logo.webp",
   "/assets/Program-badge.png",
   "/manifest.json",
   "/js/error-boundary.js"

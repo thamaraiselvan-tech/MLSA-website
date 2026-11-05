@@ -61,7 +61,12 @@ function eventCardHtml(event) {
     : "";
     
   const imageHtml = event.image
-    ? `<div class="event-card-img-wrapper"><img src="${event.image}" alt="${escapeHtml(event.title)}" class="event-card-image"></div>`
+    ? `<div class="event-card-img-wrapper">
+         <picture>
+           <source srcset="${event.image}" type="image/webp">
+           <img src="${event.fallback || event.image}" alt="${escapeHtml(event.title)}" class="event-card-image" loading="lazy" decoding="async">
+         </picture>
+       </div>`
     : "";
 
   return `

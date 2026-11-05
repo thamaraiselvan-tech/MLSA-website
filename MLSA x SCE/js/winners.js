@@ -58,7 +58,7 @@ function eventGroupHtml(event, eventIndex) {
   const date = new Date(event.date);
   const dateLabel = date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
   const posterHtml = event.image
-    ? `<img src="${event.image}" alt="${escapeHtml(event.title)}" class="winner-event-thumb flex-shrink-0">`
+    ? `<img src="${event.image}" alt="${escapeHtml(event.title)}" class="winner-event-thumb flex-shrink-0" loading="lazy" decoding="async">`
     : `<div class="winner-event-thumb-placeholder flex-shrink-0"><i class="bi bi-trophy-fill"></i></div>`;
 
   return `

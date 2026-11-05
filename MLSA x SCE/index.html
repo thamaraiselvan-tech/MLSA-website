@@ -100,6 +100,7 @@
   <!-- ============ SITE LOADER (plays once per session) ============ -->
   <div id="siteLoader" class="site-loader">
     <video id="loaderVideo" class="site-loader-video" autoplay muted playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" preload="auto">
+      <source src="assets/loader.webm" type="video/webm">
       <source src="assets/loader.mp4" type="video/mp4">
     </video>
     <button id="loaderSkip" class="site-loader-skip" type="button" aria-label="Skip intro">Skip &rarr;</button>
@@ -243,7 +244,10 @@
   <section id="about" class="container py-4 py-md-5">
     <div class="row align-items-center g-4 g-lg-5 justify-content-center">
       <div class="col-12 col-md-4 col-lg-3 text-center text-md-start">
-        <img src="assets/ms-sa.png" alt="Microsoft Learn Student Ambassador badge" class="img-fluid" style="max-width: 210px;">
+        <picture>
+          <source srcset="assets/ms-sa.webp" type="image/webp">
+          <img src="assets/ms-sa.png" alt="Microsoft Learn Student Ambassador badge" class="img-fluid" style="max-width: 210px;" loading="lazy" decoding="async">
+        </picture>
       </div>
       <div class="col-12 col-md-8 col-lg-7">
         <p class="text-fluent-primary fw-semibold small text-uppercase mb-1">About</p>
@@ -295,7 +299,10 @@
           </div>
         </div>
         <div class="col-12 col-md-4 col-lg-3 text-center order-1 order-md-2">
-          <img src="assets/Program-badge.png" alt="Microsoft Learn Student Ambassadors" class="img-fluid rounded-3" style="max-width: 180px;">
+          <picture>
+            <source srcset="assets/Program-badge.webp" type="image/webp">
+            <img src="assets/Program-badge.png" alt="Microsoft Learn Student Ambassadors" class="img-fluid rounded-3" style="max-width: 180px;" loading="lazy" decoding="async">
+          </picture>
         </div>
       </div>
     </div>
@@ -855,9 +862,9 @@
 
       <div class="text-center mt-4 pt-4 border-top">
         <div class="d-inline-flex align-items-center gap-3">
-          <img src="assets/college-logo.png" alt="Saranathan College of Engineering logo" class="footer-logo">
+          <img src="assets/college-logo.png" alt="Saranathan College of Engineering logo" class="footer-logo" loading="lazy" decoding="async">
           <span class="text-subtle small">×</span>
-          <img src="assets/mlsa-badge.png" alt="Microsoft Learn Student Ambassador badge" class="footer-logo">
+          <img src="assets/mlsa-badge.png" alt="Microsoft Learn Student Ambassador badge" class="footer-logo" loading="lazy" decoding="async">
         </div>
       </div>
     </div>

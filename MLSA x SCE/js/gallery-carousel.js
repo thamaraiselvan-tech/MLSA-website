@@ -40,7 +40,7 @@
           <div class="gallery-card-inner">
             <picture>
               <source srcset="${item.image}" type="image/webp">
-              <img src="${item.fallback || item.image}" alt="${item.title}" loading="lazy" class="gallery-card-img">
+              <img src="${item.fallback || item.image}" alt="${item.title}" loading="lazy" decoding="async" class="gallery-card-img">
             </picture>
             <div class="gallery-card-overlay">
               <span class="badge gallery-badge mb-2">${item.category}</span>

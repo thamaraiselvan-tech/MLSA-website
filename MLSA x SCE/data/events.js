@@ -25,7 +25,8 @@ const EVENTS = [
     registrationDeadline: "2026-07-17T23:59",
     registrationUrl: "",
     isOpen: false,
-    image: "assets/events/portfolio.jpeg",
+    image: "assets/events/portfolio.webp",
+    fallback: "assets/events/portfolio.jpeg",
     winners: [
       { 
         name: "Aarthi. R", 
@@ -73,7 +74,8 @@ const EVENTS = [
     registrationDeadline: "2026-08-07T10:00",
     registrationUrl: "https://forms.cloud.microsoft/r/ieXJvtJQrt",
     isOpen: true,
-    image: "assets/events/aistartup.png",
+    image: "assets/events/aistartup.webp",
+    fallback: "assets/events/aistartup.png",
     winners: [
       { 
         name: "Team MARK 44", 
