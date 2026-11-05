@@ -16,10 +16,16 @@
     return;
   }
 
-  // Remove initial pageLoadScreen overlay if active so it doesn't block video view
+  // Keep initial pageLoadScreen visible until video actually starts playing
   const pageLoadScreen = document.getElementById("pageLoadScreen");
-  if (pageLoadScreen) {
-    pageLoadScreen.remove();
+
+  function dismissInitialCard() {
+    if (pageLoadScreen && !pageLoadScreen.classList.contains("is-hidden")) {
+      pageLoadScreen.classList.add("is-hidden");
+      setTimeout(() => {
+        try { pageLoadScreen.remove(); } catch (e) {}
+      }, 500);
+    }
   }
 
   // Lock scrolling while loader is active
@@ -30,6 +36,7 @@
   const skipBtn = document.getElementById("loaderSkip");
 
   function hideLoader() {
+    dismissInitialCard();
     if (loader.classList.contains("is-hidden")) return;
     loader.classList.add("is-hidden");
     document.documentElement.classList.remove("loader-active");
@@ -43,6 +50,9 @@
   }
 
   if (video) {
+    video.addEventListener("playing", dismissInitialCard, { once: true });
+    video.addEventListener("canplay", dismissInitialCard, { once: true });
+    setTimeout(dismissInitialCard, 1800);
     // Explicit iOS Safari & Android Mobile video attributes
     video.muted = true;
     video.defaultMuted = true;

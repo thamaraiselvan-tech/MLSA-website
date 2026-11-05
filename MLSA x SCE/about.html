@@ -63,56 +63,53 @@
 
 <body>
 
-  <!-- ============ PAGE LOAD SCREEN ============ -->
-  <div id="pageLoadScreen" style="
-    position:fixed;inset:0;z-index:99999;
-    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.2rem;
-    background:#f3f9fd;
-    transition:opacity 0.4s ease,visibility 0.4s ease;
-  ">
-    <img src="assets/mlsa-badge.png" alt="MLSA" width="52" height="52"
-      style="animation:plsPulse 1.5s ease-in-out infinite;">
-    <div style="width:140px;height:3px;background:rgba(0,120,212,0.12);border-radius:4px;overflow:hidden;">
-      <div
-        style="width:40%;height:100%;background:linear-gradient(90deg,#0078d4,#005a9e);border-radius:4px;animation:plsSlide 1.2s ease-in-out infinite;">
+    <!-- ============ BRANDED CHAPTER PRELOADER ============ -->
+  <div id="pageLoadScreen" class="chapter-preloader">
+    <div class="preloader-ambient-mesh">
+      <div class="ambient-blob blob-azure"></div>
+      <div class="ambient-blob blob-purple"></div>
+    </div>
+    
+    <div class="preloader-card">
+      <div class="preloader-brand-row">
+        <picture>
+          <source srcset="assets/college-logo.webp" type="image/webp">
+          <img src="assets/college-logo.png" alt="Saranathan College of Engineering" class="preloader-badge preloader-sce" width="44" height="44">
+        </picture>
+        <span class="preloader-divider"></span>
+        <div class="preloader-emblem-wrap">
+          <picture>
+            <source srcset="assets/mlsa-badge.webp" type="image/webp">
+            <img src="assets/mlsa-badge.png" alt="Microsoft Learn Student Ambassadors" class="preloader-badge preloader-mlsa" width="48" height="48">
+          </picture>
+          <div class="preloader-halo"></div>
+        </div>
+      </div>
+      
+      <div class="preloader-text-group">
+        <h2 class="preloader-title">MLSA &middot; SCE</h2>
+        <p class="preloader-subtitle">Microsoft Learn Student Ambassadors</p>
+        <p class="preloader-dept">Saranathan College of Engineering &middot; AI &amp; DS</p>
+      </div>
+
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar"></div>
+      </div>
+
+      <div class="preloader-status-wrap">
+        <span class="preloader-status-dot"></span>
+        <span id="preloaderStatusText" class="preloader-status-text">Initializing Chapter Portal…</span>
+      </div>
+
+      <div class="preloader-ms-dots">
+        <span class="ms-dot dot-red"></span>
+        <span class="ms-dot dot-green"></span>
+        <span class="ms-dot dot-blue"></span>
+        <span class="ms-dot dot-yellow"></span>
       </div>
     </div>
-    <style>
-      @keyframes plsPulse {
-
-        0%,
-        100% {
-          opacity: .6;
-          transform: scale(1)
-        }
-
-        50% {
-          opacity: 1;
-          transform: scale(1.05)
-        }
-      }
-
-      @keyframes plsSlide {
-        0% {
-          transform: translateX(-100%)
-        }
-
-        50% {
-          transform: translateX(150%)
-        }
-
-        100% {
-          transform: translateX(350%)
-        }
-      }
-    </style>
   </div>
-  <script>
-    window.addEventListener("load", function () {
-      var s = document.getElementById("pageLoadScreen");
-      if (s) { s.style.opacity = "0"; s.style.visibility = "hidden"; setTimeout(function () { s.remove() }, 500) }
-    });
-  </script>
+  <script src="js/preloader.js"></script>
 
   <!-- ============ NAVBAR ============ -->
   <nav class="navbar navbar-expand-md navbar-mlsa sticky-top">

@@ -1648,14 +1648,300 @@ body.loader-active {
   height: 100vh !important;
 }
 
+/* ---------- Universal Branded Chapter Preloader ---------- */
+.chapter-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 40%, #ffffff 0%, #f1f7fd 55%, #e6f1fb 100%);
+  overflow: hidden;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, visibility;
+}
+
+.chapter-preloader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.025);
+  pointer-events: none;
+}
+
+.preloader-ambient-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.65;
+  animation: preloaderBlobDrift 8s infinite alternate ease-in-out;
+}
+
+.blob-azure {
+  width: 380px;
+  height: 380px;
+  top: -100px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(0, 120, 212, 0.28) 0%, rgba(0, 199, 253, 0.08) 70%, transparent 100%);
+}
+
+.blob-purple {
+  width: 420px;
+  height: 420px;
+  bottom: -120px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(135, 100, 184, 0.24) 0%, rgba(0, 120, 212, 0.06) 70%, transparent 100%);
+  animation-delay: -4s;
+}
+
+@keyframes preloaderBlobDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 20px) scale(1.08); }
+  100% { transform: translate(-20px, 35px) scale(0.95); }
+}
+
+.preloader-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(0, 120, 212, 0.18);
+  box-shadow:
+    0 24px 64px rgba(0, 32, 96, 0.12),
+    0 4px 16px rgba(0, 120, 212, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  border-radius: 28px;
+  padding: 2.2rem 2.4rem;
+  width: 90%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.1rem;
+  animation: preloaderCardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes preloaderCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.preloader-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.preloader-badge {
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.preloader-sce {
+  height: 44px;
+  width: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.06));
+}
+
+.preloader-divider {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(180deg, rgba(0, 120, 212, 0.05), rgba(0, 120, 212, 0.3), rgba(0, 120, 212, 0.05));
+}
+
+.preloader-emblem-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-mlsa {
+  height: 48px;
+  width: auto;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 6px 14px rgba(0, 120, 212, 0.25));
+  animation: preloaderBadgePulse 2.4s ease-in-out infinite;
+}
+
+.preloader-halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 120, 212, 0.35) 0%, transparent 70%);
+  z-index: 1;
+  animation: preloaderHaloPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes preloaderBadgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes preloaderHaloPulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.4; }
+  50% { transform: scale(1.25); opacity: 0.9; }
+}
+
+.preloader-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.preloader-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin: 0;
+  background: linear-gradient(135deg, #002050 0%, #0078d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.preloader-subtitle {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0078d4;
+  margin: 0;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.preloader-dept {
+  font-size: 0.72rem;
+  color: #605e5c;
+  margin: 0;
+  font-weight: 500;
+}
+
+.preloader-bar-wrap {
+  width: 100%;
+  max-width: 200px;
+  height: 4px;
+  background: rgba(0, 120, 212, 0.12);
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+  margin: 0.3rem 0 0.1rem;
+}
+
+.preloader-bar {
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, #0078d4 0%, #00c7fd 50%, #8764b8 100%);
+  border-radius: 99px;
+  box-shadow: 0 0 10px rgba(0, 120, 212, 0.7);
+  animation: preloaderBarSlide 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes preloaderBarSlide {
+  0% { transform: translateX(-120%); width: 30%; }
+  50% { transform: translateX(110%); width: 55%; }
+  100% { transform: translateX(300%); width: 30%; }
+}
+
+.preloader-status-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.preloader-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #107c10;
+  box-shadow: 0 0 8px rgba(16, 124, 16, 0.6);
+  animation: preloaderStatusDotGlow 1.4s infinite alternate;
+}
+
+@keyframes preloaderStatusDotGlow {
+  from { opacity: 0.5; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1.15); }
+}
+
+.preloader-status-text {
+  font-size: 0.72rem;
+  font-family: 'SF Mono', 'Segoe UI Mono', monospace;
+  font-weight: 600;
+  color: #605e5c;
+  letter-spacing: 0.2px;
+  transition: opacity 0.2s ease;
+  min-height: 1.1rem;
+}
+
+.preloader-ms-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 0.2rem;
+}
+
+.ms-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  animation: msDotPulse 1.4s ease-in-out infinite;
+}
+
+.dot-red { background: #f25022; animation-delay: 0s; }
+.dot-green { background: #7fba00; animation-delay: 0.15s; }
+.dot-blue { background: #00a4ef; animation-delay: 0.3s; }
+.dot-yellow { background: #ffb900; animation-delay: 0.45s; }
+
+@keyframes msDotPulse {
+  0%, 100% { transform: scale(0.85); opacity: 0.5; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+@media (max-width: 576px) {
+  .preloader-card {
+    padding: 1.8rem 1.6rem;
+    max-width: 320px;
+    gap: 0.9rem;
+  }
+  .preloader-title {
+    font-size: 1.15rem;
+  }
+  .preloader-subtitle {
+    font-size: 0.72rem;
+  }
+  .preloader-sce {
+    height: 38px;
+  }
+  .preloader-mlsa {
+    height: 42px;
+  }
+}
+
 /* ---------- Site loader (video intro, shown once per session) ---------- */
 .site-loader {
   position: fixed;
   inset: 0;
   z-index: 99999;
   background:
-    radial-gradient(circle at 15% 20%, rgba(0, 120, 212, 0.07) 0%, transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(135, 100, 184, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 15% 20%, rgba(0, 120, 212, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(135, 100, 184, 0.10) 0%, transparent 45%),
     radial-gradient(circle at 50% 50%, #ffffff 0%, #f4f8fc 55%, #e9f2fb 100%);
   display: flex;
   align-items: center;
@@ -1703,37 +1989,58 @@ body.loader-active {
   position: absolute;
   bottom: 24px;
   right: 24px;
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.85);
   color: var(--fluent-ink);
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 120, 212, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   border-radius: 999px;
   padding: 0.5rem 1.1rem;
   font-size: 13px;
   font-weight: 600;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: background-color 0.2s ease, transform 0.2s var(--ease-standard);
 }
 
 .site-loader-skip:hover {
-  background: rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  border-color: var(--fluent-primary);
   transform: translateX(4px);
 }
 
-/* ---------- Hero: staggered fade-up entrance on page load ---------- */
-/* ---------- Page Transitions Overlay ---------- */
+/* ---------- Page Transitions Overlay with Top Energy Bar ---------- */
 .page-transition-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9990;
-  background: #ffffff;
+  z-index: 99990;
+  background: rgba(243, 249, 253, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s var(--ease-standard);
+  transition: opacity 0.25s var(--ease-standard);
+}
+
+.page-transition-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #0078d4, #00c7fd, #8764b8);
+  box-shadow: 0 0 12px rgba(0, 120, 212, 0.8), 0 0 4px #00c7fd;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .page-transition-overlay.is-active {
   opacity: 1;
   pointer-events: all;
+}
+
+.page-transition-overlay.is-active::before {
+  transform: translateX(0%);
 }
 
 /* ---------- Smooth scroll overrides for Lenis ---------- */

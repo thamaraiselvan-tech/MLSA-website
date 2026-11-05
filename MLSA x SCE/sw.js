@@ -13,7 +13,8 @@ const PRE_CACHE = [
   "/assets/college-logo.webp",
   "/assets/Program-badge.png",
   "/manifest.json",
-  "/js/error-boundary.js"
+  "/js/error-boundary.js",
+  "/js/preloader.js"
 ];
 
 // Install: cache offline page
